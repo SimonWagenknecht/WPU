@@ -37,6 +37,12 @@ const Pgrup anl[] = {
 	{"*10:"," VORLAUF   PRIM."," C    ", P&TVP[ANL],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 	#endif
 
+	{"*10:"," VORLAUF   PRIM."," C    ", P&TV_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*10:"," VORLAUF   PRIM."," C    ", P&TV_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	
+	{"*11:"," VORLAUF   PRIM."," C    ", P&TRS[HK1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*11:"," VORLAUF   PRIM."," C    ", P&TRS[HK1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+
 	#if TRP_ANL == 1
 	{"*11:"," RUECKLAUF PRIM."," C    ", P&TRP[ANL],							 ANA_FORMP, 1, P&vis,		V1, 0, 0},      
 	{"*11:"," RUECKLAUF PRIM."," C    ", P&TRP[ANL],						ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},

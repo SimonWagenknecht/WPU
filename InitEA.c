@@ -38,7 +38,17 @@ const ea_klasse pt_name[] = {
 	{"TVSGNT1 ","TVSGNT2 ","TVSGNT3 ","TVSGNT4 "},		// 17	
 	{"TRSEK1  ","TRSEK2  ","TRSEK3  ","TRSEK4  "},		// 18
 	{"TRPNT1  ","TRPNT2  ","TRPNT3  ","TRPNT4  "},		// 19
-	{"TRSGNT1 ","TRSGNT2 ","TRSGNT3 ","TRSGNT4 "},		// 17	
+	{"TRSGNT1 ","TRSGNT2 ","TRSGNT3 ","TRSGNT4 "},		// 1A
+	{"TV_WP1  "},																			// 1B	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TR_WP1  "},																			// 1C	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TSPoWP1 "},																		// 1D	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TSPu_WP1"},																		// 1E	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TVST_WP1"},																		// 1F	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TRST_WP1"},																		// 20	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TVQ_WP1 "},																		// 21	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TRQ_WP1 "},																		// 22	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TVH_WP1 "},																		// 23	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TRH_WP1 "},																		// 24	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
 };
 
 const ea_klasse ae_name[] = {
@@ -235,6 +245,23 @@ void fill_dummy(void)
 		TVGKE[i]			= &mewe_dummy[0];			// Gemeinsamer Vorlauf Kessel
 		TRGKE[i]			= &mewe_dummy[0];			// Gemeinsamer Rücklauf Kessel
 	}	
+	
+	// WPU - SiWa 27.02.18
+	for(i = 0; i < WPMAX; i++)
+	{	
+		TV_WP[i]					= &mewe_dummy[0];
+		TR_WP[i]					= &mewe_dummy[0];
+		TSPo_WP[i]				= &mewe_dummy[0];			
+		TSPu_WP[i]				= &mewe_dummy[0];			
+		TVST_WP[i]				= &mewe_dummy[0];			
+		TRST_WP[i]				= &mewe_dummy[0];			
+		TVQ_WP[i]				= &mewe_dummy[0];			
+		TRQ_WP[i]				= &mewe_dummy[0];			
+		TVH_WP[i]				= &mewe_dummy[0];									
+		TRH_WP[i]				= &mewe_dummy[0];			
+	}	
+	
+	
 	
 	// Vorregelkreis (Netztrennung)
 	for(i = 0; i < NTMAX; i++)
@@ -635,7 +662,47 @@ char LoadPointer(char typ, char klasse, char num, char idx, char ext, char iodev
 				case 0x1A:
 					mwpadr = &TRSGNT[num];				// Rücklauf WT sek.gesamt
 					break;					
-
+				
+				case 0x1B:
+					mwpadr = &TV_WP[num];				// SiWa
+					break;
+					
+				case 0x1C:
+					mwpadr = &TR_WP[num];				// SiWa
+					break;
+					
+				case 0x1D:
+					mwpadr = &TSPo_WP[num];				// SiWa
+					break;
+					
+				case 0x1E:
+					mwpadr = &TSPu_WP[num];				// SiWa
+					break;
+					
+				case 0x1F:
+					mwpadr = &TVST_WP[num];				// SiWa
+					break;
+					
+				case 0x20:
+					mwpadr = &TRST_WP[num];				// SiWa
+					break;
+					
+				case 0x21:
+					mwpadr = &TVQ_WP[num];				// SiWa
+					break;
+					
+				case 0x22:
+					mwpadr = &TRQ_WP[num];				// SiWa
+					break;
+					
+				case 0x23:
+					mwpadr = &TVH_WP[num];				// SiWa
+					break;
+					
+				case 0x24:
+					mwpadr = &TRH_WP[num];				// SiWa
+					break;
+					
 				default:
 					klasse = 0;
 					break;	
@@ -650,6 +717,7 @@ char LoadPointer(char typ, char klasse, char num, char idx, char ext, char iodev
 					Fehler(7, idx);
 			}
 			break;
+			
 			
 		case 2://------------------------------ 0-10V Eingang
 			switch(iodev)

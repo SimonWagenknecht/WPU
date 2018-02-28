@@ -352,7 +352,20 @@ mwsp *TWWCSO[SOLMAX];			// Regeltemp.am Solar-Übertrager
 
 mwsp *TP_UNI[TP_UNI_ANZ]; // universeller Pt1000-Eingang
 
+// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+mwsp *TV_WP[WPMAX];			// Vorlauf Wärmepumpe zum Speicher
+mwsp *TR_WP[WPMAX];			// Rücklauf Wärmepumpe zum Speicher
+mwsp *TSPo_WP[WPMAX];		// Speicher oben Wärmepumpe
+mwsp *TSPu_WP[WPMAX];		// Speicher unten Wärmepumpe
+mwsp *TVST_WP[WPMAX];		// Vorlauf Wärmepumpe zur Station
+mwsp *TRST_WP[WPMAX];		// Rücklauf Wärmepumpe zur Station
+mwsp *TVQ_WP[WPMAX];			// Vorlauf Wärmepumpe quellenseitig
+mwsp *TRQ_WP[WPMAX];			// Rücklauf Wärmepumpe quellenseitig
+mwsp *TVH_WP[WPMAX];			// Vorlauf Heißgas
+mwsp *TRH_WP[WPMAX];			// Rücklauf Heißgas
+
 mwsp **mwpadr;						// Arbeitsspeicher
+
 
 // --------------- Analogeingänge 0-10V (Felder von Zeigern auf ae_mewe[i])
 mwsp *LQF[1];							// Beispiel: Luftqualitätsfühler

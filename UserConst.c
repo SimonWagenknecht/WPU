@@ -14,8 +14,8 @@ const char user_compile_date[15] = __DATE__;
 
 	/* Typ und Version des gesamten Projektes												*/
 //									             				 "---------------"
-	const char Kategorie_Typ[16] 				= {"HA-STATION     "};  //genau 15 Zeichen
-	const char Kategorie_Vers[3] 				= {16,6,21};           	//Jahr, Monat, Tag
+	const char Kategorie_Typ[16] 				= {"WPU-STEUERUNG  "};  //genau 15 Zeichen
+	const char Kategorie_Vers[3] 				= {18,2,27};           	//Jahr, Monat, Tag
 
 	const char Proj_Typ = 1;		// konstantes Projekt, für variable Proj. auf 0 setzen
 
@@ -366,7 +366,7 @@ const Anlage Projekte[] = {
 	{	
 	 // Typ und Version
 	 //"??-R-????-?????"			//Kennzeichen an fester Position !!	
-		{"KE-R-2104-BF119"},		//genau 15 ASCII-Zeichen
+		{"WP-1-000-100000"},		//genau 15 ASCII-Zeichen
 		VERS_DATUM,	           		//Jahr, Monat, Tag
 		// Kategoriebezeichnung für variable Projekte
 		{"TEST PROJEKT   "},
@@ -404,12 +404,12 @@ const Anlage Projekte[] = {
 
 		// Namen für Prozess Ein- und Ausgänge (Namensvereinbarung in "userdef.h")
 		// Aus den Namen werden Steuercodes generiert
-		TA1,			// Außentemp.						// 				Eingang IN1		Pt1000 / ----- / -------	
-		TVSEK1,		// Vorlauf sekundär			// 				Eingang IN2		Pt1000 / ----- / -------	
-		TRP1,			// Rücklauf primär			// Block  Eingang IN3		Pt1000 / 0-10V / Digital
+		TP_FREI,			// Außentemp.						// 				Eingang IN1		Pt1000 / ----- / -------	
+		TP_FREI,		// Vorlauf sekundär			// 				Eingang IN2		Pt1000 / ----- / -------	
+		TP_FREI,			// Rücklauf primär			// Block  Eingang IN3		Pt1000 / 0-10V / Digital
 		TP_FREI,	// Vorlauf  HK1  				// Block  Eingang IN4		Pt1000 / 0-10V / Digital
 		TP_FREI,	// Rücklauf HK1					// Block  Eingang IN5		Pt1000 / 0-10V / Digital
-		TWWC1,		// Regeltemp WW					// 				Eingang IN6		Pt1000 / 0-10V / Digital
+		TP_FREI,		// Regeltemp WW					// 				Eingang IN6		Pt1000 / 0-10V / Digital
 		TP_FREI,	// 											// 				Eingang IN7		Pt1000 / 0-10V / Digital
 		AE_UNI1,	// 											// 				Eingang IN8		Pt1000 / 0-10V / Digital
 		ZIN9,			// S0-Zähler 1	 				// 				Eingang IN9		------ / 0-10V / Digital
@@ -426,7 +426,7 @@ const Anlage Projekte[] = {
 		SSTM1,		// Sammelstörung				// Digital-Ausgang DA6
 		
 		// Externe Erweiterungen mit R37, R38... , siehe Liste Anl37 oder Anl38...
-		{	{  0, 0, 0},				// Gerätekennzeichen, Gerätenummer, Nummer des Belegungsblockes
+		{	{  R38, 1, 1},				// Gerätekennzeichen, Gerätenummer, Nummer des Belegungsblockes
 			{  0, 0, 0},
 			{  0, 0, 0},
 			{  0, 0, 0},
@@ -510,7 +510,7 @@ const Anl38 R38_Beleg[] = {
 
 	// 1. Belegungssatz 
 	{	
-		TVS1,			// Vorlauf  HK1  											// Pt1000 Eingang IN1
+		TV_WP1,			// Vorlauf  HK1  											// Pt1000 Eingang IN1
 		TRS1,			// Rücklauf HK1												// Pt1000 Eingang IN2
 		TP_FREI,		  // Vorlauf Kessel gesamt 		// Pt1000 Eingang IN3
 		TP_FREI,		  // Rücklauf Kessel gesamt 	// Pt1000 Eingang IN4

@@ -53,6 +53,9 @@
 #define SO1         0             // Index für SO Regler 1
 #define SO2         1             // Index für SO Regler 2
 
+// SiWa
+#define WP1         0             // Index für WP Regler 1
+
 // Definitionen zur Implementierung von Anwendungen für serielle Schnittstellen S1 S2 S3
 #define NULL_IMPL       0x0000    // Schnittstelle nicht verfügbar
 #define GBUS_IMPL       0x0001    // RS485 RIEcon Gebäudebus
@@ -399,6 +402,11 @@
 #define SW_ANH_VAR  0             // variable Sollwertanhebung
 #define SM_TABW     0             // Regelabweichungs-Alarm
 
+// SiWa 27.02.18 
+// --------------- WPU-Regelungen --------------------------------------
+#define WPANZ       0             // projektierte Anzahl von Regelkreisen
+#define WPMAX       1             // maximale Anzahl (wegen Speicherzuweisung mindestens 1)
+
 // Einstellung für Parli: ke1[]
 #define SOLLWERT_KE1 0            // Sollwert-Ausgabe
 #define MODUL_KE1   0             // Modulation. 1=Dreipunkt-Ausgabe 2=Analogausgabe
@@ -555,7 +563,7 @@
 
 // ---------------- Erweiterungsmodule R38 ----------------------------
 // Einstellung für Parli: sys[]
-#define R38_MODULE  0             // Anzahl der Module R38
+#define R38_MODULE  1             // Anzahl der Module R38
 #define R38_MODMAX  1             // wegen Speicherzuweisung mindestens 1
 
 // ---------------- Erweiterungsmodule R39 ----------------------------

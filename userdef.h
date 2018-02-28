@@ -168,7 +168,17 @@
 					18 = Rücklauf Sek.Netztr. TRSEK			4
 					19 = Rücklauf prim.Netztr.TRPNT			4
 					1A = Rückauf sek. WT ges.	TRSGNT		4
-					
+#####	SiWa				
+					1B = 										  TV_WP 		1	
+					1C = 										  TR_WP 		1
+					1D = 										TSPo_WP 		1	
+					1E = 										TSPu_WP 		1
+					1F = 										TVST_WP 		1	
+					20 = 										TRST_WP 		1
+					21 = 										 TVQ_WP 		1	
+					22 = 										 TRQ_WP 		1
+					23 = 										 TVH_WP 		1	
+					24 = 										 TRH_WP 		1
 					...
 					
 	Klasse: 0-10V-Eingänge											reservierte Speicherplätze
@@ -350,6 +360,12 @@
 #define TVKE6			0x10B6
 #define TVKE7			0x10B7
 #define TVKE8			0x10B8
+#define TVKE3			0x10B3
+#define TVKE4			0x10B4
+#define TVKE5			0x10B5
+#define TVKE6			0x10B6
+#define TVKE7			0x10B7
+#define TVKE8			0x10B8
 
 #define TRKE1			0x10C1
 #define TRKE2			0x10C2
@@ -418,6 +434,18 @@
 #define TRSGNT2		0x11A2
 #define TRSGNT3		0x11A3
 #define TRSGNT4		0x11A4
+
+// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+#define TV_WP1		0x11B1
+#define TR_WP1		0x11B2
+#define TSPo_WP1	0x11B3
+#define TSPu_WP1	0x11B4
+#define TVST_WP1	0x11B5
+#define TRST_WP1	0x11B6
+#define TVQ_WP1	0x11B7
+#define TRQ_WP1	0x11B8
+#define TVH_WP1	0x11B9
+#define TRH_WP1	0x11BA	
 
 //-------------------------------------------
 // Analogeingänge 0-10V

@@ -2,6 +2,6 @@
 // Zeitmarke ist die aktuelle Uhrzeit und Datum des PC
 // Aktualisierung erfolgt durch Aufruf von DDate.EXE
 
-#define ZM_TIME "15:48:19"
-#define ZM_DATE "20.06.17"
-#define ZM_SEKU 1497966499
+#define ZM_TIME "16:09:46"
+#define ZM_DATE "28.02.18"
+#define ZM_SEKU 1519830586
