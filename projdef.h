@@ -93,7 +93,7 @@
 #define SSTM_PU     0             // Sammelstörmelde-Eingang für Pumpen
 #define SSTM_ANL    0             // Sammelstörmelde-Eingang Anlage
 #define ANFORD      0             // auch in Steuer.c benutzt
-#define ANF_EXT     0             // Anzahl Anforderungen externer Regler, gilt für NT und Kessel
+#define ANF_EXT     1             // Anzahl Anforderungen externer Regler, gilt für NT und Kessel
 
 // allgemein
 #define QUIT_TASTE  0             // 1 = Quittungstaste vorhanden

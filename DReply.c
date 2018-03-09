@@ -61,6 +61,10 @@ void DReply(void)
 	// Beispiel: Soll-Temperatur							(Vorlauf Max)
 	//offs = DS_Empty_RxBuf(offs, &zentrale_sollwert, US_INT);			// 2 Byte
 
+	offs = DS_Empty_RxBuf(offs, &zentrale_sollwert, US_INT);			// 2 Byte Externer Sollwert
+	
+	
+
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	

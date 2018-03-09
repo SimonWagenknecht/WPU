@@ -284,8 +284,8 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
                                  //        betrifft InOutR.c, UserRam.c .h, userdef.h, parli.h
 //#define VERS_DATUM  {17,11,13} // Josch: R3X-Simulator mit System {17,11,1} incl. Modulkonfiguration
                                  //        betrifft InOutR.c, UserRam.c uramext.h
-  #define VERS_DATUM  {18,2,27} //  SiWa: Neue WPU-Software mit System vom 01.11.2017 und User-Teil aus RiedelPool vom 13.11.2017
-
+//#define VERS_DATUM  {18,2,27}  //  SiWa: Neue WPU-Software mit System vom 01.11.2017 und User-Teil aus RiedelPool vom 13.11.2017
+  #define VERS_DATUM  {18,3,9}	 //	 SiWa: Temperaturfühler angelegt und BM, SM und Anforderung/Freigabe, Sammelstörung über UNIs implementiert, parli WPU hinzugefügt
                                
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
@@ -407,26 +407,26 @@ const Anlage Projekte[] = {
 
 		// Namen für Prozess Ein- und Ausgänge (Namensvereinbarung in "userdef.h")
 		// Aus den Namen werden Steuercodes generiert
-		TP_FREI,			// Außentemp.						// 				Eingang IN1		Pt1000 / ----- / -------	
-		TP_FREI,		// Vorlauf sekundär			// 				Eingang IN2		Pt1000 / ----- / -------	
-		TP_FREI,			// Rücklauf primär			// Block  Eingang IN3		Pt1000 / 0-10V / Digital
-		TP_FREI,	// Vorlauf  HK1  				// Block  Eingang IN4		Pt1000 / 0-10V / Digital
-		TP_FREI,	// Rücklauf HK1					// Block  Eingang IN5		Pt1000 / 0-10V / Digital
-		TP_FREI,		// Regeltemp WW					// 				Eingang IN6		Pt1000 / 0-10V / Digital
-		TP_FREI,	// 											// 				Eingang IN7		Pt1000 / 0-10V / Digital
-		AE_UNI1,	// 											// 				Eingang IN8		Pt1000 / 0-10V / Digital
-		ZIN9,			// S0-Zähler 1	 				// 				Eingang IN9		------ / 0-10V / Digital
-		ZIN10,		// S0-Zähler 2	 				// 				Eingang IN10	------ / 0-10V / Digital
+		TP_FREI,	// TP FREI														// 				Eingang IN1		Pt1000 / ----- / -------	
+		TP_FREI,	// TP FREI														// 				Eingang IN2		Pt1000 / ----- / -------	
+		BM_UNI1,	// Betriebsmeldung Wärmepumpe BM WPU	// Block  Eingang IN3		Pt1000 / 0-10V / Digital
+		SM_UNI1,	// Störmeldung Wärmepumpe 		SM WPU	// Block  Eingang IN4		Pt1000 / 0-10V / Digital
+		DE_FREI,	// DE FREI														// Block  Eingang IN5		Pt1000 / 0-10V / Digital
+		AE_UNI1,	// Externe Anforderung								// 				Eingang IN6		Pt1000 / 0-10V / Digital
+		ZIN7,			// Volumenstr.geber Heißgas		WWW			// 				Eingang IN7		Pt1000 / 0-10V / Digital
+		ZIN8,			// Volumenstr.geber Sp-St			WGW			// 				Eingang IN8		Pt1000 / 0-10V / Digital
+		ZIN9,			// Volumenstr.geber WPU-Sp	 	WWS			// 				Eingang IN9		------ / 0-10V / Digital
+		ZIN10,		// Stromzähler WPU	 					ESW			// 				Eingang IN10	------ / 0-10V / Digital
 		
-		RVENTNT1,	// Ventil Fernwärme		 	// Analog-Ausgang  AA1
-		RVENT1,		// Ventil HK1					 	// Analog-Ausgang  AA2
+		AA_UNI1,	// Sollwert WPU		 										// 				Analog-Ausgang  AA1
+		AA_FREI,	// AA FREI					 									// Analog-Ausgang  AA2
 		
-		PU1EA,		// Pumpe HK1    	      // Digital-Ausgang DA1
-		PUWL1EA,	// Ladepumpe WW  	      // Digital-Ausgang DA2
-		DA_FREI,	// 							   	     // Digital-Ausgang DA3
-		DA_FREI,	// 											// Digital-Ausgang DA4
-		DA_FREI,	// 											// Digital-Ausgang DA5
-		SSTM1,		// Sammelstörung				// Digital-Ausgang DA6
+		DA_UNI1,	// Freigabe/Anforderung WPU						// Digital-Ausgang DA1
+		DA_FREI,	// DA FREI														// Digital-Ausgang DA2
+		DA_FREI,	// DA FREI														// Digital-Ausgang DA3
+		DA_FREI,	// DA FREI														// Digital-Ausgang DA4
+		DA_FREI,	// DA FREI														// Digital-Ausgang DA5
+		SSTM1,		// Sammelstörung											// Digital-Ausgang DA6
 		
 		// Externe Erweiterungen mit R37, R38... , siehe Liste Anl37 oder Anl38...
 		{	{  R38, 1, 1},				// Gerätekennzeichen, Gerätenummer, Nummer des Belegungsblockes
@@ -523,10 +523,10 @@ const Anl38 R38_Beleg[] = {
 		TRQ_WP1,		// Rücklauf Wärmepumpe quellenseitig TRQ-WWP	// Pt1000 Eingang IN8
 		TVH_WP1,		// Vorlauf Heißgas					         TVH-WWP	// Pt1000 Eingang IN9
 		TRH_WP1,		// Rücklauf Heißgas					         TRH-WWP	// Pt1000 Eingang IN10
-		TP_FREI,		// 													// Pt1000 Eingang IN11
-		TP_FREI,		// 										  		// Pt1000 Eingang IN12
-		TP_FREI,		//													// Pt1000 Eingang IN13
-		TP_FREI,		//													// Pt1000 Eingang IN14
+		TP_FREI,		// 																						// Pt1000 Eingang IN11
+		TP_FREI,		// 										  											// Pt1000 Eingang IN12
+		TP_FREI,		//																						// Pt1000 Eingang IN13
+		TP_FREI,		//																						// Pt1000 Eingang IN14
 	},
 
 };

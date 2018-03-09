@@ -43,6 +43,9 @@ void Steuer(void)
 			maxAnf = hkd[i].tvsb + hks[i].TvpAnh;
 	#endif
 
+// Externer Sollwert Datenmanager vs AE
+
+
 	#if ANF_EXT > 0			
 	for ( i = 0; i < ANF_EXT; i++ )
 		if ( anfExt[i].stat == 0 && anfExt[i].messw > maxAnf )	
