@@ -25,6 +25,9 @@ extern const char KesAllg[];
 extern const char KesPu[];
 extern const char KesTyp[][16];
                             
+// SiWa
+extern const char Wpmod[];						                           
+                            
 extern const char Ntmod[];
 extern const char Hkmod_fuss[];
 

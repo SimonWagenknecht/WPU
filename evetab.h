@@ -1,5 +1,5 @@
-// Diese Datei wurde automatisch am : 20.06.2017 um 16:33:14 generiert und entspricht der Systemversion nach 31.05.2017 13:55:19!!!
-// Path: d:\RIEcon36C\Projekte\OrtC_sys\CStrasse\CHeiz\FWR0200_CSYS\Komtabparser.exe
+// Diese Datei wurde automatisch am : 01.03.2018 um 15:20:36 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 
-#define	PETAB_DEFL 8
-#define	SETAB_DEFL 26
+#define	PETAB_DEFL 7
+#define	SETAB_DEFL 12

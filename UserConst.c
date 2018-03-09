@@ -37,6 +37,9 @@ const char KesTyp[8][16]	= {
 	{" 2-stufig      "},
 };	
 
+// SiWa
+const char Wpmod[16]								= {"Steuerung      "};
+
 const char Ntmod[16]								= {"VOR-REGELUNG   "};
 const char Hkmod_fuss[16]						= {"FUSSBODEN      "};
 
@@ -510,18 +513,18 @@ const Anl38 R38_Beleg[] = {
 
 	// 1. Belegungssatz 
 	{	
-		TV_WP1,			// Vorlauf  HK1  											// Pt1000 Eingang IN1
-		TRS1,			// Rücklauf HK1												// Pt1000 Eingang IN2
-		TP_FREI,		  // Vorlauf Kessel gesamt 		// Pt1000 Eingang IN3
-		TP_FREI,		  // Rücklauf Kessel gesamt 	// Pt1000 Eingang IN4
-		TP_FREI,		// Vorlauf HK1							// Pt1000 Eingang IN5
-		TP_FREI,		// Rücklauf HK1							// Pt1000 Eingang IN6
-		TP_FREI,		// Vorlauf WWB primär				// Pt1000 Eingang IN7
-		TP_FREI,		// Vorlauf sek. WWB					// Pt1000 Eingang IN8
-		TP_FREI,			// Speicher oben						// Pt1000 Eingang IN9
-		TP_FREI,			// Speicher unten						// Pt1000 Eingang IN10
-		TP_FREI,		// Vorlauf Gebäude WW				// Pt1000 Eingang IN11
-		TP_FREI,		// Rücklauf Zirkulation  		// Pt1000 Eingang IN12
+		TV_WP1,			// Vorlauf  Wärmepumpe zum Speicher  TV-WWP 	// Pt1000 Eingang IN1
+		TR_WP1,			// Rücklauf Wärmepumpe zum Speicher  TR-WWP 	// Pt1000 Eingang IN2
+		TSPo_WP1,		// Speicher oben Wärmepumpe 				 TSPo-WWP	// Pt1000 Eingang IN3
+		TSPu_WP1,		// Speicher unten Wärmepumpe 				 TSPu-WWP // Pt1000 Eingang IN4
+		TVST_WP1,		// Vorlauf WPU-Speicher zur Station  TVST-WWP	// Pt1000 Eingang IN5
+		TRST_WP1,		// Rücklauf WPU-Speicher zur Station TVST-WWP	// Pt1000 Eingang IN6
+		TVQ_WP1,		// Vorlauf Wärmepumpe quellenseitig  TVQ-WWP	// Pt1000 Eingang IN7
+		TRQ_WP1,		// Rücklauf Wärmepumpe quellenseitig TRQ-WWP	// Pt1000 Eingang IN8
+		TVH_WP1,		// Vorlauf Heißgas					         TVH-WWP	// Pt1000 Eingang IN9
+		TRH_WP1,		// Rücklauf Heißgas					         TRH-WWP	// Pt1000 Eingang IN10
+		TP_FREI,		// 													// Pt1000 Eingang IN11
+		TP_FREI,		// 										  		// Pt1000 Eingang IN12
 		TP_FREI,		//													// Pt1000 Eingang IN13
 		TP_FREI,		//													// Pt1000 Eingang IN14
 	},

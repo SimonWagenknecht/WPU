@@ -37,12 +37,6 @@ const Pgrup anl[] = {
 	{"*10:"," VORLAUF   PRIM."," C    ", P&TVP[ANL],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 	#endif
 
-	{"*10:"," VORLAUF   PRIM."," C    ", P&TV_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*10:"," VORLAUF   PRIM."," C    ", P&TV_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	
-	{"*11:"," VORLAUF   PRIM."," C    ", P&TRS[HK1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*11:"," VORLAUF   PRIM."," C    ", P&TRS[HK1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-
 	#if TRP_ANL == 1
 	{"*11:"," RUECKLAUF PRIM."," C    ", P&TRP[ANL],							 ANA_FORMP, 1, P&vis,		V1, 0, 0},      
 	{"*11:"," RUECKLAUF PRIM."," C    ", P&TRP[ANL],						ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
@@ -1046,6 +1040,11 @@ const Pgrup ww2[] = {
 };
 #endif		// #if WWANZ > 1
 
+//*------------------------------ Wärmepumpe - SiWa ----------------------------------------*/
+#if WPANZ == 1
+	#include "wp1.h"
+#endif
+
 
 //*------------------------------ Genibus ----------------------------------------*/
 #if GENI == 1
@@ -1787,6 +1786,11 @@ const Parli Pgruppe[] = {
  {"WT1:", wt1, sizeof(wt1) / PGLENG, P&nt_vis[NT1]},
  {"WT2:", wt2, sizeof(wt2) / PGLENG, P&nt_vis[NT1]},
 #endif
+#endif
+
+//*------------------------------ Wärmepumpe - SiWa ----------------------------------------*/
+#if WPANZ > 0
+ {"WPU:", wp1,  sizeof(wp1) / PGLENG,  P&anl_vis},
 #endif
 
 #if KEANZ > 1

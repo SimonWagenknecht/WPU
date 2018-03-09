@@ -404,7 +404,7 @@
 
 // SiWa 27.02.18 
 // --------------- WPU-Regelungen --------------------------------------
-#define WPANZ       0             // projektierte Anzahl von Regelkreisen
+#define WPANZ       1             // projektierte Anzahl von Regelkreisen
 #define WPMAX       1             // maximale Anzahl (wegen Speicherzuweisung mindestens 1)
 
 // Einstellung für Parli: ke1[]

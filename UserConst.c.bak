@@ -37,6 +37,9 @@ const char KesTyp[8][16]	= {
 	{" 2-stufig      "},
 };	
 
+// SiWa
+const char Wpmod[16]								= {"Steuerung      "};
+
 const char Ntmod[16]								= {"VOR-REGELUNG   "};
 const char Hkmod_fuss[16]						= {"FUSSBODEN      "};
 
@@ -405,11 +408,11 @@ const Anlage Projekte[] = {
 		// Namen für Prozess Ein- und Ausgänge (Namensvereinbarung in "userdef.h")
 		// Aus den Namen werden Steuercodes generiert
 		TP_FREI,			// Außentemp.						// 				Eingang IN1		Pt1000 / ----- / -------	
-		TVSEK1,		// Vorlauf sekundär			// 				Eingang IN2		Pt1000 / ----- / -------	
-		TRP1,			// Rücklauf primär			// Block  Eingang IN3		Pt1000 / 0-10V / Digital
+		TP_FREI,		// Vorlauf sekundär			// 				Eingang IN2		Pt1000 / ----- / -------	
+		TP_FREI,			// Rücklauf primär			// Block  Eingang IN3		Pt1000 / 0-10V / Digital
 		TP_FREI,	// Vorlauf  HK1  				// Block  Eingang IN4		Pt1000 / 0-10V / Digital
 		TP_FREI,	// Rücklauf HK1					// Block  Eingang IN5		Pt1000 / 0-10V / Digital
-		TWWC1,		// Regeltemp WW					// 				Eingang IN6		Pt1000 / 0-10V / Digital
+		TP_FREI,		// Regeltemp WW					// 				Eingang IN6		Pt1000 / 0-10V / Digital
 		TP_FREI,	// 											// 				Eingang IN7		Pt1000 / 0-10V / Digital
 		AE_UNI1,	// 											// 				Eingang IN8		Pt1000 / 0-10V / Digital
 		ZIN9,			// S0-Zähler 1	 				// 				Eingang IN9		------ / 0-10V / Digital
@@ -510,7 +513,7 @@ const Anl38 R38_Beleg[] = {
 
 	// 1. Belegungssatz 
 	{	
-		TV_WWP1,			// Vorlauf  HK1  											// Pt1000 Eingang IN1
+		TV_WP1,			// Vorlauf  HK1  											// Pt1000 Eingang IN1
 		TRS1,			// Rücklauf HK1												// Pt1000 Eingang IN2
 		TP_FREI,		  // Vorlauf Kessel gesamt 		// Pt1000 Eingang IN3
 		TP_FREI,		  // Rücklauf Kessel gesamt 	// Pt1000 Eingang IN4
