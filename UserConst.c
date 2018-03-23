@@ -306,6 +306,10 @@ const Anlage Projekte[] = {
 		
 		{0},	// Nummern der Absenkprofile für jeden Heizkreis [ABS_PROFILE]
 					// 0 = nicht vorhanden
+					
+				// Steuercode für Wärmepumpe
+		{0},	// Nummern der Kaltstartparametersätze für jede WPU-Steuerung [WP_PROFILE]
+					// 0 = nicht vorhanden
 		
 		// Steuercode für Warmwasser
 		{0},	// Nummern der Kaltstartparametersätze für jeden WWkreis [WW_PROFILE]
@@ -329,8 +333,9 @@ const Anlage Projekte[] = {
 
 		// Steuercode für SteuerUni
 		{0},	// Nummern der Kaltstartparametersätze für jede UNI-Steuerung [UNI_PROFILE]
-					// 0 = nicht vorhanden
-
+					// 0 = nicht vorhanden		
+					
+					
 		// Namen für Prozess Ein- und Ausgänge (Namensvereinbarung in "userdef.h")
 		// Aus den Namen werden Steuercodes generiert
 		TP_FREI,							// 				Eingang IN1		Pt1000 / ----- / -------	
@@ -380,7 +385,11 @@ const Anlage Projekte[] = {
 		
 		{0},	// Nummern der Absenkprofile für jeden Heizkreis [ABS_PROFILE]
 					// 0 = nicht vorhanden
-		
+					
+					// Steuercode für Wärmepumpe
+		{1},	// Nummern der Kaltstartparametersätze für jede WPU-Steuerung [WP_PROFILE]
+					// 0 = nicht vorhanden
+					
 		// Steuercode für Warmwasser
 		{0},	// Nummern der Kaltstartparametersätze für jeden WWkreis [WW_PROFILE]
 					// 0 = nicht vorhanden
@@ -404,7 +413,7 @@ const Anlage Projekte[] = {
 		// Steuercode für SteuerUni
 		{0},	// Nummern der Kaltstartparametersätze für jede UNI-Steuerung [UNI_PROFILE]
 					// 0 = nicht vorhanden
-
+					
 		// Namen für Prozess Ein- und Ausgänge (Namensvereinbarung in "userdef.h")
 		// Aus den Namen werden Steuercodes generiert
 		TP_FREI,	// TP FREI														// 				Eingang IN1		Pt1000 / ----- / -------	
@@ -418,7 +427,7 @@ const Anlage Projekte[] = {
 		ZIN9,			// Volumenstr.geber WPU-Sp	 	WWS			// 				Eingang IN9		------ / 0-10V / Digital
 		ZIN10,		// Stromzähler WPU	 					ESW			// 				Eingang IN10	------ / 0-10V / Digital
 		
-		AA_UNI1,	// Sollwert WPU		 										// 				Analog-Ausgang  AA1
+		TMANF1,	// Sollwert WPU		 										// 				Analog-Ausgang  AA1
 		AA_FREI,	// AA FREI					 									// Analog-Ausgang  AA2
 		
 		DA_UNI1,	// Freigabe/Anforderung WPU						// Digital-Ausgang DA1
@@ -1626,6 +1635,29 @@ const KeStandard  Ke_Standparam[] = {
 
 }; 
 const char KE_PROFILE = sizeof ( Ke_Standparam ) / sizeof ( KeStandard );
+
+
+/*----------------------------------------------------------------------------*/
+/*						Standardwerten für Wärmepumpe			*/
+/*----------------------------------------------------------------------------*/
+const WpStandard  Wp_Standparam[] = {
+ // Profil 0 (dummy)
+// {
+// 	0,	//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
+//	0,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
+//	0,	//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+//	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+// },
+  // Profil 1
+ {
+ 	0,		//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
+	500,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
+	30,		//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+ },
+};
+const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );
+
 
 /*----------------------------------------------------------------------------*/
 /*						Liste von Standardwerten für verschiedene Warmwasserkreise			*/

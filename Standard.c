@@ -612,18 +612,23 @@ const bicvec bicuser1[]	=	{
 	{EEPADR,	(char	*)&sod[SO1].lzKolPuH,	SOLH1_ADR			+ 0,					2},	
 #endif
 
-#if SOLANZ > 1
-	{EEPADR,	(char	*)&sos[SO2],					SO2_ADR,				( ( SOSLENG > 64 ) ? 64 : SOSLENG )},
-	{EEPADR,	(char	*)&sos[SO2] + 64,			SO2_ADR + 64,		( ( SOSLENG > 64 ) ? SOSLENG-64 : 0 )},
-
-	{EEPADR,	(char	*)&sod[SO2].lzKolPuH,	SOLH1_ADR			+ 2,					2},	
-#endif
+//#if SOLANZ > 1
+//	{EEPADR,	(char	*)&sos[SO2],					SO2_ADR,				( ( SOSLENG > 64 ) ? 64 : SOSLENG )},
+//	{EEPADR,	(char	*)&sos[SO2] + 64,			SO2_ADR + 64,		( ( SOSLENG > 64 ) ? SOSLENG-64 : 0 )},
+//
+//	{EEPADR,	(char	*)&sod[SO2].lzKolPuH,	SOLH1_ADR			+ 2,					2},	
+//#endif
 
 /* ------------------------ Benutzersteuerung mit UNI-Elementen --------*/
 #if STEUER_UNI == 1
 	{EEPADR,	(char	*)&unis[0],					STEUER_UNI_ADR,		UNISLENG},
 #endif	
 
+/*-------------------------WPU-Steuerung---------------------------------*/
+#if WPANZ > 1
+	{EEPADR,	(char	*)&wps[WP1],					WP1_ADR,				( ( WPSLENG > 64 ) ? 64 : WPSLENG )},
+	{EEPADR,	(char	*)&wps[WP1] + 64,			WP1_ADR + 64,		( ( WPSLENG > 64 ) ? WPSLENG-64 : 0 )},
+#endif
 
 //----------------------------------------------------------------------------------------
 

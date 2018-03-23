@@ -137,6 +137,10 @@ extern const absenktab abs_standard[][8];
 extern const char KE_PROFILE;
 extern const KeStandard  Ke_Standparam[];
 
+/*  Liste von Standardwerten für verschiedene Wärmepumpen	*/
+extern const char WP_PROFILE ;
+extern const WpStandard  Wp_Standparam[];
+
 /*  Liste von Standardwerten für verschiedene Warmwasserkreise	*/
 extern const char WW_PROFILE ;
 extern const WwStandard  Ww_Standparam[];

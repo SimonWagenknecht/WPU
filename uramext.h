@@ -645,6 +645,9 @@ extern NtStandard	nts[NTMAX];
 //	 Der Bereich dient als Arbeitsspeicher für die Vorregelprogramme
 extern NtDynam			ntd[NTMAX];
 
+/*--------------- Reglerparameter für Wärmepumpe -------------*/
+extern WpStandard	wps[WPMAX];
+extern WpDynam	wpd[WPMAX];
 
 /*--------------- Reglerparameter für Solar-Regelung -------------*/
 extern SoStandard	sos[SOLMAX];

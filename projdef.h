@@ -92,7 +92,7 @@
 #define VARIPROJ    0             // 1 = variables Projekt
 #define SSTM_PU     0             // Sammelstörmelde-Eingang für Pumpen
 #define SSTM_ANL    0             // Sammelstörmelde-Eingang Anlage
-#define ANFORD      0             // auch in Steuer.c benutzt
+#define ANFORD      1             // auch in Steuer.c benutzt
 #define ANF_EXT     1             // Anzahl Anforderungen externer Regler, gilt für NT und Kessel
 
 // allgemein
@@ -112,14 +112,14 @@
 #define COPY_SEND         0       // Anzahl der über Bus zu sendenden Datenelemente              Min=0, Max=COPY_RESERV_SEND,  wenn > 0: Eintrag in CopyCheck.c erforderlich
 
 #define DIAG        0             // Diagnose für Soft-Wärmezähler
-#define ANALOG_AE   0             // Skalierung der 0-10V Eingänge, Grenzwertüberwachung, Anzahl 0..8, immer die ersten n AE_UNI ab AE_UNI1 werden skaliert
+#define ANALOG_AE   1             // Skalierung der 0-10V Eingänge, Grenzwertüberwachung, Anzahl 0..8, immer die ersten n AE_UNI ab AE_UNI1 werden skaliert
 #define WRE100      0             // WRE100 Kommandos für WRELES uund WREINIT werden unterstützt
 #define MBUSANZ     0             // Anzahl MBus-Zähler (maximal 8)
 #define MBUS_MASTER 0             // 1/0
 #define STEUER_UNI  0             // 1/0 Benutzersteuerung mit UNI-Elementen (SteuerUni.c, parli_uni.h, UniStandard, UniDynam)
 
 // ***** josch: Datenmanager
-#define DS_MODE       0           // Gerät im DS_Modus (Data Slave) , Auswertung in der Funktion DReply() 
+#define DS_MODE       1           // Gerät im DS_Modus (Data Slave) , Auswertung in der Funktion DReply() 
 #define DS_RXBUF_MAX  16          // Puffergröße für Empfangsdaten
 #define DS_TXBUF_MAX  32          // Puffergröße für Sendedaten
 

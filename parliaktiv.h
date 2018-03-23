@@ -1,4 +1,4 @@
-// Diese Datei wurde automatisch am : 09.03.2018 um 12:30:31 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Diese Datei wurde automatisch am : 23.03.2018 um 13:56:06 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
 // Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 
 const Pgrup gpr[] = { 
@@ -112,9 +112,29 @@ const Pgrup wp1[] = {
 	{"*09:"," TVH-WWP        "," C    ", P&TVH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 	{"*10:"," TRH-WWP        "," C    ", P&TRH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{"*10:"," TRH-WWP        "," C    ", P&TRH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*11:"," FREIGABE WWP   "," EIN=1 ", P&DA_UNI[U1],			 		 			  US_CHAR, 0, P&vis,		V1, 0, 0},
-	{"*13:"," BM WWP         ","       ", P&BM_UNI[U1],		 				JANEIN_FORMIP, 2, P&vis,		V1, 0, 0},
-	{"*14:"," SM WWP         ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
+	{"*11:"," BM WWP         ","       ", P&BM_UNI[U1],		 				JANEIN_FORMIP, 2, P&vis,		V1, 0, 0},
+	{"*12:"," SM WWP         ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
+	{"*13:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],						ANA_FORM, 1, P&vis,		V1, 0, 0},
+	{"*13:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],	 		 	 ANA_FORM, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*->:"," ANF BUS aktiv  ","       ", P&wpd[WP1].Status_SW_DM_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
+	{"*14:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal,			 ANA_FORM, 1, P&vis,	V0, 0, 0},
+	{"*14:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal, 	  ANA_FORM, 0x81, P&kom,	V0, 0, 0},
+	{"*->:"," ANF INP aktiv  ","       ", P&wpd[WP1].Status_SW_AE_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
+	{" ->;"," 0V ANFORD.INP  "," C    ", P&AnaInpPara[U1].Skal0,		 		S_INT, 1, P&hid1,	V0, 0, 0},
+	{" ->;"," 10V ANFORD.INP "," C    ", P&AnaInpPara[U1].Skal10,	 		S_INT, 1, P&hid1,	V0, 0, 0},
+	{" ->;"," gl.anford.inp  "," s     ", P&AnaInpPara[U1].ZkFilt,		 US_INT, 0, P&hid2,	V0, 0, 0},
+	{"*->;"," anforderung inp"," V     ", P&AE_UNI[U1],					  	ANA_FORMP, 2, P&hid2,	V0, 0, 0},
+	{"*->;"," anforderung inp"," %     ", P&anaInp[U1].mwFilt,				 US_INT, 1, P&hid2,	V0, 0, 0},
+	{" 15;"," Sollwert-Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
+	{" 16;"," Manu Sollwert  "," HAND=1", P&wps[WP1].Para_Manu_Sollwert, US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{" ->;"," Sollwert       "," C    ", P&wps[WP1].T_manu_Sollwert,US_INT, 1, P&hid1,	V1, 0, 0},
+	{"*17:"," FREIGABE WWP   "," EIN=1 ", P&DA_UNI[U1],			 		 			  US_CHAR, 0, P&vis,		V1, 0, 0},
+	{"*18:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
+	{" ->;"," TEMP.Sollw.MIN "," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},
+	{" ->;"," SPG.Sollw.MIN  "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
+	{" ->;"," TEMP.Sollw.MAX "," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
+	{" ->;"," SPG.Sollw.MAX  "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
+	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
 } 
 
 const Pgrup sys[] = { 
@@ -338,6 +358,8 @@ const Pgrup anl[] = {
 	{"+->:"," R38_1 TEXT IN13","       ", P&n38text[0][12],				 ASCII_FORM, 20, P&r38vis[0], V0, 0, 0},
 	{"+->:"," R38_1 EING IN14","       ", P&n38list[0][13],				EA_NAME_FORM, 0, P&r38vis[0], V0, 0, 0},
 	{"+->:"," R38_1 TEXT IN14","       ", P&n38text[0][13],				 ASCII_FORM, 20, P&r38vis[0], V0, 0, 0},
+	{"*72:"," E: Sollwert    "," C    ", P&zentrale_sollwert,	 		ANA_FORM, 1, P&vis, 	V0, 0, 0},
+	{" ->:"," zentrale rxtout"," min   ", P&DS_RxTout,			 			 	 US_CHAR, 0, P&hid2,  V0, 0, 0},
 	{"*80:"," SCHALTER HAND ?","       ", P&HardHand,							 JANEIN_FORM, 0, P&vis,		V1, 0, 0},
 	{"*81:"," R66 SCHALTER1-6","       ", P&sw_stat_info,						DYN_ASCII_FORM, 6, P&vis,		V1, 0, 0},
 	{"*90:"," SMGRUP STANDARD","       ", P&sstm[STANDARD],			 	US_CHAR, 0, P&vis,		A1, GRUP|STANDARD, 0},
@@ -345,7 +367,12 @@ const Pgrup anl[] = {
 	{"*92:"," SMGRUP MODULE  ","       ", P&sstm[MODULE],			 		US_CHAR, 0, P&vis,		A1, GRUP|MODULE,   0},
 	{"*->:"," SSTM ALARME    ","       ", P&sstm_alarme,		 	JANEIN_FORM, 0, P&vis,		V1, 0, 0},
 	{"*->:"," SSTM AL+FUEHLER","       ", P&sstm_all,		 			JANEIN_FORM, 0, P&vis,		V1, 0, 0},
-	{"*95;"," anforderung max"," C    ", P&maxAnford,				 				 S_INT, 1, P&hid2,	V0, 0, 0},
+	{"*95:"," ANFORDERUNG MAX"," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
+	{" ->;"," TEMP.ANFORD.MIN"," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},
+	{" ->;"," SPG.ANFORD.MIN "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
+	{" ->;"," TEMP.ANFORD.MAX"," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
+	{" ->;"," SPG.ANFORD.MAX "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
+	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
 	{" 96:"," QUITTIER-TASTE "," EIN=1 ", P&quit_taste,			 				US_CHAR,  0, P&hid1,	V1, 0, 0},
 	{"*->;"," SSTM RELAIS    ","       ", P&SSTM[ANL],				 JANEIN_FORMOP, 0, P&hid4,	V0, 0, 0},
 	{" 98;"," R3X-Simulator  "," EIN=1 ", P&ea_simul,				 				 US_CHAR, 0, P&hid2,	V0, 0, 0},

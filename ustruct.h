@@ -171,6 +171,9 @@ typedef struct anl{
 	// Steuercode für Heizkreise 
 	char hkcode[HKMAX];		// Nummer des Kaltstartparametersatzes für jeden Heizkreis			
 	char abscode[HKMAX];	// Nummer des Absenkprofils für jeden Heizkreis	
+
+	// Steuercode für Wärmepumpe 
+	char wpcode[WPMAX];		// Nummer des Kaltstartparametersatzes für jeden Warmwasserkreis	
 	
 	// Steuercode für Warmwasserkreise 
 	char wwcode[WWMAX];		// Nummer des Kaltstartparametersatzes für jeden Warmwasserkreis	
@@ -624,6 +627,25 @@ typedef struct abs_ti{
 }absenkram;
 #define ABSRAMLENG	sizeof(struct abs_ti)
 	
+	/* Struktur der Regelparameter einer Wärmepumpe										*/
+// Teil1: Statische Parameter (mit Standdardwerten)
+typedef struct wps{
+	char	Para_Manu_Sollwert; 	// Manuellen Sollwert aktivieren
+	UINT	T_manu_Sollwert; 			// Manuell vorgegebener Sollwert in [°C] *10
+	UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+	UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+}WpStandard;
+#define WPSLENG sizeof(struct wps)
+
+// Teil2: Dynamische Parameter 
+typedef struct wpd{
+	char	Status_SW_DM_aktiv; 		// Sollwert von DM ist aktiviert
+	char	Status_SW_AE_aktiv; 		// Sollwert von AE ist aktiviert
+
+}WpDynam;
+
+
+
 //-------------------------------------------------------------
 /* Struktur der Regelparameter eines Warmwasserkreises				*/
 // Teil1: Statische Parameter (mit Standdardwerten)

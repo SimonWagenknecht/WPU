@@ -157,8 +157,11 @@
 // Solar-Regelung 1
 #define SO1_ADR             0x0F00  // 2 Page
 
-// Solar-Regelung 2
-#define SO2_ADR             0x0F80  // 2 Page
+//// Solar-Regelung 2
+//#define SO2_ADR             0x0F80  // 2 Page
+
+/* ------------------------ WPU-Regelung -----------------------------*/
+#define WP1_ADR             0x0F80  // 2 Page
 
 /*----------------------------------------------------------------------*/
 /*          Speicherplätze für Laufzeiten                               */

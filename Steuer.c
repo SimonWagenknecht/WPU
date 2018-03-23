@@ -43,14 +43,47 @@ void Steuer(void)
 			maxAnf = hkd[i].tvsb + hks[i].TvpAnh;
 	#endif
 
-// Externer Sollwert Datenmanager vs AE
-
-
-	#if ANF_EXT > 0			
-	for ( i = 0; i < ANF_EXT; i++ )
-		if ( anfExt[i].stat == 0 && anfExt[i].messw > maxAnf )	
-			maxAnf = anfExt[i].messw;						
-	#endif
+	/*--------------- Wärmepumpen Sollwert Steuerung------------ */		    
+			// Übergabe von Dm zu Externer Sollwert
+			anfExt[0] = zentrale_sollwert;
+			
+				#if ANF_EXT > 0			
+				for ( i = 0; i < ANF_EXT; i++ )
+					{
+					if ( anfExt[i].stat == 0 && anfExt[i].messw > maxAnf )
+						{	
+						maxAnf = anfExt[i].messw+wps[WP1].T_Sollwert_Offset;	
+						wpd[WP1].Status_SW_DM_aktiv = 1;
+						wpd[WP1].Status_SW_AE_aktiv = 0;		
+						}	
+					}			
+				#endif
+				
+				// Externer Sollwert AE, wenn DM nicht funktioniert
+				#if ANALOG_AE > 0			
+				for ( i = 0; i < ANALOG_AE; i++ )
+					{
+					if ( anaInp[i].mwSkal.stat ==0 && anfExt[i].stat > 0 && anaInp[i].mwSkal.messw > maxAnf )	
+						{
+						maxAnf = anaInp[i].mwSkal.messw+wps[WP1].T_Sollwert_Offset;	
+						wpd[WP1].Status_SW_AE_aktiv = 1;
+						wpd[WP1].Status_SW_DM_aktiv = 0;	
+						}	
+					}				
+				#endif
+			
+				// Manuell vorgegebener Sollwert
+				if (wps[WP1].Para_Manu_Sollwert > 0)
+						maxAnf = wps[WP1].T_manu_Sollwert;
+						else if (anfExt[i].stat > 0 && anaInp[i].mwSkal.stat > 0)
+							{
+							maxAnf = wps[WP1].T_Ersatz_Sollwert; // Ersatzwert, wenn keine Schnittstelle funktioniert
+							wpd[WP1].Status_SW_DM_aktiv = 0;
+							wpd[WP1].Status_SW_AE_aktiv = 0;
+							}
+					
+		/*---------------ENDE Wärmepumpen Sollwert Steuerung------------ */	
+	
 				
 	#if WWANZ > 0	
 	if ( wwd[WW1].wwlad )
