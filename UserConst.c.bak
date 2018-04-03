@@ -1646,12 +1646,14 @@ const WpStandard  Wp_Standparam[] = {
 // 	0,	//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
 //	0,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
 //	0,	//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+//	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
 // },
   // Profil 1
  {
- 	0,	//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
+ 	0,		//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
 	500,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
 	30,		//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );

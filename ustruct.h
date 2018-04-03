@@ -630,10 +630,12 @@ typedef struct abs_ti{
 	/* Struktur der Regelparameter einer Wärmepumpe										*/
 // Teil1: Statische Parameter (mit Standdardwerten)
 typedef struct wps{
-	char	Para_Manu_Sollwert; 	// Manuellen Sollwert aktivieren
-	UINT	T_manu_Sollwert; 			// Manuell vorgegebener Sollwert in [°C] *10
-	UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
-	UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+	char	Para_Manu_Sollwert; 					// Manuellen Sollwert aktivieren
+	UINT	T_manu_Sollwert; 							// Manuell vorgegebener Sollwert in [°C] *10
+	UINT	T_Sollwert_Offset; 						// Sollwertoffset in [K] *10
+	UINT	T_Ersatz_Sollwert; 						// Ersatz-Sollwert in [°C] *10
+	char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+	char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
 }WpStandard;
 #define WPSLENG sizeof(struct wps)
 

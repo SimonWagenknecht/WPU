@@ -362,13 +362,15 @@
 #define	U27_ZEITG		4
 #define	U27_TASK		Leer
 #endif	
-//----------------- Reserve --------------------------------------------------------------
-#define	U28_STAT		0x80					
-#define U28_BICB		NOIC
-#define	U28_ZAEHL		4
-#define	U28_ZEITG		4
-#define	U28_TASK		Leer
 
+//----------------- Wärmepumpensteuerung --------------------------------------------------------------
+#define	U28_STAT		0x00					
+#define U28_BICB		NOIC
+#define	U28_ZAEHL		40
+#define	U28_ZEITG		40
+#define	U28_TASK		SteuerWPU
+
+//----------------- Reserve --------------------------------------------------------------
 #define	U29_STAT		0x80					
 #define U29_BICB		NOIC
 #define	U29_ZAEHL		4

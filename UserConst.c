@@ -1647,6 +1647,8 @@ const WpStandard  Wp_Standparam[] = {
 //	0,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
 //	0,	//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
 //	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+//	0,  //char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+//	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
 // },
   // Profil 1
  {
@@ -1654,6 +1656,8 @@ const WpStandard  Wp_Standparam[] = {
 	500,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
 	30,		//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
 	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+		0,	//char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+	  0,	//char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );
