@@ -2797,10 +2797,10 @@ void Typelist_copy(void)
 
 	// Standardwerte für Wärmepumpen
 	for(i = 0; i < WPMAX; i++)
-	{	profil = Projekte[proj_typ].wwcode[i];			// Laden der Profil Nummer
+	{	profil = Projekte[proj_typ].wpcode[i];			// Laden der Profil Nummer
 		if(profil < WP_PROFILE)											// auf max abtesten
 			// Speicherbereich für Standardwerte laden
-			memcpy( (void *)&wps[i], (void *)&Wp_Standparam[profil], WWSLENG );
+			memcpy( (void *)&wps[i], (void *)&Wp_Standparam[profil], WPSLENG );
 	}	
 
 	// Standardwerte für Warmwasserkreise

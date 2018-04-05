@@ -45,16 +45,30 @@ const Pgrup wp1[] = {
 	{" 17;"," Manu Sollwert  "," HAND=1", P&wps[WP1].Para_Manu_Sollwert, US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->;"," Sollwert       "," C    ", P&wps[WP1].T_manu_Sollwert,US_INT, 1, P&hid1,	V1, 0, 0},
 	// Ausgänge 
-
 	{"*20:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
 	{" ->;"," TEMP.Sollw.MIN "," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MIN  "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{" ->;"," TEMP.Sollw.MAX "," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MAX  "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
-	{"*21:"," FREIGABE WWP   ","       ", P&DA_UNI[U1],	 			   JANEIN_FORMOP, 2, P&vis,		V1, 0, 0},
+	{"*21:"," FREIGABE WPU   ","       ", P&DA_UNI[U1],	 			   JANEIN_FORMOP, 2, P&vis,		V1, 0, 0},
+	{"*->:"," freigabe wpu   ","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
 	{" ->;"," Manu FREIG WPU "," HAND=1", P&wps[WP1].WPU_Freigabe_Haut, US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," WPU EIN/AUS    "," EIN=1 ", P&wps[WP1].WPU_Freigabe_Hand_stellen, US_CHAR, 0, P&hid1,	V1, 0, 0},
+	// Betriebszustände 
+	{"*30:"," Quellenschutz ?","       ", P&wpd[WP1].Status_Quellenschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{" ->;"," Quellenminimum "," C    ", P&wps[WP1].intPa_Quellentemperaturminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Quellentemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
+	{"*31:"," Frostschutz   ?","       ", P&wpd[WP1].Status_Frostschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{" ->;"," Speicherminimum"," C    ", P&wps[WP1].intPa_Speicherminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Speichertemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
+	{"*32:"," Speicherladung?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{" ->;"," dT Ladung ein ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{"*->;"," Ladebeginn     "," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1,	V0, 0, 0},
+	{"*->;"," Ladeende       "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1,	V0, 0, 0},
+	
+	
 	
 	};
 

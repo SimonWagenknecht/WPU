@@ -625,7 +625,7 @@ const bicvec bicuser1[]	=	{
 #endif	
 
 /*-------------------------WPU-Steuerung---------------------------------*/
-#if WPANZ > 1
+#if WPANZ > 0
 	{EEPADR,	(char	*)&wps[WP1],					WP1_ADR,				( ( WPSLENG > 64 ) ? 64 : WPSLENG )},
 	{EEPADR,	(char	*)&wps[WP1] + 64,			WP1_ADR + 64,		( ( WPSLENG > 64 ) ? WPSLENG-64 : 0 )},
 #endif

@@ -1,4 +1,4 @@
-// Diese Datei wurde automatisch am : 03.04.2018 um 14:51:39 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Diese Datei wurde automatisch am : 04.04.2018 um 13:29:20 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
 // Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 
 const Pgrup gpr[] = { 
@@ -135,9 +135,15 @@ const Pgrup wp1[] = {
 	{" ->;"," TEMP.Sollw.MAX "," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MAX  "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
-	{"*21:"," FREIGABE WWP   "," EIN=1 ", P&DA_UNI[U1],			 		 			  US_CHAR, 0, P&vis,		V1, 0, 0},
+	{"*21:"," FREIGABE WWP   ","       ", P&DA_UNI[U1],	 			   JANEIN_FORMOP, 2, P&vis,		V1, 0, 0},
 	{" ->;"," Manu FREIG WPU "," HAND=1", P&wps[WP1].WPU_Freigabe_Haut, US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," WPU EIN/AUS    "," EIN=1 ", P&wps[WP1].WPU_Freigabe_Hand_stellen, US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{"*30:"," Quellenschutz ?","       ", P&wpd[WP1].Status_Quellenschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{" ->;"," Quellenminimum "," C    ", P&wps[WP1].intPa_Quellentemperaturminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Quellentemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
+	{"*31:"," Frostschutz   ?","       ", P&wpd[WP1].Status_Frostschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{" ->;"," Speicherminimum"," C    ", P&wps[WP1].intPa_Speichertemperaturminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Speichertemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
 } 
 
 const Pgrup sys[] = { 

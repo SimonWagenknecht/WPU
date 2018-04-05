@@ -630,20 +630,32 @@ typedef struct abs_ti{
 	/* Struktur der Regelparameter einer Wärmepumpe										*/
 // Teil1: Statische Parameter (mit Standdardwerten)
 typedef struct wps{
-	char	Para_Manu_Sollwert; 					// Manuellen Sollwert aktivieren
-	UINT	T_manu_Sollwert; 							// Manuell vorgegebener Sollwert in [°C] *10
-	UINT	T_Sollwert_Offset; 						// Sollwertoffset in [K] *10
-	UINT	T_Ersatz_Sollwert; 						// Ersatz-Sollwert in [°C] *10
-	char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
-	char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	char	Para_Manu_Sollwert; 						// Manuellen Sollwert aktivieren
+	UINT	T_manu_Sollwert; 								// Manuell vorgegebener Sollwert in [°C] *10
+	UINT	T_Sollwert_Offset; 							// Sollwertoffset in [K] *10
+	UINT	T_Ersatz_Sollwert; 							// Ersatz-Sollwert in [°C] *10
+	char	WPU_Freigabe_Haut;							// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+	char	WPU_Freigabe_Hand_stellen;			// Steuerung der WPU-Freigabe im manuellen Betrieb
+	 int	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
+	 int	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
+	 int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
+	 int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
 }WpStandard;
 #define WPSLENG sizeof(struct wps)
 
 // Teil2: Dynamische Parameter 
 typedef struct wpd{
-	char	Status_SW_DM_aktiv; 		// Sollwert von DM ist aktiviert
-	char	Status_SW_AE_aktiv; 		// Sollwert von AE ist aktiviert
-
+	char	Status_SW_DM_aktiv; 										// Sollwert von DM ist aktiviert
+	char	Status_SW_AE_aktiv; 										// Sollwert von AE ist aktiviert
+	char	Status_Quellenschutz;								 		// Betriebszustand Quellenschutz: Quellenschutz wird aktiviert, wenn die Quellentemperatur den Grenzwert unterschreitet
+	char	Status_Frostschutz;								 			// Betriebszustand Frostschutz: Frostschutz wird aktiviert, wenn die Speichertemperatur den Grenzwert unterschreitet
+	 int	intT_Quellentemperatur_aktiv;						// Verwendete Quellentemperatur für den Quellenschutz
+	 int	intT_Speichertemperatur_aktiv;					// Verwendete Speichertemperatur für den Quellenschutz
+	 char	Status_Speicherladung;								 	// Betriebszustand Speicherladung: Speicherladeprinzip
+	  int	intT_Ladebginn;													// Ladebeginn in [°C] *10
+	  int	intT_Ladeende;													// Ladeende in [°C] *10
+	 char	Status_WPU_Freigabe_oZeit;							// Status der WPU-Freigabe ohne Zeitlimitierung
+	  int	Sollwert_oZeit;													// Sollwert der WPU ohne Zeitlimitierung
 }WpDynam;
 
 

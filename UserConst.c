@@ -285,8 +285,9 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
 //#define VERS_DATUM  {17,11,13} // Josch: R3X-Simulator mit System {17,11,1} incl. Modulkonfiguration
                                  //        betrifft InOutR.c, UserRam.c uramext.h
 //#define VERS_DATUM  {18,2,27}  //  SiWa: Neue WPU-Software mit System vom 01.11.2017 und User-Teil aus RiedelPool vom 13.11.2017
-  #define VERS_DATUM  {18,3,9}	 //	 SiWa: Temperaturfühler angelegt und BM, SM und Anforderung/Freigabe, Sammelstörung über UNIs implementiert, parli WPU hinzugefügt
-                               
+//#define VERS_DATUM  {18,3,9}	 //	 SiWa: Temperaturfühler angelegt und BM, SM und Anforderung/Freigabe, Sammelstörung über UNIs implementiert, parli WPU hinzugefügt
+	#define VERS_DATUM  {18,4,4}	 //	 SiWa: Manuelle Ansteuerung der WPU via AA und Betriebszustand Quellenschutz
+//                               
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
 /*--------------------------------------------------------------------------------*/
@@ -1642,14 +1643,18 @@ const char KE_PROFILE = sizeof ( Ke_Standparam ) / sizeof ( KeStandard );
 /*----------------------------------------------------------------------------*/
 const WpStandard  Wp_Standparam[] = {
  // Profil 0 (dummy)
-// {
-// 	0,	//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
-//	0,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
-//	0,	//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
-//	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
-//	0,  //char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
-//	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
-// },
+ {
+ 	0,	//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
+	0,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
+	0,	//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+	0,  //char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	0,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
+  0, 	//UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
+	0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
+	0,	// int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+ },
   // Profil 1
  {
  	0,		//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
@@ -1658,6 +1663,10 @@ const WpStandard  Wp_Standparam[] = {
 	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
 		0,	//char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
 	  0,	//char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	-50,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
+	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
+		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
+	  0,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );
