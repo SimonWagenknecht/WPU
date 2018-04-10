@@ -309,7 +309,7 @@ const Anlage Projekte[] = {
 					// 0 = nicht vorhanden
 					
 				// Steuercode für Wärmepumpe
-		{0},	// Nummern der Kaltstartparametersätze für jede WPU-Steuerung [WP_PROFILE]
+		{1},	// Nummern der Kaltstartparametersätze für jede WPU-Steuerung [WP_PROFILE]
 					// 0 = nicht vorhanden
 		
 		// Steuercode für Warmwasser
@@ -1643,18 +1643,20 @@ const char KE_PROFILE = sizeof ( Ke_Standparam ) / sizeof ( KeStandard );
 /*----------------------------------------------------------------------------*/
 const WpStandard  Wp_Standparam[] = {
  // Profil 0 (dummy)
-// {
-// 	0,	//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
-//	0,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
-//	0,	//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
-//	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
-//	0,  //char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
-//	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
-//	0,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
-//  0, 	//UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
-//	0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
-//	0,	// int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
-// },
+ {
+ 	0,	//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
+	0,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
+	0,	//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+	0,  //char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	0,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
+  0, 	//UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
+	0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
+	0,	// int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	0,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
+	0,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
+ },
   // Profil 1
  {
  	0,		//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
@@ -1667,6 +1669,8 @@ const WpStandard  Wp_Standparam[] = {
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	  0,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	  1,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
+		1,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );

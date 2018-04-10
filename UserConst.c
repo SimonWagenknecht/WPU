@@ -286,7 +286,8 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
                                  //        betrifft InOutR.c, UserRam.c uramext.h
 //#define VERS_DATUM  {18,2,27}  //  SiWa: Neue WPU-Software mit System vom 01.11.2017 und User-Teil aus RiedelPool vom 13.11.2017
 //#define VERS_DATUM  {18,3,9}	 //	 SiWa: Temperaturfühler angelegt und BM, SM und Anforderung/Freigabe, Sammelstörung über UNIs implementiert, parli WPU hinzugefügt
-	#define VERS_DATUM  {18,4,4}	 //	 SiWa: Manuelle Ansteuerung der WPU via AA und Betriebszustand Quellenschutz
+//	#define VERS_DATUM  {18,4,4}	 //	 SiWa: Manuelle Ansteuerung der WPU via AA und Betriebszustand Quellenschutz
+		#define VERS_DATUM  {18,4,10}	 //	 SiWa: Betriebszustand Speicherprinzip und Frostschutz, Mindestlauf- und Sperrzeit für WPU-Freigabe (DA)
 //                               
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
@@ -1654,6 +1655,8 @@ const WpStandard  Wp_Standparam[] = {
   0, 	//UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	0,	// int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	0,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
+	0,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
  },
   // Profil 1
  {
@@ -1667,6 +1670,8 @@ const WpStandard  Wp_Standparam[] = {
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	  0,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	  1,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
+		1,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );

@@ -640,6 +640,8 @@ typedef struct wps{
 	 int	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	 int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	 int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	 char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
+	 char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 }WpStandard;
 #define WPSLENG sizeof(struct wps)
 
@@ -656,6 +658,8 @@ typedef struct wpd{
 	  int	intT_Ladeende;													// Ladeende in [°C] *10
 	 char	Status_WPU_Freigabe_oZeit;							// Status der WPU-Freigabe ohne Zeitlimitierung
 	  int	Sollwert_oZeit;													// Sollwert der WPU ohne Zeitlimitierung
+	  int Mindestlaufzeit_Cnt;										// Counter in Sekunden für die Mindestlaufzeit der Wärmepumpe [s]
+	  int Sperrzeit_Cnt;													// Counter in Sekunden für die Sperrzeit der Wärmepumpe [s]
 }WpDynam;
 
 
