@@ -43,7 +43,7 @@ void Steuer(void)
 			maxAnf = hkd[i].tvsb + hks[i].TvpAnh;
 	#endif
 
-	/*--------------- W‰rmepumpen Sollwert Steuerung------------ */		    
+	/*---------------EINGEHENDER W‰rmepumpen-Sollwert Steuerung------------ */		    
 			// ‹bergabe von Dm zu Externer Sollwert
 			anfExt[0] = zentrale_sollwert;
 			
@@ -72,7 +72,7 @@ void Steuer(void)
 					}				
 				#endif
 			
-				// Manuell vorgegebener Sollwert
+				// Konstanter vorgegebener Sollwert
 				if (wps[WP1].Para_Manu_Sollwert > 0)
 						maxAnf = wps[WP1].T_manu_Sollwert;
 						else if (anfExt[i].stat > 0 && anaInp[i].mwSkal.stat > 0)
@@ -82,7 +82,9 @@ void Steuer(void)
 							wpd[WP1].Status_SW_AE_aktiv = 0;
 							}
 					
-		/*---------------ENDE W‰rmepumpen Sollwert Steuerung------------ */	
+				// ‹bergabe des eingehenden Sollwert, wird in SteuerWPU ausgewertet
+					wpd[WP1].Eingehender_Sollwert = maxAnf;
+				/*---------------ENDE  EINGEHENDER W‰rmepumpen Sollwert Steuerung------------ */	
 	
 				
 	#if WWANZ > 0	
@@ -117,17 +119,8 @@ void Steuer(void)
 		#endif	
 	#endif
 	
-	maxAnford = maxAnf;
-	
-	#if ANFORD == 1
-	if ( maxAnford < TmanfSkalMin )
-		TMANF[0]->awert = 0;
-	else if ( maxAnford > TmanfSkalMax )	
-		TMANF[0]->awert = TmanfSkalMaxSpg;
-	else
-		TMANF[0]->awert = Gerade_YvonX ( maxAnford, TmanfSkalMin, TmanfSkalMinSpg, TmanfSkalMax, TmanfSkalMaxSpg );					
-	#endif
-	
+
+
 	/*+++++++++++++++ ged‰mpfte Auﬂenlufttemperatur +++++++++++++++++++++++*/
 	// Auswahl: gemessene TA oder Broadcast TA auf Zwischenspeicher ta kopieren
 	if(bc_vorra == 1)															// Vorrang BC

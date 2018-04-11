@@ -18,7 +18,8 @@ void SteuerWPU(void)
 
 {
 	
-	int Sollwert;			// Benutzter Sollwert (eingehender Sollwert: AE oder DM)
+	int Sollwert;						// Sollwert in Bearbeitung
+	//static int maxAnford_recent;		// ausgehender Sollwert letzter Programmaufruf
 	
 	// Betriebszustände
 	 int Betriebszustand=2; // aktueller Betriebszustand
@@ -28,6 +29,10 @@ void SteuerWPU(void)
 	static char sch_current = 0; 	// aktueller Zustand des Impuls
 	static char sch_recent = 0;  	// letzter Zustand des Impuls	
 				 char sch_Flanke	= 2;	// positive (=1) oder negative Flanke (=0) oder keine Zustandsänderung (=2)		
+	
+	
+			// Sollwertübergabe
+				Sollwert = wpd[WP1].Eingehender_Sollwert; // Eingehender_Sollwert kommt aus Steuer
 	
 	// Handbetrieb
 	if (wps[WP1].WPU_Freigabe_Haut > 0)
@@ -40,9 +45,6 @@ void SteuerWPU(void)
 	// Automatikbetrieb	
 		else
 			{
-				// Sollwertübergabe
-				Sollwert = TMANF[0]->awert;
-				
 				// Betriebszustand Quellenbegrenzung (TVQ > Minimale Quellentemperartur)
 					
 					// Status der Fühler überprüfen
@@ -137,12 +139,12 @@ void SteuerWPU(void)
 														// Speicherladeende
 															wpd[WP1].intT_Ladeende = wpd[WP1].intT_Ladebginn + 50;	
 													// Einschalten
-													if (Sollwert > 200 && TSPo_WP[WP1]->messw <= wpd[WP1].intT_Ladebginn && wpd[WP1].Status_Quellenschutz == 0)
+													if (Sollwert > 200 && TSPo_WP[WP1]->messw <= wpd[WP1].intT_Ladebginn && wpd[WP1].Status_Quellenschutz == 0 && wpd[WP1].Status_Frostschutz == 0)
 														{
 															wpd[WP1].Status_Speicherladung = 1;
 														}
 													// Ausschalten	
-													else if (Sollwert <= 200 || TSPo_WP[WP1]->messw >= wpd[WP1].intT_Ladeende || wpd[WP1].Status_Quellenschutz > 0)
+													else if (Sollwert <= 200 || TSPo_WP[WP1]->messw >= wpd[WP1].intT_Ladeende || wpd[WP1].Status_Quellenschutz > 0 || wpd[WP1].Status_Frostschutz > 0)
 														{
 															wpd[WP1].Status_Speicherladung = 0;
 														}			
@@ -193,18 +195,22 @@ void SteuerWPU(void)
 												// Betriebszustand Frostschutz
 												case 1:
 													wpd[WP1].Status_WPU_Freigabe_oZeit = 1;
+													Sollwert = wps[WP1].intPa_Speicherminimum + 50;
 													break;
 												// Betriebszustand Quellenschutz
 												case 2:
 													wpd[WP1].Status_WPU_Freigabe_oZeit = 0;
+													Sollwert = 0;
 													break;
 												// Betriebszustand Speicherladung
 												case 3:
 													wpd[WP1].Status_WPU_Freigabe_oZeit = 1;
+													Sollwert = wpd[WP1].intT_Ladeende;
 													break;
 												// Kein Betriebszustand aktiv	
 												default:
 													wpd[WP1].Status_WPU_Freigabe_oZeit = 0;
+													Sollwert = 0;
 													break; 		
 											}
 						// Mindestlauf - und Sperrzeit
@@ -212,7 +218,7 @@ void SteuerWPU(void)
 									if (neustart == 0)
 										{
 											
-										if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0) // nur wenn, Counter steht
+										if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0) // nur wenn Counter steht
 						 					{
 						 					sch_current = wpd[WP1].Status_WPU_Freigabe_oZeit;  
 													if (sch_recent == 0 && sch_current ==0)  // negative Flanke
@@ -267,9 +273,48 @@ void SteuerWPU(void)
 										if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0) 
 											{
 												DA_UNI[0]->wert = wpd[WP1].Status_WPU_Freigabe_oZeit;
-											}		
-																			
+											}
+											else if (wpd[WP1].Mindestlaufzeit_Cnt > 0)		
+												{
+													DA_UNI[0]->wert = 1;
+												}
+												else if (wpd[WP1].Sperrzeit_Cnt > 0)	
+													{
+															DA_UNI[0]->wert = 0;
+													}
+											
+						// Steuerung der Sollwertausgabe					
+								
+									
 			// Ende Automatik 	 
 			}
+			
+											//------ Steuerung SOLLWERT-----------------------------------------------//
+											if (wpd[WP1].Sperrzeit_Cnt > 0 )
+													{
+													maxAnford = 0;
+													}
+													else if (wpd[WP1].Mindestlaufzeit_Cnt > 0 && Sollwert <= maxAnford)
+														 {
+														 	;
+														 }
+														 else
+														 	{
+														 		maxAnford = Sollwert;	
+														 	}
+													
+										
+													
+										
+										if ( maxAnford < TmanfSkalMin )
+											TMANF[0]->awert = 0;
+										else if ( maxAnford > TmanfSkalMax )	
+											TMANF[0]->awert = TmanfSkalMaxSpg;
+										else
+											TMANF[0]->awert = Gerade_YvonX ( maxAnford, TmanfSkalMin, TmanfSkalMinSpg, TmanfSkalMax, TmanfSkalMaxSpg );					
+										
+										
+									//--------ENDE Ausgehender Sollwert-----------------------//											
+			
  // Ende Programm			
 }

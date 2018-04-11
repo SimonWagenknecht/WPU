@@ -660,6 +660,7 @@ typedef struct wpd{
 	  int	Sollwert_oZeit;													// Sollwert der WPU ohne Zeitlimitierung
 	  int Mindestlaufzeit_Cnt;										// Counter in Sekunden für die Mindestlaufzeit der Wärmepumpe [s]
 	  int Sperrzeit_Cnt;													// Counter in Sekunden für die Sperrzeit der Wärmepumpe [s]
+	  int Eingehender_Sollwert;										// Eingehender Sollwert: Wird in Steuer.c ausgewertet und an SteuerWPU übergeben
 }WpDynam;
 
 

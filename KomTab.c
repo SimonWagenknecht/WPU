@@ -1,4 +1,4 @@
-// Diese Datei wurde automatisch am : 10.04.2018 um 14:12:09 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Diese Datei wurde automatisch am : 11.04.2018 um 13:35:03 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
 // Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 
 #include "defins.h"
@@ -68,19 +68,19 @@ const kotab KomTab[512] =  {
 	{   1,  24},	//	 55=wp1[] {"*13:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],	 		 	 ANA_FORM, 0x81, P&kom,		E1, FUEHLER, 0},
 	{   1,  36},	//	 56=wp1[] {" 17;"," Manu Sollwert  "," HAND=1", P&wps[WP1].Para_Manu_Sollwert, US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{   1,  37},	//	 57=wp1[] {" ->;"," Sollwert       "," C    ", P&wps[WP1].T_manu_Sollwert,US_INT, 1, P&hid1,	V1, 0, 0},
-	{   1,  38},	//	 58=wp1[] {"*20:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
-	{   1,  44},	//	 59=wp1[] {"*21:"," FREIGABE WPU   ","       ", P&DA_UNI[U1],	 			   JANEIN_FORMOP, 2, P&vis,		V1, 0, 0},
-	{   1,  45},	//	 60=wp1[] {" ->;"," Mindestlaufz   "," min   ", P&wps[WP1].chPa_Mindestlaufzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{   1,  47},	//	 61=wp1[] {" ->;"," Sperrzeit      "," min   ", P&wps[WP1].chPa_Sperrzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{   1,  50},	//	 62=wp1[] {" ->;"," Manu FREIG WPU "," HAND=1", P&wps[WP1].WPU_Freigabe_Haut, US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{   1,  51},	//	 63=wp1[] {" ->:"," WPU EIN/AUS    "," EIN=1 ", P&wps[WP1].WPU_Freigabe_Hand_stellen, US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{   1,  52},	//	 64=wp1[] {"*30:"," Quellenschutz ?","       ", P&wpd[WP1].Status_Quellenschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
-	{   1,  53},	//	 65=wp1[] {" ->;"," Quellenminimum "," C    ", P&wps[WP1].intPa_Quellentemperaturminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{   1,  55},	//	 66=wp1[] {"*31:"," Frostschutz   ?","       ", P&wpd[WP1].Status_Frostschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
-	{   1,  56},	//	 67=wp1[] {" ->;"," Speicherminimum"," C    ", P&wps[WP1].intPa_Speicherminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{   1,  58},	//	 68=wp1[] {"*32:"," Speicherladung?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
-	{   1,  59},	//	 69=wp1[] {" ->;"," dT Ladung ein ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{   1,  60},	//	 70=wp1[] {" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{   1,  39},	//	 58=wp1[] {"*20:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
+	{   1,  45},	//	 59=wp1[] {"*21:"," FREIGABE WPU   ","       ", P&DA_UNI[U1],	 			   JANEIN_FORMOP, 2, P&vis,		V1, 0, 0},
+	{   1,  46},	//	 60=wp1[] {" ->;"," Mindestlaufz   "," min   ", P&wps[WP1].chPa_Mindestlaufzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{   1,  48},	//	 61=wp1[] {" ->;"," Sperrzeit      "," min   ", P&wps[WP1].chPa_Sperrzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{   1,  51},	//	 62=wp1[] {" ->;"," Manu FREIG WPU "," HAND=1", P&wps[WP1].WPU_Freigabe_Haut, US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{   1,  52},	//	 63=wp1[] {" ->:"," WPU EIN/AUS    "," EIN=1 ", P&wps[WP1].WPU_Freigabe_Hand_stellen, US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{   1,  53},	//	 64=wp1[] {"*30:"," Quellenschutz ?","       ", P&wpd[WP1].Status_Quellenschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{   1,  54},	//	 65=wp1[] {" ->;"," Quellenminimum "," C    ", P&wps[WP1].intPa_Quellentemperaturminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{   1,  56},	//	 66=wp1[] {"*31:"," Frostschutz   ?","       ", P&wpd[WP1].Status_Frostschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{   1,  57},	//	 67=wp1[] {" ->;"," Speicherminimum"," C    ", P&wps[WP1].intPa_Speicherminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{   1,  59},	//	 68=wp1[] {"*32:"," Speicherladung?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{   1,  60},	//	 69=wp1[] {" ->;"," dT Ladung ein ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{   1,  61},	//	 70=wp1[] {" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{   3,  33},	//	 71=zlt[] {"*19;"," OBJ-ORT FEHLT ?","       ", P&ort_idf,									 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
 	{   3,  34},	//	 72=zlt[] {"*20;"," STATION-ADRESSE","       ", P&StationsAdr,								 	 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{   3,  36},	//	 73=zlt[] {"021;"," MASTER -IDF    ","       ", P&Master_Idf,								 TELE_FORM, 0, P&hid1,	V1, 0, 0},
