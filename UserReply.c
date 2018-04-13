@@ -2012,17 +2012,33 @@ void Init_Laufzeiten(void)
 // Warmwasser Ladepumpe	
 #if LPU_WW1	> 0
 	wwd[WW1].puwlsta = 0;		// Ladepumpenstarts
-	bicbus ( EEPADR,	(char *)&wwd[WW1].puwlsta,	PUWLSTA1_ADR, 2, BICWR);
+	//bicbus ( EEPADR,	(char *)&wwd[WW1].puwlsta,	PUWLSTA1_ADR, 2, BICWR); Speicherplatz für WPU-Starts benutzt
 	wwd[WW1].puwlh = 0;			// Ladepumpenlaufzeit
 	bicbus ( EEPADR,	(char *)&wwd[WW1].puwlh,	PUWLH1_ADR, 2, BICWR);
 #endif
 
 #if LPU_WW2	> 0
 	wwd[WW2].puwlsta = 0;		// Ladepumpenstarts
-	bicbus ( EEPADR,	(char *)&wwd[WW2].puwlsta,	PUWLSTA1_ADR+2, 2, BICWR);
+//	bicbus ( EEPADR,	(char *)&wwd[WW2].puwlsta,	PUWLSTA1_ADR+2, 2, BICWR); Speicherplatz für WPU-Starts benutzt
 	wwd[WW2].puwlh = 0;			// Ladepumpenlaufzeit
 	bicbus ( EEPADR,	(char *)&wwd[WW2].puwlh,	PUWLH1_ADR+2, 2, BICWR);
 #endif
+
+// Wärmepumpe Sarts und Laufzeit löschen
+#if WPANZ > 0
+	//Starts
+	wpd[WP1].WPU_Starts_Freigabe = 0;
+	bicbus ( EEPADR,	(char *)&wpd[WP1].WPU_Starts_Freigabe,	WPUSTA_ADR, 2, BICWR);
+	wpd[WP1].WPU_Starts_BM = 0;
+	bicbus ( EEPADR,	(char *)&wpd[WP1].WPU_Starts_BM,	WPUSTA_ADR+2, 2, BICWR);
+	//Laufzeit
+	wpd[WP1].WPU_Freigabe_Laufzeit_h = 0;
+	bicbus ( EEPADR,	(char *)&wpd[WP1].WPU_Freigabe_Laufzeit_h,	WPULaufzeit_ADR, 2, BICWR);
+	wpd[WP1].WPU_BM_Laufzeit_h = 0;
+	bicbus ( EEPADR,	(char *)&wpd[WP1].WPU_BM_Laufzeit_h,	WPULaufzeit_ADR+2, 2, BICWR);
+#endif	
+	
+ 
 
 // Warmwasser Zirkulationspumpe	
 #if ZPU_WW1	> 0

@@ -73,6 +73,14 @@ const Pgrup wp1[] = {
 	{" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{"*->;"," Ladebeginn     "," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1,	V0, 0, 0},
 	{"*->;"," Ladeende       "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1,	V0, 0, 0},
+	// WPU-Infos
+	{"*40;"," WPU-STARTS Anf ","       ", P&wpd[WP1].WPU_Starts_Freigabe, 			US_INT, 0, P&vis,	V0, 0, 0},
+	{"*41;"," WPU-STARTS BM  ","       ", P&wpd[WP1].WPU_Starts_BM, 			US_INT, 0, P&vis,	V0, 0, 0},
+	{"*42;"," WPU-LZ Anf     "," h     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
+	{" ->;"," wpu-lz anf     "," s     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
+	{"*43;"," WPU-LZ bm      "," h     ", P&wpd[WP1].WPU_BM_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
+	{" ->;"," wpu-lz bm      "," s     ", P&wpd[WP1].WPU_BM_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
+	
 	
 	
 	

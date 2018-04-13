@@ -173,9 +173,11 @@
 
 #define KES2H_ADR						0x1020	// 2 byte, Kessellaufzeit 2.Stufe, für 8 Kessel
 
-#define PUWLSTA1_ADR				0x1030	// 2 byte		Ladepumpenstarts (2 WW)
+// #define PUWLSTA1_ADR				0x1030	// 2 byte		Ladepumpenstarts (2 WW)
+#define WPUSTA_ADR					0x1030		// 2 byte		WPU-Starts (Freigabe + BM)
 
-#define PUWLH1_ADR					0x1038	// 2 byte		Ladepumpenlaufzeit (2 WW)
+//#define PUWLH1_ADR					0x1038	// 2 byte		Ladepumpenlaufzeit (2 WW)
+#define WPULaufzeit_ADR			0x1038	// 2 byte		WPU-Laufzeit
 
 #define SOLH1_ADR						0x1040	// 2 byte		Kollektorpumpenlaufzeit
 

@@ -626,8 +626,15 @@ const bicvec bicuser1[]	=	{
 
 /*-------------------------WPU-Steuerung---------------------------------*/
 #if WPANZ > 0
+	//Parameter
 	{EEPADR,	(char	*)&wps[WP1],					WP1_ADR,				( ( WPSLENG > 64 ) ? 64 : WPSLENG )},
 	{EEPADR,	(char	*)&wps[WP1] + 64,			WP1_ADR + 64,		( ( WPSLENG > 64 ) ? WPSLENG-64 : 0 )},
+	//Starts
+	{EEPADR,	(char	*)&wpd[WP1].WPU_Starts_Freigabe	,			WPUSTA_ADR 	+0, 	2},
+	{EEPADR,	(char	*)&wpd[WP1].WPU_Starts_BM	,			WPUSTA_ADR 				+2, 	2},
+	//Laufzeit
+	{EEPADR,	(char	*)&wpd[WP1].WPU_Freigabe_Laufzeit_h	,			WPULaufzeit_ADR 	+0, 	2},
+	{EEPADR,	(char	*)&wpd[WP1].WPU_BM_Laufzeit_h	,			WPULaufzeit_ADR 				+2, 	2},
 #endif
 
 //----------------------------------------------------------------------------------------

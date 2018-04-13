@@ -29,6 +29,7 @@ void SteuerWPU(void)
 	static char sch_current = 0; 	// aktueller Zustand des Impuls
 	static char sch_recent = 0;  	// letzter Zustand des Impuls	
 				 char sch_Flanke	= 2;	// positive (=1) oder negative Flanke (=0) oder keine Zustandsänderung (=2)		
+	static char BM_recent = 0;		// letzter Zustand der Betriebsmeldung			 
 	
 	
 			// Sollwertübergabe
@@ -269,7 +270,7 @@ void SteuerWPU(void)
 														--wpd[WP1].Sperrzeit_Cnt; // Counter läuft	
 											}	
 											
-						// Steuerung der Freigabe
+						// Steuerung der Freigabe 
 										if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0) 
 											{
 												DA_UNI[0]->wert = wpd[WP1].Status_WPU_Freigabe_oZeit;
@@ -283,9 +284,45 @@ void SteuerWPU(void)
 															DA_UNI[0]->wert = 0;
 													}
 											
-						// Steuerung der Sollwertausgabe					
-								
-									
+											
+						// Zählung der Starts bzgl Freiagbe
+						if (sch_Flanke == 1)
+							{
+								++wpd[WP1].WPU_Starts_Freigabe;
+								bicbus ( EEPADR,	(char *)&wpd[WP1].WPU_Starts_Freigabe,	WPUSTA_ADR, 2, BICWR);
+							}
+							
+						// Zählung der Starts bzgl Betriebsmeldung
+							if (BM_recent == 0 && BM_UNI[U1]->bwert == 1)
+								{
+									++wpd[WP1].WPU_Starts_BM;
+									bicbus ( EEPADR,	(char *)&wpd[WP1].WPU_Starts_BM,	WPUSTA_ADR+2, 2, BICWR);
+								}
+							BM_recent = BM_UNI[U1]->bwert;
+						
+						// Laufzeit Anforderung und BM
+						// Anforderung
+							if ( DA_UNI[0]->wert == 1 )
+								{	
+									if ( ++wpd[WP1].WPU_Freigabe_Laufzeit_sec >= 3600 )
+										{	
+											wpd[WP1].WPU_Freigabe_Laufzeit_sec = 0;
+											wpd[WP1].WPU_Freigabe_Laufzeit_h++;							// Laufzeit h erhöhen
+											bicbus ( EEPADR, (char*)&wpd[WP1].WPU_Freigabe_Laufzeit_h, WPULaufzeit_ADR, 2, BICWR );
+										}
+								}
+						// BM
+							if ( BM_UNI[U1]->bwert == 1 )
+								{	
+									if ( ++wpd[WP1].WPU_BM_Laufzeit_sec >= 3600 )
+										{	
+											wpd[WP1].WPU_BM_Laufzeit_sec = 0;
+											wpd[WP1].WPU_BM_Laufzeit_h++;							// Laufzeit h erhöhen
+											bicbus ( EEPADR, (char*)&wpd[WP1].WPU_BM_Laufzeit_h, WPULaufzeit_ADR+2, 2, BICWR );
+										}
+								}
+											
+
 			// Ende Automatik 	 
 			}
 			
@@ -303,9 +340,6 @@ void SteuerWPU(void)
 														 		maxAnford = Sollwert;	
 														 	}
 													
-										
-													
-										
 										if ( maxAnford < TmanfSkalMin )
 											TMANF[0]->awert = 0;
 										else if ( maxAnford > TmanfSkalMax )	
@@ -318,3 +352,13 @@ void SteuerWPU(void)
 			
  // Ende Programm			
 }
+
+
+//-------------------------------------------------------------------------------------------------
+//										Unterprogramme
+//-------------------------------------------------------------------------------------------------
+
+//*++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/* Ermittlung der Sarts bzgl BM und Freigabe							 								                                 */
+/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+

@@ -653,14 +653,20 @@ typedef struct wpd{
 	char	Status_Frostschutz;								 			// Betriebszustand Frostschutz: Frostschutz wird aktiviert, wenn die Speichertemperatur den Grenzwert unterschreitet
 	 int	intT_Quellentemperatur_aktiv;						// Verwendete Quellentemperatur für den Quellenschutz
 	 int	intT_Speichertemperatur_aktiv;					// Verwendete Speichertemperatur für den Quellenschutz
-	 char	Status_Speicherladung;								 	// Betriebszustand Speicherladung: Speicherladeprinzip
-	  int	intT_Ladebginn;													// Ladebeginn in [°C] *10
-	  int	intT_Ladeende;													// Ladeende in [°C] *10
-	 char	Status_WPU_Freigabe_oZeit;							// Status der WPU-Freigabe ohne Zeitlimitierung
-	  int	Sollwert_oZeit;													// Sollwert der WPU ohne Zeitlimitierung
-	  int Mindestlaufzeit_Cnt;										// Counter in Sekunden für die Mindestlaufzeit der Wärmepumpe [s]
-	  int Sperrzeit_Cnt;													// Counter in Sekunden für die Sperrzeit der Wärmepumpe [s]
-	  int Eingehender_Sollwert;										// Eingehender Sollwert: Wird in Steuer.c ausgewertet und an SteuerWPU übergeben
+	char	Status_Speicherladung;								 	// Betriebszustand Speicherladung: Speicherladeprinzip
+	 int	intT_Ladebginn;													// Ladebeginn in [°C] *10
+	 int	intT_Ladeende;													// Ladeende in [°C] *10
+	char	Status_WPU_Freigabe_oZeit;							// Status der WPU-Freigabe ohne Zeitlimitierung
+	 int	Sollwert_oZeit;													// Sollwert der WPU ohne Zeitlimitierung
+	 int	Mindestlaufzeit_Cnt;										// Counter in Sekunden für die Mindestlaufzeit der Wärmepumpe [s]
+	 int	Sperrzeit_Cnt;													// Counter in Sekunden für die Sperrzeit der Wärmepumpe [s]
+	 int	Eingehender_Sollwert;										// Eingehender Sollwert: Wird in Steuer.c ausgewertet und an SteuerWPU übergeben
+	 int	WPU_Starts_BM;													// Anzahl der Starts der WPU bzgl BM
+	 int	WPU_Starts_Freigabe;										// Anzahl der Starts der WPU bzgl feiagbe
+	 int	WPU_Freigabe_Laufzeit_sec;							// WPU-Laufzeit bzgl der Freigabe in [s]
+	 int	WPU_BM_Laufzeit_sec;										// WPU-Laufzeit bzgl der BM in [s]
+	 int	WPU_Freigabe_Laufzeit_h;								// WPU-Laufzeit bzgl der Freigabe in [h]
+	 int	WPU_BM_Laufzeit_h;											// WPU-Laufzeit bzgl der BM in [h]
 }WpDynam;
 
 
