@@ -149,7 +149,7 @@
 #define	U14_STAT		0x00
 #define U14_BICB		BICB
 #define	U14_ZAEHL		166
-#define	U14_ZEITG		400/SOLMAX		// 10 Sekunden pro Solar-Kreis
+#define	U14_ZEITG		40//400/SOLMAX		// 10 Sekunden pro Solar-Kreis
 #define	U14_TASK		SteuerSol
 #else
 #define	U14_STAT		0x80					
