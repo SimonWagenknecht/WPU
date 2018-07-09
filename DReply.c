@@ -61,7 +61,10 @@ void DReply(void)
 	// Beispiel: Soll-Temperatur							(Vorlauf Max)
 	//offs = DS_Empty_RxBuf(offs, &zentrale_sollwert, US_INT);			// 2 Byte
 
-	offs = DS_Empty_RxBuf(offs, &zentrale_sollwert, US_INT);			// 2 Byte Externer Sollwert
+	//offs = DS_Empty_RxBuf(offs, &zentrale_sollwert, US_INT);			// 2 Byte Externer Sollwert
+	
+		offs = DS_Empty_RxBuf(offs, &zentrale_sollwert, US_INT);			// 2 Byte Externer Sollwert JMX
+	//	offs = DS_Empty_RxBuf(offs, &zentrale_ea, JANEIN_FORM);				// 1 Byte	Heizbedarf ?	
 	
 	
 
@@ -88,11 +91,18 @@ void DReply(void)
 	//offs = DS_Fill_TxBuf(offs, P&hkd[HK1].tvsb,	US_INT);
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	// Übergabe von BM wegen Sendeformat
+	wpd[WP1].WPU_BM_DM = BM_UNI[U1]->bwert;
+	
+	
+	offs = DS_Fill_TxBuf(offs, P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM);	// Senden der WPU-Freigabe ohne Berücksichtigung der Verzögerung bzgl der WPU-Freigabe
+	offs = DS_Fill_TxBuf(offs, P&wpd[WP1].WPU_BM_DM, JANEIN_FORM);									// Senden der WPU-BM
+	
+	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	// Letzter Arbeitsschritt: muss sein !
 	DS_TxLeng = offs;	
-	
-	
 }
 
 //***************************************************************************************************************

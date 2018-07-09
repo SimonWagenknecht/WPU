@@ -133,8 +133,11 @@ const Pgrup anl[] = {
 	// Beispiele für Datenempfang vom Master
 //{"*70:"," ZENTRALE E/A   "," 1=EIN ", P&zentrale_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
 //{"*71:"," ZENTRALE IST   "," C    ", P&zentrale_istwert,		 		ANA_FORM, 1, P&vis, 	V0, 0, 0},
-	{"*72:"," E: Sollwert    "," C    ", P&zentrale_sollwert,	 		ANA_FORM, 1, P&vis, 	V0, 0, 0},
+	{"*70;"," S: WPU-FREIGABE","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit,					   ANA_FORM, 0, P&hid1,	V0, 0, 0},	// nach JMX 
+	{"*71;"," S: WPU BM      ","       ", P&wpd[WP1].WPU_BM_DM,					   ANA_FORM, 0, P&hid1,	V0, 0, 0},									// nach JMX 
+	{"*72:"," E: Sollwert    "," C    ", P&zentrale_sollwert,	 		ANA_FORM, 1, P&vis, 	V0, 0, 0},												//  von JMX
 	{" ->:"," zentrale rxtout"," min   ", P&DS_RxTout,			 			 	 US_CHAR, 0, P&hid2,  V0, 0, 0},
+	
 	#endif
 	
 	//*************************************************************************************************
@@ -1900,7 +1903,7 @@ const Parli Pgruppe[] = {
 
 #if ZE7==1
 	#if ZE7WM == 1
- {"W07:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
+ {"WGS:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
 	#else
  {"Z07:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
 	#endif
@@ -1908,7 +1911,7 @@ const Parli Pgruppe[] = {
 
 #if ZE8==1
 	#if ZE8WM == 1
- {"W08:", ze5, sizeof(ze5) / PGLENG, P&ze_vis[5]},
+ {"WSW:", ze5, sizeof(ze5) / PGLENG, P&ze_vis[5]},
 	#else
  {"Z08:", ze5, sizeof(ze5) / PGLENG, P&ze_vis[5]},
 	#endif
@@ -1916,7 +1919,7 @@ const Parli Pgruppe[] = {
 
 #if ZE9==1
 	#if ZE9WM == 1
- {"W09:", ze6, sizeof(ze6) / PGLENG, P&ze_vis[6]},
+ {"WSP:", ze6, sizeof(ze6) / PGLENG, P&ze_vis[6]},
 	#else
  {"Z09:", ze6, sizeof(ze6) / PGLENG, P&ze_vis[6]},
 	#endif
@@ -1926,7 +1929,7 @@ const Parli Pgruppe[] = {
 	#if ZE10WM == 1
  {"W10:", ze7, sizeof(ze7) / PGLENG, P&ze_vis[7]},
 	#else
- {"Z10:", ze7, sizeof(ze7) / PGLENG, P&ze_vis[7]},
+ {"ESW:", ze7, sizeof(ze7) / PGLENG, P&ze_vis[7]},
 	#endif
 #endif
 

@@ -815,9 +815,9 @@
 #define MERKER_STD_ADR    0x70A5  // 1 Byte
 
 /***** ulsch : Diagnose *****/
-#define DIAG_PARA         0x70C0    // max. 1 Page im EEPROM
+#define DIAG_PARA         0x70C0    // max. 2 Page im EEPROM
 //#####ulsch: HA-R-0114/HB-CH
-#define DIAG2_PARA        0x7100    // max. 1 Page im EEPROM
+//#define DIAG2_PARA        0x7100    // max. 1 Page im EEPROM
 
 /***** Waermezaehler *****/
 #define SIZE_WMENG        0x80

@@ -111,7 +111,7 @@
 #define COPY_RESERV_SEND  4       // Anzahl der reservierten COPY_SEND Einträge (Komtab-Nummern) Min=1, Max=16
 #define COPY_SEND         0       // Anzahl der über Bus zu sendenden Datenelemente              Min=0, Max=COPY_RESERV_SEND,  wenn > 0: Eintrag in CopyCheck.c erforderlich
 
-#define DIAG        0             // Diagnose für Soft-Wärmezähler
+#define DIAG        1             // Diagnose für Soft-Wärmezähler
 #define ANALOG_AE   1             // Skalierung der 0-10V Eingänge, Grenzwertüberwachung, Anzahl 0..8, immer die ersten n AE_UNI ab AE_UNI1 werden skaliert
 #define WRE100      0             // WRE100 Kommandos für WRELES uund WREINIT werden unterstützt
 #define MBUSANZ     0             // Anzahl MBus-Zähler (maximal 8)
@@ -496,14 +496,14 @@
 #define ZE4         0 
 #define ZE5         0 
 #define ZE6         0 
-#define ZE7         0 
-#define ZE8         0 
-#define ZE9         0
-#define ZE10        0
+#define ZE7         1 
+#define ZE8         1 
+#define ZE9         1
+#define ZE10        1
 
-#define ZE7WM       0             // 1/0 Wärmemenge berechnen / nicht berechnen
-#define ZE8WM       0             // 1/0 Wärmemenge berechnen / nicht berechnen
-#define ZE9WM       0             // 1/0 Wärmemenge berechnen / nicht berechnen
+#define ZE7WM       1             // 1/0 Wärmemenge berechnen / nicht berechnen
+#define ZE8WM       1             // 1/0 Wärmemenge berechnen / nicht berechnen
+#define ZE9WM       1             // 1/0 Wärmemenge berechnen / nicht berechnen
 #define ZE10WM      0             // 1/0 Wärmemenge berechnen / nicht berechnen
 
 #if ( ZE7WM || ZE8WM || ZE9WM || ZE10WM )
@@ -512,9 +512,9 @@
 #define WMENG 0
 #endif
 
-#define LEIST_BER_ZE7       0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
-#define LEIST_BER_ZE8       0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
-#define LEIST_BER_ZE9       0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
+#define LEIST_BER_ZE7       1         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
+#define LEIST_BER_ZE8       1         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
+#define LEIST_BER_ZE9       1         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
 #define LEIST_BER_ZE10      0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
 
 #if ( LEIST_BER_ZE7 || LEIST_BER_ZE8 || LEIST_BER_ZE9 || LEIST_BER_ZE10 )

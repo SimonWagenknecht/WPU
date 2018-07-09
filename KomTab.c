@@ -1,4 +1,4 @@
-// Diese Datei wurde automatisch am : 11.04.2018 um 13:35:03 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Diese Datei wurde automatisch am : 26.06.2018 um 09:40:22 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
 // Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 
 #include "defins.h"
@@ -32,15 +32,15 @@ const kotab KomTab[512] =  {
 	{   0,  34},	//	 19=anl[] {" 16:"," Ta-WINTER [EIN]"," C    ", P&Tae,											US_INT, 1, P&vis,		V1, 0, 0},
 	{   0,  35},	//	 20=anl[] {" 17:"," Ta-SOMMER [AUS]"," C    ", P&Taa,											US_INT, 1, P&vis,		V1, 0, 0},
 	{   0,  36},	//	 21=anl[] {"*18:"," SOMMER ?       ","       ", P&sowi,			 					 JANEIN_FORM, 0, P&vis,		V1, 0, 0},
-	{   0, 104},	//	 22=anl[] {"*80:"," SCHALTER HAND ?","       ", P&HardHand,							 JANEIN_FORM, 0, P&vis,		V1, 0, 0},
-	{   0, 105},	//	 23=anl[] {"*81:"," R66 SCHALTER1-6","       ", P&sw_stat_info,						DYN_ASCII_FORM, 6, P&vis,		V1, 0, 0},
-	{   0, 106},	//	 24=anl[] {"*90:"," SMGRUP STANDARD","       ", P&sstm[STANDARD],			 	US_CHAR, 0, P&vis,		A1, GRUP|STANDARD, 0},
-	{   0, 107},	//	 25=anl[] {"*91:"," SMGRUP FUEHLER ","       ", P&sstm[FUEHLER],			 	US_CHAR, 0, P&vis,		A1, GRUP|FUEHLER,  0},
-	{   0, 108},	//	 26=anl[] {"*92:"," SMGRUP MODULE  ","       ", P&sstm[MODULE],			 		US_CHAR, 0, P&vis,		A1, GRUP|MODULE,   0},
-	{   0, 109},	//	 27=anl[] {"*->:"," SSTM ALARME    ","       ", P&sstm_alarme,		 	JANEIN_FORM, 0, P&vis,		V1, 0, 0},
-	{   0, 110},	//	 28=anl[] {"*->:"," SSTM AL+FUEHLER","       ", P&sstm_all,		 			JANEIN_FORM, 0, P&vis,		V1, 0, 0},
-	{   0, 111},	//	 29=anl[] {"*95:"," ANFORDERUNG MAX"," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
-	{   0, 117},	//	 30=anl[] {" 96:"," QUITTIER-TASTE "," EIN=1 ", P&quit_taste,			 				US_CHAR,  0, P&hid1,	V1, 0, 0},
+	{   0, 106},	//	 22=anl[] {"*80:"," SCHALTER HAND ?","       ", P&HardHand,							 JANEIN_FORM, 0, P&vis,		V1, 0, 0},
+	{   0, 107},	//	 23=anl[] {"*81:"," R66 SCHALTER1-6","       ", P&sw_stat_info,						DYN_ASCII_FORM, 6, P&vis,		V1, 0, 0},
+	{   0, 108},	//	 24=anl[] {"*90:"," SMGRUP STANDARD","       ", P&sstm[STANDARD],			 	US_CHAR, 0, P&vis,		A1, GRUP|STANDARD, 0},
+	{   0, 109},	//	 25=anl[] {"*91:"," SMGRUP FUEHLER ","       ", P&sstm[FUEHLER],			 	US_CHAR, 0, P&vis,		A1, GRUP|FUEHLER,  0},
+	{   0, 110},	//	 26=anl[] {"*92:"," SMGRUP MODULE  ","       ", P&sstm[MODULE],			 		US_CHAR, 0, P&vis,		A1, GRUP|MODULE,   0},
+	{   0, 111},	//	 27=anl[] {"*->:"," SSTM ALARME    ","       ", P&sstm_alarme,		 	JANEIN_FORM, 0, P&vis,		V1, 0, 0},
+	{   0, 112},	//	 28=anl[] {"*->:"," SSTM AL+FUEHLER","       ", P&sstm_all,		 			JANEIN_FORM, 0, P&vis,		V1, 0, 0},
+	{   0, 113},	//	 29=anl[] {"*95:"," ANFORDERUNG MAX"," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
+	{   0, 119},	//	 30=anl[] {" 96:"," QUITTIER-TASTE "," EIN=1 ", P&quit_taste,			 				US_CHAR,  0, P&hid1,	V1, 0, 0},
 	{   1,   0},	//	 31=wp1[] {"***:"," WAERMEPUMPE    ","       ", P&Wpmod,							ASCII_FORM, 0, P&vis,		V1},
 	{   1,   1},	//	 32=wp1[] {"*01:"," TV-WWP         "," C    ", P&TV_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{   1,   2},	//	 33=wp1[] {"*01:"," TV-WWP         "," C    ", P&TV_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
@@ -81,28 +81,28 @@ const kotab KomTab[512] =  {
 	{   1,  59},	//	 68=wp1[] {"*32:"," Speicherladung?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
 	{   1,  60},	//	 69=wp1[] {" ->;"," dT Ladung ein ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{   1,  61},	//	 70=wp1[] {" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{   3,  33},	//	 71=zlt[] {"*19;"," OBJ-ORT FEHLT ?","       ", P&ort_idf,									 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
-	{   3,  34},	//	 72=zlt[] {"*20;"," STATION-ADRESSE","       ", P&StationsAdr,								 	 US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{   3,  36},	//	 73=zlt[] {"021;"," MASTER -IDF    ","       ", P&Master_Idf,								 TELE_FORM, 0, P&hid1,	V1, 0, 0},
-	{   3,  37},	//	 74=zlt[] {"022;"," STATION-IDF    ","       ", P&Station_Idf,								 TELE_FORM, 0, P&hid1,	V1, 0, 0},
-	{   3,  38},	//	 75=zlt[] {"023;"," ALARM-IDF 1    ","       ", P&Alarm_Idf[0],							 TELE_FORM, 0, P&hid1,	V1, 0, 0},
-	{   3,  39},	//	 76=zlt[] {"024;"," ALARM-IDF 2    ","       ", P&Alarm_Idf[1],							 TELE_FORM, 0, P&hid1,	V1, 0, 0},
-	{   3,  40},	//	 77=zlt[] {"025;"," ALARM-IDF 3    ","       ", P&Alarm_Idf[2],							 TELE_FORM, 0, P&hid1,	V1, 0, 0},
-	{   3,  41},	//	 78=zlt[] {"026;"," SERVICE-IDF    ","       ", P&Service_Idf,								 TELE_FORM, 0, P&hid1,	V1, 0, 0},
-	{   3,  48},	//	 79=zlt[] {"*33;"," PIN FEHLT ?    ","       ", P&pin_fehlt,								 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
-	{   6,  67},	//	 80=sys[] {"*53;"," DAT-ERROR R38_1","       ", P&mod38[0].error,	 				 JANEIN_FORM, 0, P&r38vis[0],	E1, MODULE, 0},
-	{   6,  84},	//	 81=sys[] {"*80;"," RESET COUNTER  ","       ", P&Resetcnt,							US_INT, 0, P&hid1,	V1, 0, 0},
-	{   6,  88},	//	 82=sys[] {"*82;"," RTC-UHR ERROR  ","       ", P&rtc_error,				 JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
-	{   6,  89},	//	 83=sys[] {"*83;"," MAIN-CRASH:TASK","       ", P&noi_reanimate,			 TASK_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
-	{   6,  95},	//	 84=sys[] {" ->;"," SDM-ARCHIV-INIT","       ", P&werks_sdm_code,		  US_INT,  2, P&hid1,	V1, 0, 0},
-	{   6,  96},	//	 85=sys[] {" ->;"," SDM-DAE-INIT   "," -DAE,E", P&reset_dae,			    	  S_INT, 1, P&hid1,	V1, 0, 0},
-	{   6,  98},	//	 86=sys[] {"*->;"," FerroRAM2 FEHLT","       ", P&ferro_err,			  JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
-	{   6,  99},	//	 87=sys[] {"*->;"," SDHC-Card FEHLT","       ", P&card_err,			  JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
-	{   6, 110},	//	 88=sys[] {"*96;"," PROGRAMM-TYP   ","       ", P&Version_PTyp, 			ASCII_FORM, 0, P&hid1,	V1, 0, 0},
-	{   6, 111},	//	 89=sys[] {"*97;"," PROGR.-VERSION ","       ", P&Version_PVers,			 DATE_FORM, 0, P&hid1,	V1, 0, 0},
-	{   6, 112},	//	 90=sys[] {"*98;"," SYSTEM-VERSION ","       ", P&Version_SVers, 		 DATE_FORM, 0, P&hid1,	V1, 0, 0},
-	{   0,   0},	//	 91=Fuellbytes
-	{   0,   0},	//	 92=Fuellbytes
+	{   1,  66},	//	 71=wp1[] {"*42;"," WPU-LZ Anf     "," h     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
+	{   1,  68},	//	 72=wp1[] {"*43;"," WPU-LZ BM      "," h     ", P&wpd[WP1].WPU_BM_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
+	{   3,  33},	//	 73=zlt[] {"*19;"," OBJ-ORT FEHLT ?","       ", P&ort_idf,									 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
+	{   3,  34},	//	 74=zlt[] {"*20;"," STATION-ADRESSE","       ", P&StationsAdr,								 	 US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{   3,  36},	//	 75=zlt[] {"021;"," MASTER -IDF    ","       ", P&Master_Idf,								 TELE_FORM, 0, P&hid1,	V1, 0, 0},
+	{   3,  37},	//	 76=zlt[] {"022;"," STATION-IDF    ","       ", P&Station_Idf,								 TELE_FORM, 0, P&hid1,	V1, 0, 0},
+	{   3,  38},	//	 77=zlt[] {"023;"," ALARM-IDF 1    ","       ", P&Alarm_Idf[0],							 TELE_FORM, 0, P&hid1,	V1, 0, 0},
+	{   3,  39},	//	 78=zlt[] {"024;"," ALARM-IDF 2    ","       ", P&Alarm_Idf[1],							 TELE_FORM, 0, P&hid1,	V1, 0, 0},
+	{   3,  40},	//	 79=zlt[] {"025;"," ALARM-IDF 3    ","       ", P&Alarm_Idf[2],							 TELE_FORM, 0, P&hid1,	V1, 0, 0},
+	{   3,  41},	//	 80=zlt[] {"026;"," SERVICE-IDF    ","       ", P&Service_Idf,								 TELE_FORM, 0, P&hid1,	V1, 0, 0},
+	{   3,  48},	//	 81=zlt[] {"*33;"," PIN FEHLT ?    ","       ", P&pin_fehlt,								 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
+	{   6,  67},	//	 82=sys[] {"*53;"," DAT-ERROR R38_1","       ", P&mod38[0].error,	 				 JANEIN_FORM, 0, P&r38vis[0],	E1, MODULE, 0},
+	{   6,  84},	//	 83=sys[] {"*80;"," RESET COUNTER  ","       ", P&Resetcnt,							US_INT, 0, P&hid1,	V1, 0, 0},
+	{   6,  88},	//	 84=sys[] {"*82;"," RTC-UHR ERROR  ","       ", P&rtc_error,				 JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
+	{   6,  89},	//	 85=sys[] {"*83;"," MAIN-CRASH:TASK","       ", P&noi_reanimate,			 TASK_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
+	{   6,  95},	//	 86=sys[] {" ->;"," SDM-ARCHIV-INIT","       ", P&werks_sdm_code,		  US_INT,  2, P&hid1,	V1, 0, 0},
+	{   6,  96},	//	 87=sys[] {" ->;"," SDM-DAE-INIT   "," -DAE,E", P&reset_dae,			    	  S_INT, 1, P&hid1,	V1, 0, 0},
+	{   6,  98},	//	 88=sys[] {"*->;"," FerroRAM2 FEHLT","       ", P&ferro_err,			  JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
+	{   6,  99},	//	 89=sys[] {"*->;"," SDHC-Card FEHLT","       ", P&card_err,			  JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
+	{   6, 110},	//	 90=sys[] {"*96;"," PROGRAMM-TYP   ","       ", P&Version_PTyp, 			ASCII_FORM, 0, P&hid1,	V1, 0, 0},
+	{   6, 111},	//	 91=sys[] {"*97;"," PROGR.-VERSION ","       ", P&Version_PVers,			 DATE_FORM, 0, P&hid1,	V1, 0, 0},
+	{   6, 112},	//	 92=sys[] {"*98;"," SYSTEM-VERSION ","       ", P&Version_SVers, 		 DATE_FORM, 0, P&hid1,	V1, 0, 0},
 	{   0,   0},	//	 93=Fuellbytes
 	{   0,   0},	//	 94=Fuellbytes
 	{   0,   0},	//	 95=Fuellbytes
@@ -523,7 +523,7 @@ const kotab KomTab[512] =  {
 	{   0,   0},	//	510=Fuellbytes
 	{   0,   0},	//	511=Fuellbytes
 };
-const unsigned int KOMTAB_LENG = 91;
+const unsigned int KOMTAB_LENG = 93;
 
 // Alarmtabelle mit mindestens 7 Alarmen					
 const events Pe_Tab[] = {
@@ -557,12 +557,12 @@ const events Se_Tab[] = {
 	{DAE_YES ,  51, 0}, //  34/ 35  14=wp1[] {"*10:"," TRH-WWP        "," C    ", P&TRH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 	{DAE_YES ,  53, 0}, //  36/ 37  15=wp1[] {"*12:"," SM WWP         ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
 	{DAE_YES ,  55, 0}, //  38/ 39  16=wp1[] {"*13:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],	 		 	 ANA_FORM, 0x81, P&kom,		E1, FUEHLER, 0},
-	{DAE_YES ,  71, 0}, //  40/ 41  17=zlt[] {"*19;"," OBJ-ORT FEHLT ?","       ", P&ort_idf,									 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
-	{DAE_YES ,  79, 0}, //  42/ 43  18=zlt[] {"*33;"," PIN FEHLT ?    ","       ", P&pin_fehlt,								 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
-	{DAE_YES ,  80, 0}, //  44/ 45  19=sys[] {"*53;"," DAT-ERROR R38_1","       ", P&mod38[0].error,	 				 JANEIN_FORM, 0, P&r38vis[0],	E1, MODULE, 0},
-	{DAE_YES ,  82, 0}, //  46/ 47  20=sys[] {"*82;"," RTC-UHR ERROR  ","       ", P&rtc_error,				 JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
-	{DAE_YES ,  83, 0}, //  48/ 49  21=sys[] {"*83;"," MAIN-CRASH:TASK","       ", P&noi_reanimate,			 TASK_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
-	{DAE_YES ,  86, 0}, //  50/ 51  22=sys[] {"*->;"," FerroRAM2 FEHLT","       ", P&ferro_err,			  JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
-	{DAE_YES ,  87, 0}, //  52/ 53  23=sys[] {"*->;"," SDHC-Card FEHLT","       ", P&card_err,			  JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
+	{DAE_YES ,  73, 0}, //  40/ 41  17=zlt[] {"*19;"," OBJ-ORT FEHLT ?","       ", P&ort_idf,									 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
+	{DAE_YES ,  81, 0}, //  42/ 43  18=zlt[] {"*33;"," PIN FEHLT ?    ","       ", P&pin_fehlt,								 JANEIN_FORM, 0, P&hid1,	E1, ANZEIGE, 0},
+	{DAE_YES ,  82, 0}, //  44/ 45  19=sys[] {"*53;"," DAT-ERROR R38_1","       ", P&mod38[0].error,	 				 JANEIN_FORM, 0, P&r38vis[0],	E1, MODULE, 0},
+	{DAE_YES ,  84, 0}, //  46/ 47  20=sys[] {"*82;"," RTC-UHR ERROR  ","       ", P&rtc_error,				 JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
+	{DAE_YES ,  85, 0}, //  48/ 49  21=sys[] {"*83;"," MAIN-CRASH:TASK","       ", P&noi_reanimate,			 TASK_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
+	{DAE_YES ,  88, 0}, //  50/ 51  22=sys[] {"*->;"," FerroRAM2 FEHLT","       ", P&ferro_err,			  JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
+	{DAE_YES ,  89, 0}, //  52/ 53  23=sys[] {"*->;"," SDHC-Card FEHLT","       ", P&card_err,			  JANEIN_FORM, 0, P&hid1,	E1, EREIGNIS, 0},
 };
 const unsigned char SETAB_TABL = 23;

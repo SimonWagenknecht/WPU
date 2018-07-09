@@ -79,13 +79,13 @@ const char c_Plz       [10]         = {"         "};        //  9              =
 
 // Voreinstellung BUS-Betrieb
 const char c_Service_Idf [16]       = {"42843152       "};  // 15 
-const char c_ModulAdr               =  0;                   // 0= dummy
+const char c_ModulAdr               =  11;                   // 0= dummy
 const char c_StationsAdr            =  0;                   // 0= die Stationsadresse folgt der Moduladresse automatisch (wenn Station-Initadresse 254)
 
 // Voreinstellung Schnittstelle und Funktionen
-const char c_Mode_S1                = NULL_MODE;            // NULL_MODE = dummy,  MASTER, SLAVE
-const UINT c_Baudrate_S1            = 0;                    // 0         = dummy,  z.B. 9600
-const char c_Funktion_S1            = NULL_FU;              // NULL_FU   = dummy,  GBUS_FU, MODBUS1_FU, MBUS1_FU, GENI1_FU...siehe projdef.h
+const char c_Mode_S1                = SLAVE;            // NULL_MODE = dummy,  MASTER, SLAVE
+const UINT c_Baudrate_S1            = 9600;                    // 0         = dummy,  z.B. 9600
+const char c_Funktion_S1            = GBUS_FU;              // NULL_FU   = dummy,  GBUS_FU, MODBUS1_FU, MBUS1_FU, GENI1_FU...siehe projdef.h
 const char c_Parity_S1              = NULL_PARI;            // NULL_PARI = dummy,  NOPAR, EVEN, ODD 
 const char c_Stopbits_S1            = NULL_STOP;            // NULL_STOP = dummy,  1, 2 
 
@@ -1657,6 +1657,7 @@ const WpStandard  Wp_Standparam[] = {
 	0,	// int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
 	0,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	0,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
+	0,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
  },
   // Profil 1
  {
@@ -1672,6 +1673,7 @@ const WpStandard  Wp_Standparam[] = {
 	  0,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
 	  1,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 		1,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
+		1,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );
@@ -1981,10 +1983,10 @@ const zaehldim ze_dimsys[20 + MBUSANZ] = {
 	{0,				0,			0,			0,		0,			0,			2,			{0,1,1},	 {0},			"UNBEKANNT      ", "               "},// ZIN4
 	{0,				0,			0,			0,		0,			0,			3,			{0,1,1},	 {0},			"UNBEKANNT      ", "               "},// ZIN5
 	{0,				0,			0,			0,		0,			0,			4,			{0,1,1},	 {0},			"UNBEKANNT      ", "               "},// ZIN6
-	{0,				0,			0,			0,		0,			0,			5,			{0,1,1},	 {0},			"UNBEKANNT      ", "               "},// ZIN7
-	{0,				0,			0,			0,		0,			0,			6,			{0,1,1},	 {0},			"UNBEKANNT      ", "               "},// ZIN8
-	{0,				5,			0,			3,		0,			0,			7,			{0,1,1},	 {0},			"ELEKTRO        ", "               "},// ZIN9		// 1 Impuls = 1000 Wh (1kWh)
-	{2,				6,			0,			1,		Z_KONFIG_STICHTAG,0,8,  {1,1,1},	 {0},			"GAS            ", "               "},// ZIN10	// 1 Impuls =  100 l  (0,1m³)
+	{0,				4,			0,			6,		0,			0,			5,			{0,1,1},	 {0},			"WMZ WPU HEISSG.", "               "},// ZIN7		// 1 Impuls = 1000000 Wh (1MWh)
+	{0,				4,			0,			6,		0,			0,			6,			{0,1,1},	 {0},			"WMZ WPU-ST     ", "               "},// ZIN8		// 1 Impuls = 1000000 Wh (1MWh)
+	{0,				4,			0,			6,		0,			0,			7,			{0,1,1},	 {0},			"WMZ WPU-SP     ", "               "},// ZIN9		// 1 Impuls = 1000000 Wh (1MWh)
+	{0,				5,			0,			3,		0,			0,			8,		  {0,1,1},	 {0},			"STROM WPU      ", "               "},// ZIN10	// 1 Impuls = 1000 Wh (1kWh)
 // R37_1
 	{2, 			6,			0,			1,		0,			0,			11,			{0,1,1},	 {0},			"KALTWASSER     ", "               "},// ZIN11	// 1 Impuls =   10 l  (0,01m³)
 	{0,				0,			0,			0,		0,			0,			12,			{0,1,1},	 {0},			"UNBEKANNT      ", "               "},// ZIN12

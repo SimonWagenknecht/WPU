@@ -1,4 +1,4 @@
-// Diese Datei wurde automatisch am : 11.04.2018 um 13:35:01 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Diese Datei wurde automatisch am : 26.06.2018 um 09:40:20 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
 // Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 
 const Pgrup gpr[] = { 
@@ -155,6 +155,12 @@ const Pgrup wp1[] = {
 	{" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{"*->;"," Ladebeginn     "," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1,	V0, 0, 0},
 	{"*->;"," Ladeende       "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1,	V0, 0, 0},
+	{"*40;"," WPU-STARTS Anf ","       ", P&wpd[WP1].WPU_Starts_Freigabe, 			US_INT, 0, P&vis,	V0, 0, 0},
+	{"*41;"," WPU-STARTS BM  ","       ", P&wpd[WP1].WPU_Starts_BM, 			US_INT, 0, P&vis,	V0, 0, 0},
+	{"*42;"," WPU-LZ Anf     "," h     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
+	{" ->;"," wpu-lz anf     "," s     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
+	{"*43;"," WPU-LZ BM      "," h     ", P&wpd[WP1].WPU_BM_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
+	{" ->;"," wpu-lz bm      "," s     ", P&wpd[WP1].WPU_BM_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
 } 
 
 const Pgrup sys[] = { 
@@ -378,6 +384,8 @@ const Pgrup anl[] = {
 	{"+->:"," R38_1 TEXT IN13","       ", P&n38text[0][12],				 ASCII_FORM, 20, P&r38vis[0], V0, 0, 0},
 	{"+->:"," R38_1 EING IN14","       ", P&n38list[0][13],				EA_NAME_FORM, 0, P&r38vis[0], V0, 0, 0},
 	{"+->:"," R38_1 TEXT IN14","       ", P&n38text[0][13],				 ASCII_FORM, 20, P&r38vis[0], V0, 0, 0},
+	{"*70;"," S: WPU-FREIGABE","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit,					   ANA_FORM, 0, P&hid1,	V0, 0, 0},
+	{"*71;"," S: WPU BM      ","       ", P&wpd[WP1].WPU_BM_DM,					   ANA_FORM, 0, P&hid1,	V0, 0, 0},
 	{"*72:"," E: Sollwert    "," C    ", P&zentrale_sollwert,	 		ANA_FORM, 1, P&vis, 	V0, 0, 0},
 	{" ->:"," zentrale rxtout"," min   ", P&DS_RxTout,			 			 	 US_CHAR, 0, P&hid2,  V0, 0, 0},
 	{"*80:"," SCHALTER HAND ?","       ", P&HardHand,							 JANEIN_FORM, 0, P&vis,		V1, 0, 0},

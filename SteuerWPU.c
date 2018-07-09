@@ -25,27 +25,33 @@ void SteuerWPU(void)
 	 int Betriebszustand=2; // aktueller Betriebszustand
 	 
 	// Für den Satrt der Mindestlaufzeit und der Sperrzeit
-	static char neustart = 1;		 	// Programmstart 
+	static char NEUSTART = 1;		 	// Genereller Programmstart 
+	static char neustart = 1;		 	// Ablauf nach Programmstart 
 	static char sch_current = 0; 	// aktueller Zustand des Impuls
 	static char sch_recent = 0;  	// letzter Zustand des Impuls	
-				 char sch_Flanke	= 2;	// positive (=1) oder negative Flanke (=0) oder keine Zustandsänderung (=2)		
+	static char sch_Flanke	= 2;	// positive (=1) oder negative Flanke (=0) oder keine Zustandsänderung (=2)		
 	static char BM_recent = 0;		// letzter Zustand der Betriebsmeldung			 
 	
 	
 			// Sollwertübergabe
 				Sollwert = wpd[WP1].Eingehender_Sollwert; // Eingehender_Sollwert kommt aus Steuer
 	
+	
 	// Handbetrieb
-	if (wps[WP1].WPU_Freigabe_Haut > 0)
-		{
-			DA_UNI[U1]->wert = wps[WP1].WPU_Freigabe_Hand_stellen;
+		if (wps[WP1].WPU_Freigabe_Haut > 0)
+			{
+				DA_UNI[U1]->wert = wps[WP1].WPU_Freigabe_Hand_stellen;
 			
-			// Counter nullen
-			wpd[WP1].Mindestlaufzeit_Cnt = 0;
-		}
+				// Counter nullen
+				wpd[WP1].Mindestlaufzeit_Cnt = 0;
+			}
 	// Automatikbetrieb	
 		else
 			{
+				
+			if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0) // Nur wenn die Counter nicht aktiv sind, werden die Betriebszustände geprüft
+			  {				
+				
 				// Betriebszustand Quellenbegrenzung (TVQ > Minimale Quellentemperartur)
 					
 					// Status der Fühler überprüfen
@@ -213,14 +219,13 @@ void SteuerWPU(void)
 													wpd[WP1].Status_WPU_Freigabe_oZeit = 0;
 													Sollwert = 0;
 													break; 		
-											}
+											}				
+											
 						// Mindestlauf - und Sperrzeit
 						// Bestimmung der Flanke
 									if (neustart == 0)
 										{
 											
-										if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0) // nur wenn Counter steht
-						 					{
 						 					sch_current = wpd[WP1].Status_WPU_Freigabe_oZeit;  
 													if (sch_recent == 0 && sch_current ==0)  // negative Flanke
 														{
@@ -236,7 +241,6 @@ void SteuerWPU(void)
 																{
 																	sch_Flanke = 2; // keine Zustandsänderung bzw keine Flanke
 																}
-											}
 	
 										}	
 										else if (neustart == 1)
@@ -244,15 +248,30 @@ void SteuerWPU(void)
 													neustart = 0;
 												}		
 						 
+			  } // Ende:  Nur wenn die Counter nicht aktiv sind, werden die Betriebszustände geprüft
+				 
+						// Verzögertes Einschalten der WPU bzw. verzögerte Freigabe	ohne Retriggern
+								if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0) 
+										{
+											if (sch_Flanke == 1)
+															{
+																wpd[WP1].Verzoegerungszeit_Cnt = wps[WP1].chPa_Verzoegerung_min * 60;  // Start
+															}	
+										}
+											else if ( wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Mindestlaufzeit_Cnt == 0) 
+															{
+																--wpd[WP1].Verzoegerungszeit_Cnt; // Counter läuft																
+															}	
+						 
 						// Mindestlaufzeit der WPU ohne Retriggern
-								if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0) 
+								if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0) 
 										{
 											if (sch_Flanke == 1)
 															{
 																wpd[WP1].Mindestlaufzeit_Cnt = wps[WP1].chPa_Mindestlaufzeit_min * 60;  // Start
 															}	
 										}
-											else if ( wpd[WP1].Sperrzeit_Cnt == 0) 
+											else if ( wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0) 
 												{
 														--wpd[WP1].Mindestlaufzeit_Cnt; // Counter läuft	
 												}				
@@ -260,29 +279,33 @@ void SteuerWPU(void)
 						//	Sperrzeit der WPU ohne Retriggern
 								if ( wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Mindestlaufzeit_Cnt == 0) 
 										{ 
-													if (sch_Flanke == 0)  // negative Flanke
+											if (sch_Flanke == 0)  // negative Flanke
 														{
 															wpd[WP1].Sperrzeit_Cnt = wps[WP1].chPa_Sperrzeit_min * 60;  // Start 
 														}		
 										}
-										else if ( wpd[WP1].Mindestlaufzeit_Cnt == 0) 
+										else if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0) 
 											{
 														--wpd[WP1].Sperrzeit_Cnt; // Counter läuft	
 											}	
 											
-						// Steuerung der Freigabe 
-										if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0) 
+						// Steuerung der Freigabe in Abhängigkeit der Counter 
+										if ( wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0) 
 											{
 												DA_UNI[0]->wert = wpd[WP1].Status_WPU_Freigabe_oZeit;
 											}
-											else if (wpd[WP1].Mindestlaufzeit_Cnt > 0)		
+											else if (wpd[WP1].Verzoegerungszeit_Cnt > 0)		
 												{
-													DA_UNI[0]->wert = 1;
+													DA_UNI[0]->wert = 0;
 												}
-												else if (wpd[WP1].Sperrzeit_Cnt > 0)	
+												else if (wpd[WP1].Mindestlaufzeit_Cnt > 0)		
 													{
-															DA_UNI[0]->wert = 0;
+														DA_UNI[0]->wert = 1;
 													}
+														else if (wpd[WP1].Sperrzeit_Cnt > 0)	
+														{
+															DA_UNI[0]->wert = 0;
+														}
 											
 											
 						// Zählung der Starts bzgl Freiagbe
@@ -348,9 +371,13 @@ void SteuerWPU(void)
 											TMANF[0]->awert = Gerade_YvonX ( maxAnford, TmanfSkalMin, TmanfSkalMinSpg, TmanfSkalMax, TmanfSkalMaxSpg );					
 										
 										
-									//--------ENDE Ausgehender Sollwert-----------------------//											
+									//--------ENDE Ausgehender Sollwert-----------------------//			
+																	
+			// -------------------------------- Diagnose ----------------------------------------------------//
+			// Analysewerte zum Wärmepumpenbetrieb
 			
- // Ende Programm			
+			// Leistung und Arbeit des letzten WPU-Betriebs
+				
 }
 
 

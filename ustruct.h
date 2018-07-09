@@ -642,6 +642,7 @@ typedef struct wps{
 	 int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
 	 char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	 char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
+	 char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe 
 }WpStandard;
 #define WPSLENG sizeof(struct wps)
 
@@ -656,8 +657,9 @@ typedef struct wpd{
 	char	Status_Speicherladung;								 	// Betriebszustand Speicherladung: Speicherladeprinzip
 	 int	intT_Ladebginn;													// Ladebeginn in [°C] *10
 	 int	intT_Ladeende;													// Ladeende in [°C] *10
-	char	Status_WPU_Freigabe_oZeit;							// Status der WPU-Freigabe ohne Zeitlimitierung
+	char	Status_WPU_Freigabe_oZeit;							// Status der WPU-Freigabe ohne Berücksichtigung der Verzögerung bzgl. der WPU-Freigabe
 	 int	Sollwert_oZeit;													// Sollwert der WPU ohne Zeitlimitierung
+	 int	Verzoegerungszeit_Cnt;									// Counter in Sekunden für die Mindestlaufzeit der Wärmepumpe [s]
 	 int	Mindestlaufzeit_Cnt;										// Counter in Sekunden für die Mindestlaufzeit der Wärmepumpe [s]
 	 int	Sperrzeit_Cnt;													// Counter in Sekunden für die Sperrzeit der Wärmepumpe [s]
 	 int	Eingehender_Sollwert;										// Eingehender Sollwert: Wird in Steuer.c ausgewertet und an SteuerWPU übergeben
@@ -667,6 +669,7 @@ typedef struct wpd{
 	 int	WPU_BM_Laufzeit_sec;										// WPU-Laufzeit bzgl der BM in [s]
 	 int	WPU_Freigabe_Laufzeit_h;								// WPU-Laufzeit bzgl der Freigabe in [h]
 	 int	WPU_BM_Laufzeit_h;											// WPU-Laufzeit bzgl der BM in [h]
+	char	WPU_BM_DM;															// WPU Betriebsmeldung für den Datenmanager
 }WpDynam;
 
 
