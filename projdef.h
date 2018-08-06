@@ -86,7 +86,7 @@
 #define ANLMAX      1             // maximale Anzahl (wegen Speicherzuweisung mindestens 1)
 
 // Einstellung für Parli: anl[]
-#define TA_ANL      1             // Außentemperatur anzeigen
+#define TA_ANL      0             // Außentemperatur anzeigen
 #define TVP_ANL     0             // Primärvorlauf  anzeigen
 #define TRP_ANL     0             // Primärrücklauf anzeigen
 #define VARIPROJ    0             // 1 = variables Projekt

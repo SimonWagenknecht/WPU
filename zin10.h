@@ -73,8 +73,8 @@ const Pgrup ze7[] = { // IN10
 #if ZE10WM == 1
 	{"*02:"," WAERMEMENGE    "," kWh   ", P&wmengCtr[3].wmeng,	 US_LONG, 0,  P&vis,	V1, 0, 0},
 	{"*->:"," VOLUMEN        ","       ", P&ZE[7],			 				ZE_FORMP, 0,  P&vis,	V1, 0, 0},
-	{"*->;"," TEMP.VORLAUF   "," C    ", P&wmengCtr[3].pVl,	 ANA_FORMP, 1,  P&hid1,	V0, 0, 0},
-	{"*->;"," TEMP.RUECKLAUF "," C    ", P&wmengCtr[3].pRl,	 ANA_FORMP, 1,  P&hid1,	V0, 0, 0},
+	{"*->;"," TEMP.VL TVFWs  "," C    ", P&wmengCtr[3].pVl,	 ANA_FORMP, 1,  P&hid1,	V0, 0, 0},
+	{"*->;"," TEMP.RL TRH    "," C    ", P&wmengCtr[3].pRl,	 ANA_FORMP, 1,  P&hid1,	V0, 0, 0},
 	{" 03;"," KOMMASTELLEN   ","       ", P&ZE[7],							ZE_FORMP, 2,  P&hid1,	V0, 0, 0},
 	{" 04;"," DIMENSION      ","       ", P&ZE[7],							ZE_FORMP, 3,  P&hid1,	V0, 0, 0},
 	{" 05;"," TEILERFAKTOR   ","       ", P&ZE[7],							ZE_FORMP, 4,  P&hid1,	V0, 0, 0},

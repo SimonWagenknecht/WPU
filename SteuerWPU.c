@@ -202,7 +202,7 @@ void SteuerWPU(void)
 												// Betriebszustand Frostschutz
 												case 1:
 													wpd[WP1].Status_WPU_Freigabe_oZeit = 1;
-													Sollwert = wps[WP1].intPa_Speicherminimum + 50;
+													Sollwert = wps[WP1].intPa_Speicherminimum + 70;
 													break;
 												// Betriebszustand Quellenschutz
 												case 2:
