@@ -634,15 +634,18 @@ typedef struct wps{
 	UINT	T_manu_Sollwert; 								// Manuell vorgegebener Sollwert in [°C] *10
 	UINT	T_Sollwert_Offset; 							// Sollwertoffset in [K] *10
 	UINT	T_Ersatz_Sollwert; 							// Ersatz-Sollwert in [°C] *10
+	UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
+	UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	char	WPU_Freigabe_Haut;							// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
 	char	WPU_Freigabe_Hand_stellen;			// Steuerung der WPU-Freigabe im manuellen Betrieb
 	 int	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
 	 int	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	 int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	 int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
-	 char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
-	 char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
-	 char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe 
+	char	chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
+	char	chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
+	char	chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe 
+	// int	iPa_Verdichterstarts_h;					// erlaubte Verdichterstarts pro Stunde
 }WpStandard;
 #define WPSLENG sizeof(struct wps)
 
@@ -670,6 +673,7 @@ typedef struct wpd{
 	 int	WPU_Freigabe_Laufzeit_h;								// WPU-Laufzeit bzgl der Freigabe in [h]
 	 int	WPU_BM_Laufzeit_h;											// WPU-Laufzeit bzgl der BM in [h]
 	char	WPU_BM_DM;															// WPU Betriebsmeldung für den Datenmanager
+	// int	i_Verdichterstarts_h										// Anzahl der Verdichterstarts in der letzten Stunde	 
 }WpDynam;
 
 

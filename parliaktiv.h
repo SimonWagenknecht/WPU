@@ -1,4 +1,4 @@
-// Diese Datei wurde automatisch am : 06.08.2018 um 16:03:15 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Diese Datei wurde automatisch am : 21.08.2018 um 15:20:35 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
 // Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 
 const Pgrup gpr[] = { 
@@ -200,6 +200,15 @@ const Pgrup ze4[] = {
 	{" 88:"," sync.mon.verbr.","       ", P&ZE[4],						ZE_FORMP, 40, P&hid3,	V0, 0, 0},
 } 
 
+const Pgrup qsm[] = { 
+	{"***:"," QUITTIERBARE   ","       ", P&Stoermeld,							 ASCII_FORM, 0, P&vis,	V1, 0, 0},
+	{"*01:"," QSM VORHANDEN ?","       ", P&un_qsm,			 						JANEIN_FORM, 0, P&vis,	V1, 0, 0},
+	//**PARSER-BEGIN-qsm[]**  AUTOMATISCHE ERZEUGUNG *****
+	//**PARSER-ENDE-qsm[]**  AUTOMATISCHE ERZEUGUNG *****
+	{" 99:"," QUITTIER-TASTE "," EIN=1 ", P&quit_taste,			 						US_CHAR, 0, P&vis,	V1, 0, 0},
+	{" ->;"," QUITTIER-TASTE ","       ", P&QUITTS[0],			 			JANEIN_FORMIP, 2, P&hid4,	V0, 0, 0},
+} 
+
 const Pgrup wp1[] = { 
 	{"***:"," WAERMEPUMPE    ","       ", P&Wpmod,							ASCII_FORM, 0, P&vis,		V1},
 	{"*01:"," TV-WP          "," C    ", P&TV_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
@@ -239,7 +248,9 @@ const Pgrup wp1[] = {
 	{" 16;"," Ersatz-ANFORD. "," C    ", P&wps[WP1].T_Ersatz_Sollwert,	 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" 17;"," Manu ANFORD.   "," HAND=1", P&wps[WP1].Para_Manu_Sollwert, US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->;"," ANFORDERUNG    "," C    ", P&wps[WP1].T_manu_Sollwert,US_INT, 1, P&hid1,	V1, 0, 0},
-	{"*18:"," ANFORD.   AKTIV"," C    ", P&wpd[WP1].Eingehender_Sollwert,	S_INT, 1, P&vis, 	V0, 0, 0},
+	{"*18:"," ANFORD.   AKTIV"," C    ", P&wpd[WP1].Eingehender_Sollwert,	S_INT, 1, P&vis, 	V1, 0, 0},
+	{" ->;"," Min Anf. AKTIV "," C    ", P&wps[WP1].iPa_T_Sollwert_IN_MIN,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{" ->;"," Max Anf. AKTIV "," C    ", P&wps[WP1].iPa_T_Sollwert_IN_MAX,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{"*20:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
 	{" ->;"," TEMP.Sollw.MIN "," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MIN  "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
@@ -677,14 +688,8 @@ const Pgrup anl[] = {
 	{" 01:"," UHRZEIT        ","       ",				0,									UHR_FORM, 0, P&vis,		V1, 0, 0},
 	{" 02:"," DATUM          ","       ",				0,								DATUM_FORM, 0, P&vis,		V1, 0, 0},
 	{"*03:"," BETRIEBSSTUNDEN"," h     ", P&bst,											US_INT, 0, P&vis,		V1, 0, 0},
-	{" ->;"," leerData1      ","       ", P&LeerData[0], 									US_CHAR, 0, P&hid2,	V1, 0, 0},
-	{" ->;"," leerData2      ","       ", P&LeerData[0], 									US_CHAR, 0, P&hid2,	V1, 0, 0},
-	{" ->;"," leerData3      ","       ", P&LeerData[0], 									US_CHAR, 0, P&hid2,	V1, 0, 0},
-	{" ->;"," leerData4      ","       ", P&LeerData[0], 									US_CHAR, 0, P&hid2,	V1, 0, 0},
-	{" ->;"," leerSend1      ","       ", P&LeerSend[0], 									S_INT, 0, P&hid2,	V1, 0, 0},
-	{" ->;"," leerSend2      ","       ", P&LeerSend[0], 									S_INT, 0, P&hid2,	V1, 0, 0},
-	{" ->;"," leerSend3      ","       ", P&LeerSend[0], 									S_INT, 0, P&hid2,	V1, 0, 0},
-	{" ->;"," leerSend4      ","       ", P&LeerSend[0], 									S_INT, 0, P&hid2,	V1, 0, 0},
+	{" ->;"," leerData1      ","       ", P&LeerData[0], 									US_CHAR, 0, P&hid2,	V0, 0, 0},
+	{" ->;"," leerSend1      ","       ", P&LeerSend[0], 									S_INT, 0, P&hid2,	V0, 0, 0},
 	{" 19:"," PROJEKT-AUSWAHL","       ", P&temp_proj_typ,				   US_CHAR, 0, P&hid2,	V0, 0, 0},
 	{"+->:"," EINGANG  IN1   ","       ", P&nlist[0],					EA_NAME_FORM, 0, P&vis,		V0, 0, 0},
 	{"+->:"," TEXT     IN1   ","       ", P&ntext[0],					 ASCII_FORM, 20, P&vis,		V0, 0, 0},
@@ -767,7 +772,6 @@ const Pgrup anl[] = {
 	{" ->;"," TEMP.ANFORD.MAX"," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.ANFORD.MAX "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
-	{" 96:"," QUITTIER-TASTE "," EIN=1 ", P&quit_taste,			 				US_CHAR,  0, P&hid1,	V1, 0, 0},
 	{"*->;"," SSTM RELAIS    ","       ", P&SSTM[ANL],				 JANEIN_FORMOP, 0, P&hid4,	V0, 0, 0},
 	{" 98;"," R3X-Simulator  "," EIN=1 ", P&ea_simul,				 				 US_CHAR, 0, P&hid2,	V0, 0, 0},
 	{" 99;"," serv_count     ","       ", P&serv_cnt,									US_INT, 0, P&hid2,	V0, 0, 0},
@@ -1021,6 +1025,7 @@ const Pgrup alk[] = {
 const Parli Pgruppe[] = { 
 	{"ANL:", anl, sizeof(anl) / PGLENG, P&anl_vis},
 	{"WPU:", wp1,  sizeof(wp1) / PGLENG,  P&anl_vis},
+	{"QSM:", qsm, sizeof(qsm) / PGLENG, P&qsm_vis},
 	{"WGS:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
 	{"WSW:", ze5, sizeof(ze5) / PGLENG, P&ze_vis[5]},
 	{"WSP:", ze6, sizeof(ze6) / PGLENG, P&ze_vis[6]},

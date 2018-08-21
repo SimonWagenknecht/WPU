@@ -96,7 +96,7 @@
 #define ANF_EXT     1             // Anzahl Anforderungen externer Regler, gilt für NT und Kessel
 
 // allgemein
-#define QUIT_TASTE  0             // 1 = Quittungstaste vorhanden
+#define QUIT_TASTE  1             // 1 = Quittungstaste vorhanden
 #define FER         0             // = 1 : Ferienprogramm aktiv
 #define HEIZGRD     0             // Heizgradtage
 #define ARCHIV_ANL  1             // Archivierung mit Ferro-Ram
@@ -105,10 +105,10 @@
 // Komtab-Copy
 #define COPY_TIMEOUT      15      // Minuten beim Empfang
 
-#define COPY_RESERV_EMPF  4       // Anzahl der reservierten COPY_EMPF Einträge (Komtab-Nummern) Min=1, Max=16
+#define COPY_RESERV_EMPF  1       // Anzahl der reservierten COPY_EMPF Einträge (Komtab-Nummern) Min=1, Max=16
 #define COPY_EMPF         0       // Anzahl der über Bus zu empfangenen Datenelemente            Min=0, Max=COPY_RESERV_EMPF,  wenn > 0: Eintrag in CopyCheck.c erforderlich
 
-#define COPY_RESERV_SEND  4       // Anzahl der reservierten COPY_SEND Einträge (Komtab-Nummern) Min=1, Max=16
+#define COPY_RESERV_SEND  1       // Anzahl der reservierten COPY_SEND Einträge (Komtab-Nummern) Min=1, Max=16
 #define COPY_SEND         0       // Anzahl der über Bus zu sendenden Datenelemente              Min=0, Max=COPY_RESERV_SEND,  wenn > 0: Eintrag in CopyCheck.c erforderlich
 
 #define DIAG        1             // Diagnose für Soft-Wärmezähler

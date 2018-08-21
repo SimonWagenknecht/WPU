@@ -31,7 +31,7 @@ void SteuerWPU(void)
 	static char sch_recent = 0;  	// letzter Zustand des Impuls	
 	static char sch_Flanke	= 2;	// positive (=1) oder negative Flanke (=0) oder keine Zustandsänderung (=2)		
 	static char BM_recent = 0;		// letzter Zustand der Betriebsmeldung			 
-	
+	static char WPU_Freigabe__recent = 0;		// letzter Zustand der WPU-Freigabe	
 	
 			// Sollwertübergabe
 				Sollwert = wpd[WP1].Eingehender_Sollwert; // Eingehender_Sollwert kommt aus Steuer
@@ -306,14 +306,17 @@ void SteuerWPU(void)
 														{
 															DA_UNI[0]->wert = 0;
 														}
+								// Ende Automatik 	 
+			}						
 											
-											
-						// Zählung der Starts bzgl Freiagbe
-						if (sch_Flanke == 1)
+						// Zählung der Starts bzgl Freiagbe im Auto- und Handbetrieb
+						if (WPU_Freigabe__recent == 0 && 	DA_UNI[0]->wert == 1	)
 							{
 								++wpd[WP1].WPU_Starts_Freigabe;
 								bicbus ( EEPADR,	(char *)&wpd[WP1].WPU_Starts_Freigabe,	WPUSTA_ADR, 2, BICWR);
 							}
+							
+							WPU_Freigabe__recent = DA_UNI[0]->wert;
 							
 						// Zählung der Starts bzgl Betriebsmeldung
 							if (BM_recent == 0 && BM_UNI[U1]->bwert == 1)
@@ -346,8 +349,7 @@ void SteuerWPU(void)
 								}
 											
 
-			// Ende Automatik 	 
-			}
+
 			
 											//------ Steuerung SOLLWERT-----------------------------------------------//
 											if (wpd[WP1].Sperrzeit_Cnt > 0 )

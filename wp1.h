@@ -44,8 +44,11 @@ const Pgrup wp1[] = {
 	// Manuelle Sollwertvorgabe Sollwert
 	{" 17;"," Manu ANFORD.   "," HAND=1", P&wps[WP1].Para_Manu_Sollwert, US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->;"," ANFORDERUNG    "," C    ", P&wps[WP1].T_manu_Sollwert,US_INT, 1, P&hid1,	V1, 0, 0},
+	
 	// Eingehender ausgewerteter Sollwert (wird in SteuerWPU ausgewertet)
-	{"*18:"," ANFORD.   AKTIV"," C    ", P&wpd[WP1].Eingehender_Sollwert,	S_INT, 1, P&vis, 	V0, 0, 0},
+	{"*18:"," ANFORD.   AKTIV"," C    ", P&wpd[WP1].Eingehender_Sollwert,	S_INT, 1, P&vis, 	V1, 0, 0},
+	{" ->;"," Min Anf. AKTIV "," C    ", P&wps[WP1].iPa_T_Sollwert_IN_MIN,	S_INT, 1, P&hid1,	V1, 0, 0},
+	{" ->;"," Max Anf. AKTIV "," C    ", P&wps[WP1].iPa_T_Sollwert_IN_MAX,	S_INT, 1, P&hid1,	V1, 0, 0},
 	// Ausgänge 
 	{"*20:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
 	{" ->;"," TEMP.Sollw.MIN "," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},

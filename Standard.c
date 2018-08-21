@@ -68,7 +68,7 @@ const bicvec bicuser[]	=	{
 
 #if ANFORD == 1
 	{EEPADR,	(char	*)&TmanfSkalMin,			TMANF_ADR,			2, 			0},	// 0 °C
-	{EEPADR,	(char	*)&TmanfSkalMax,			TMANF_ADR + 2,	2, 	 1000},	// 90,0 °C
+	{EEPADR,	(char	*)&TmanfSkalMax,			TMANF_ADR + 2,	2, 	  908},	// 90,8 °C
 	{EEPADR,	(char	*)&TmanfSkalMinSpg,		TMANF_ADR + 4,	2, 		  0},	// 0 °C -> 0 Volt
 	{EEPADR,	(char	*)&TmanfSkalMaxSpg,		TMANF_ADR + 6,	2, 	 1000},	// 90,0 °C -> 10,00 Volt
 #endif

@@ -81,7 +81,16 @@ void Steuer(void)
 							wpd[WP1].Status_SW_DM_aktiv = 0;
 							wpd[WP1].Status_SW_AE_aktiv = 0;
 							}
-					
+				
+				// Min/Max - Begrenzung
+				if (maxAnf< wps[WP1].iPa_T_Sollwert_IN_MIN)
+					{
+						maxAnf=wps[WP1].iPa_T_Sollwert_IN_MIN;
+					}
+				if (maxAnf> wps[WP1].iPa_T_Sollwert_IN_MAX)
+					{
+						maxAnf=wps[WP1].iPa_T_Sollwert_IN_MAX;
+					}	
 				// Übergabe des eingehenden Sollwert, wird in SteuerWPU ausgewertet
 					wpd[WP1].Eingehender_Sollwert = maxAnf;
 				/*---------------ENDE  EINGEHENDER Wärmepumpen Sollwert Steuerung------------ */	
