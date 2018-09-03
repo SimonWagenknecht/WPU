@@ -406,11 +406,6 @@
 // --------------- WPU-Regelungen --------------------------------------
 #define WPANZ       1             // projektierte Anzahl von Regelkreisen
 #define WPMAX       1             // maximale Anzahl (wegen Speicherzuweisung mindestens 1)
-#define WPU_AWP     1             // 1 = Abluftwärmepumpe angezeigt, Funktionen und Kaltstartwerte
-#define WPU_SWP     0             // 1 = Solewärmepumpe angezeigt, Funktionen und Kaltstartwerte
-#define TVST        0             // 1 = Vorlauf Speicher zur Station
-#define TRST        0             // 1 = Rückaluf Station zum Speicher
-#define TSPm        1             // 1 = Speicher Mitte
 
 // Einstellung für Parli: ke1[]
 #define SOLLWERT_KE1 0            // Sollwert-Ausgabe
@@ -502,12 +497,12 @@
 #define ZE5         0 
 #define ZE6         0 
 #define ZE7         1 
-#define ZE8         0 
+#define ZE8         1 
 #define ZE9         1
 #define ZE10        1
 
 #define ZE7WM       1             // 1/0 Wärmemenge berechnen / nicht berechnen
-#define ZE8WM       0             // 1/0 Wärmemenge berechnen / nicht berechnen
+#define ZE8WM       1             // 1/0 Wärmemenge berechnen / nicht berechnen
 #define ZE9WM       1             // 1/0 Wärmemenge berechnen / nicht berechnen
 #define ZE10WM      0             // 1/0 Wärmemenge berechnen / nicht berechnen
 
@@ -518,7 +513,7 @@
 #endif
 
 #define LEIST_BER_ZE7       1         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
-#define LEIST_BER_ZE8       0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
+#define LEIST_BER_ZE8       1         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
 #define LEIST_BER_ZE9       1         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
 #define LEIST_BER_ZE10      0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
 

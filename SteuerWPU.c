@@ -33,13 +33,6 @@ void SteuerWPU(void)
 	static char BM_recent = 0;		// letzter Zustand der Betriebsmeldung			 
 	static char WPU_Freigabe__recent = 0;		// letzter Zustand der WPU-Freigabe	
 	
-			
-		if (NEUSTART == 1)	// Beim Neustart der Software wird beim ersten durchlauf keine Funkiton ausgeführt. Hintergrund: Das verhindert das verfrühte Schalten von Ausgängen.
-		{
-			NEUSTART = 0;
-		}	
-		else		
-		{	
 			// Sollwertübergabe
 				Sollwert = wpd[WP1].Eingehender_Sollwert; // Eingehender_Sollwert kommt aus Steuer
 	
@@ -386,8 +379,7 @@ void SteuerWPU(void)
 			// Analysewerte zum Wärmepumpenbetrieb
 			
 			// Leistung und Arbeit des letzten WPU-Betriebs
-		
-		}// ENDE: NEUSTART 		
+				
 }
 
 

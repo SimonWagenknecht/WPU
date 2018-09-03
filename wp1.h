@@ -1,46 +1,36 @@
-/*------------------------------ SWP und AWP -------------------------------------------*/
+/*------------------------------ Heizkreis 1 -------------------------------------------*/
 const Pgrup wp1[] = {
-	
-	#if WPU_SWP == 1
 //-------------------
 	{"***:"," WAERMEPUMPE    ","       ", P&Wpmod,							ASCII_FORM, 0, P&vis,		V1},
   // 1 - 20 Temperaturfühler
-	{"*01:"," TV-SWP         "," C    ", P&TV_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*01:"," TV-SWP         "," C    ", P&TV_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*02:"," TR-SWP         "," C    ", P&TR_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*02:"," TR-SWP         "," C    ", P&TR_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*03:"," TSPo-SWP       "," C    ", P&TSPo_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*03:"," TSPo-SWP       "," C    ", P&TSPo_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#if TSPm > 0
-	{"*04:"," TSPm-SWP       "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*04:"," TSPm-SWP       "," C    ", P&TSPm_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#endif
-	{"*05:"," TSPu-SWP       "," C    ", P&TSPu_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*05:"," TSPu-SWP       "," C    ", P&TSPu_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#if TVST > 0
-	{"*06:"," TVST-SWP       "," C    ", P&TVST_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*06:"," TVST-SWP       "," C    ", P&TVST_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#endif
-	#if TRST > 0
-	{"*07:"," TRST-SWP       "," C    ", P&TRST_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*07:"," TRST-SWP       "," C    ", P&TRST_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#endif
-	{"*08:"," TVQ-SWP        "," C    ", P&TVQ_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*08:"," TVQ-SWP        "," C    ", P&TVQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*09:"," TRQ-SWP        "," C    ", P&TRQ_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*09:"," TRQ-SWP        "," C    ", P&TRQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*10:"," TVHG-SWP       "," C    ", P&TVH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*10:"," TVHG-SWP       "," C    ", P&TVH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*11:"," TRHG-SWP       "," C    ", P&TRH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*11:"," TRHG-SWP       "," C    ", P&TRH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*01:"," TV-WP          "," C    ", P&TV_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*01:"," TV-WP          "," C    ", P&TV_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*02:"," TR-WP          "," C    ", P&TR_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*02:"," TR-WP          "," C    ", P&TR_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*03:"," TSPo-WP        "," C    ", P&TSPo_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*03:"," TSPo-WP        "," C    ", P&TSPo_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*04:"," TSPu-WP        "," C    ", P&TSPu_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*04:"," TSPu-WP        "," C    ", P&TSPu_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*05:"," TVST-WP        "," C    ", P&TVST_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*05:"," TVST-WP        "," C    ", P&TVST_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*06:"," TRST-WP        "," C    ", P&TRST_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*06:"," TRST-WP        "," C    ", P&TRST_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*07:"," TVQ-WP         "," C    ", P&TVQ_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*07:"," TVQ-WP         "," C    ", P&TVQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*08:"," TRQ-WP         "," C    ", P&TRQ_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*08:"," TRQ-WP         "," C    ", P&TRQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*09:"," TVHG-WP        "," C    ", P&TVH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*09:"," TVHG-WP        "," C    ", P&TVH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*10:"," TRHG-WP        "," C    ", P&TRH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
+	{"*10:"," TRHG-WP        "," C    ", P&TRH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 	// Eingänge 
-	{"*20:"," BM SWP         ","       ", P&BM_UNI[U1],		 				JANEIN_FORMIP, 2, P&vis,		V1, 0, 0},
-	{"*21:"," SM SWP         ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
-	{"*22:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],						ANA_FORM, 1, P&vis,		V1, 0, 0},      
-	{"*23:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],	 		 	 ANA_FORM, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*11:"," BM WP          ","       ", P&BM_UNI[U1],		 				JANEIN_FORMIP, 2, P&vis,		V1, 0, 0},
+	{"*12:"," SM WP          ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
+	{"*13:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],						ANA_FORM, 1, P&vis,		V1, 0, 0},      
+	{"*13:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],	 		 	 ANA_FORM, 0x81, P&kom,		E1, FUEHLER, 0},
 	{"*->:"," ANF BUS aktiv  ","       ", P&wpd[WP1].Status_SW_DM_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
-	{"*24:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal,			 ANA_FORM, 1, P&vis,	V0, 0, 0},
-	{"*24:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal, 	  ANA_FORM, 0x81, P&kom,	V0, 0, 0},
+	{"*14:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal,			 ANA_FORM, 1, P&vis,	V0, 0, 0},
+	{"*14:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal, 	  ANA_FORM, 0x81, P&kom,	V0, 0, 0},
 	{"*->:"," ANF INP aktiv  ","       ", P&wpd[WP1].Status_SW_AE_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
 	{" ->;"," 0V ANFORD.INP  "," C    ", P&AnaInpPara[U1].Skal0,		 		S_INT, 1, P&hid1,	V0, 0, 0},	
 	{" ->;"," 10V ANFORD.INP "," C    ", P&AnaInpPara[U1].Skal10,	 		S_INT, 1, P&hid1,	V0, 0, 0},
@@ -48,150 +38,53 @@ const Pgrup wp1[] = {
 	{"*->;"," anforderung inp"," V     ", P&AE_UNI[U1],					  	ANA_FORMP, 2, P&hid2,	V0, 0, 0},
 	{"*->;"," anforderung inp"," %     ", P&anaInp[U1].mwFilt,				 US_INT, 1, P&hid2,	V0, 0, 0},	
 	// Sollwertoffset, wenn AE oder DM aktiviert
-	{" 25;"," ANFORD.  Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
+	{" 15;"," ANFORD.  Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
 	// Ersatzwert
-	{" 26;"," Ersatz-ANFORD. "," C    ", P&wps[WP1].T_Ersatz_Sollwert,	 S_INT, 1, P&hid1,	V0, 0, 0},
+	{" 16;"," Ersatz-ANFORD. "," C    ", P&wps[WP1].T_Ersatz_Sollwert,	 S_INT, 1, P&hid1,	V0, 0, 0},
 	// Manuelle Sollwertvorgabe Sollwert
-	{" 27;"," Manu ANFORD.   "," HAND=1", P&wps[WP1].Para_Manu_Sollwert, US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{" 17;"," Manu ANFORD.   "," HAND=1", P&wps[WP1].Para_Manu_Sollwert, US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->;"," ANFORDERUNG    "," C    ", P&wps[WP1].T_manu_Sollwert,US_INT, 1, P&hid1,	V1, 0, 0},
 	
 	// Eingehender ausgewerteter Sollwert (wird in SteuerWPU ausgewertet)
-	{"*28:"," ANFORD.   AKTIV"," C    ", P&wpd[WP1].Eingehender_Sollwert,	S_INT, 1, P&vis, 	V1, 0, 0},
+	{"*18:"," ANFORD.   AKTIV"," C    ", P&wpd[WP1].Eingehender_Sollwert,	S_INT, 1, P&vis, 	V1, 0, 0},
 	{" ->;"," Min Anf. AKTIV "," C    ", P&wps[WP1].iPa_T_Sollwert_IN_MIN,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{" ->;"," Max Anf. AKTIV "," C    ", P&wps[WP1].iPa_T_Sollwert_IN_MAX,	S_INT, 1, P&hid1,	V1, 0, 0},
 	// Ausgänge 
-	{"*30:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
+	{"*20:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
 	{" ->;"," TEMP.Sollw.MIN "," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MIN  "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{" ->;"," TEMP.Sollw.MAX "," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MAX  "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
-	{"*31:"," FREIGABE SWP   ","       ", P&DA_UNI[U1],	 			   JANEIN_FORMOP, 2, P&vis,		V1, 0, 0},
+	{"*21:"," FREIGABE WPU   ","       ", P&DA_UNI[U1],	 			   JANEIN_FORMOP, 2, P&vis,		V1, 0, 0},
 	{" ->;"," Verzoegerungz  "," min   ", P&wps[WP1].chPa_Verzoegerung_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Verzoegerun_Cnt"," s     ", P&wpd[WP1].Verzoegerungszeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
 	{" ->;"," Mindestlaufz   "," min   ", P&wps[WP1].chPa_Mindestlaufzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Mindestlauf_Cnt"," s     ", P&wpd[WP1].Mindestlaufzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
 	{" ->;"," Sperrzeit      "," min   ", P&wps[WP1].chPa_Sperrzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Sperrzeit_Cnt  "," s     ", P&wpd[WP1].Sperrzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
-	{"*->:"," freigabe swp_qu","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
-	{" 32;"," Manu FREIG SWP "," HAND=1", P&wps[WP1].WPU_Freigabe_Haut, US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{" ->:"," SWP EIN/AUS    "," EIN=1 ", P&wps[WP1].WPU_Freigabe_Hand_stellen, US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{"*->:"," freigabe wpu_qu","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
+	{" 22;"," Manu FREIG WP  "," HAND=1", P&wps[WP1].WPU_Freigabe_Haut, US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{" ->:"," WPU EIN/AUS    "," EIN=1 ", P&wps[WP1].WPU_Freigabe_Hand_stellen, US_CHAR, 0, P&hid1,	V1, 0, 0},
 	// Betriebszustände 
-	{"*40:"," Quellenschutz ?","       ", P&wpd[WP1].Status_Quellenschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{"*30:"," Quellenschutz ?","       ", P&wpd[WP1].Status_Quellenschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
 	{" ->;"," Quellenminimum "," C    ", P&wps[WP1].intPa_Quellentemperaturminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Quellentemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
-	{"*41:"," Frostschutz   ?","       ", P&wpd[WP1].Status_Frostschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{"*31:"," Frostschutz   ?","       ", P&wpd[WP1].Status_Frostschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
 	{" ->;"," Speicherminimum"," C    ", P&wps[WP1].intPa_Speicherminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Speichertemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
-	{"*42:"," Speicherladung?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
+	{"*32:"," Speicherladung?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
 	{" ->;"," dT Ladung ein ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{"*->;"," Ladebeginn TSPo"," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1,	V0, 0, 0},
 	{"*->;"," Ladeende TSPu  "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1,	V0, 0, 0},
 	// WPU-Infos
-	{"*50;"," WPU-STARTS Anf ","       ", P&wpd[WP1].WPU_Starts_Freigabe, 			US_INT, 0, P&vis,	V0, 0, 0},
-	{"*51;"," WPU-STARTS BM  ","       ", P&wpd[WP1].WPU_Starts_BM, 			US_INT, 0, P&vis,	V0, 0, 0},
-	{"*52;"," WPU-LZ Anf     "," h     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
+	{"*40;"," WPU-STARTS Anf ","       ", P&wpd[WP1].WPU_Starts_Freigabe, 			US_INT, 0, P&vis,	V0, 0, 0},
+	{"*41;"," WPU-STARTS BM  ","       ", P&wpd[WP1].WPU_Starts_BM, 			US_INT, 0, P&vis,	V0, 0, 0},
+	{"*42;"," WPU-LZ Anf     "," h     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
 	{" ->;"," wpu-lz anf     "," s     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
-	{"*53;"," WPU-LZ BM      "," h     ", P&wpd[WP1].WPU_BM_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
+	{"*43;"," WPU-LZ BM      "," h     ", P&wpd[WP1].WPU_BM_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
 	{" ->;"," wpu-lz bm      "," s     ", P&wpd[WP1].WPU_BM_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
-	#endif
-	
-	#if WPU_AWP == 1
-//-------------------
-	{"***:"," WAERMEPUMPE    ","       ", P&Wpmod,							ASCII_FORM, 0, P&vis,		V1},
-  // 1 - 20 Temperaturfühler
-	{"*01:"," TV-AWP         "," C    ", P&TV_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*01:"," TV-AWP         "," C    ", P&TV_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*02:"," TR-AWP         "," C    ", P&TR_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*02:"," TR-AWP         "," C    ", P&TR_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*03:"," TSPo-AWP       "," C    ", P&TSPo_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*03:"," TSPo-AWP       "," C    ", P&TSPo_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#if TSPm > 0
-	{"*04:"," TSPm-AWP       "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*04:"," TSPm-AWP       "," C    ", P&TSPm_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#endif
-	{"*05:"," TSPu-AWP       "," C    ", P&TSPu_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*05:"," TSPu-AWP       "," C    ", P&TSPu_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#if TVST > 0
-	{"*06:"," TVST-AWP       "," C    ", P&TVST_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*06:"," TVST-AWP       "," C    ", P&TVST_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#endif
-	#if TRST > 0
-	{"*07:"," TRST-AWP       "," C    ", P&TRST_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*07:"," TRST-AWP       "," C    ", P&TRST_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	#endif
-	{"*08:"," TVQ-AWP        "," C    ", P&TVQ_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*08:"," TVQ-AWP        "," C    ", P&TVQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*09:"," TRQ-AWP        "," C    ", P&TRQ_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*09:"," TRQ-AWP        "," C    ", P&TRQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*10:"," TVHG-AWP       "," C    ", P&TVH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*10:"," TVHG-AWP       "," C    ", P&TVH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*11:"," TRHG-AWP       "," C    ", P&TRH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
-	{"*11:"," TRHG-AWP       "," C    ", P&TRH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
-	// Eingänge 
-	{"*20:"," BM AWP         ","       ", P&BM_UNI[U1],		 				JANEIN_FORMIP, 2, P&vis,		V1, 0, 0},
-	{"*21:"," SM AWP         ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
-	{"*22:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],						ANA_FORM, 1, P&vis,		V1, 0, 0},      
-	{"*23:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],	 		 	 ANA_FORM, 0x81, P&kom,		E1, FUEHLER, 0},
-	{"*->:"," ANF BUS aktiv  ","       ", P&wpd[WP1].Status_SW_DM_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
-	{"*24:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal,			 ANA_FORM, 1, P&vis,	V0, 0, 0},
-	{"*24:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal, 	  ANA_FORM, 0x81, P&kom,	V0, 0, 0},
-	{"*->:"," ANF INP aktiv  ","       ", P&wpd[WP1].Status_SW_AE_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
-	{" ->;"," 0V ANFORD.INP  "," C    ", P&AnaInpPara[U1].Skal0,		 		S_INT, 1, P&hid1,	V0, 0, 0},	
-	{" ->;"," 10V ANFORD.INP "," C    ", P&AnaInpPara[U1].Skal10,	 		S_INT, 1, P&hid1,	V0, 0, 0},
-	{" ->;"," gl.anford.inp  "," s     ", P&AnaInpPara[U1].ZkFilt,		 US_INT, 0, P&hid2,	V0, 0, 0},
-	{"*->;"," anforderung inp"," V     ", P&AE_UNI[U1],					  	ANA_FORMP, 2, P&hid2,	V0, 0, 0},
-	{"*->;"," anforderung inp"," %     ", P&anaInp[U1].mwFilt,				 US_INT, 1, P&hid2,	V0, 0, 0},	
-	// Sollwertoffset, wenn AE oder DM aktiviert
-	{" 25;"," ANFORD.  Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
-	// Ersatzwert
-	{" 26;"," Ersatz-ANFORD. "," C    ", P&wps[WP1].T_Ersatz_Sollwert,	 S_INT, 1, P&hid1,	V0, 0, 0},
-	// Manuelle Sollwertvorgabe Sollwert
-	{" 27;"," Manu ANFORD.   "," HAND=1", P&wps[WP1].Para_Manu_Sollwert, US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{" ->;"," ANFORDERUNG    "," C    ", P&wps[WP1].T_manu_Sollwert,US_INT, 1, P&hid1,	V1, 0, 0},
-	
-	// Eingehender ausgewerteter Sollwert (wird in SteuerWPU ausgewertet)
-	{"*28:"," ANFORD.   AKTIV"," C    ", P&wpd[WP1].Eingehender_Sollwert,	S_INT, 1, P&vis, 	V1, 0, 0},
-	{" ->;"," Min Anf. AKTIV "," C    ", P&wps[WP1].iPa_T_Sollwert_IN_MIN,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{" ->;"," Max Anf. AKTIV "," C    ", P&wps[WP1].iPa_T_Sollwert_IN_MAX,	S_INT, 1, P&hid1,	V1, 0, 0},
-	// Ausgänge 
-	{"*30:"," Sollwert AA    "," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
-	{" ->;"," TEMP.Sollw.MIN "," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},
-	{" ->;"," SPG.Sollw.MIN  "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
-	{" ->;"," TEMP.Sollw.MAX "," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
-	{" ->;"," SPG.Sollw.MAX  "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
-	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
-	{"*31:"," FREIGABE AWP   ","       ", P&DA_UNI[U1],	 			   JANEIN_FORMOP, 2, P&vis,		V1, 0, 0},
-	{" ->;"," Verzoegerungz  "," min   ", P&wps[WP1].chPa_Verzoegerung_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{" ->:"," Verzoegerun_Cnt"," s     ", P&wpd[WP1].Verzoegerungszeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
-	{" ->;"," Mindestlaufz   "," min   ", P&wps[WP1].chPa_Mindestlaufzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{" ->:"," Mindestlauf_Cnt"," s     ", P&wpd[WP1].Mindestlaufzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
-	{" ->;"," Sperrzeit      "," min   ", P&wps[WP1].chPa_Sperrzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{" ->:"," Sperrzeit_Cnt  "," s     ", P&wpd[WP1].Sperrzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
-	{"*->:"," freigabe awp_qu","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
-	{" 32;"," Manu FREIG AWP "," HAND=1", P&wps[WP1].WPU_Freigabe_Haut, US_CHAR, 0, P&hid1,	V1, 0, 0},
-	{" ->:"," AWP EIN/AUS    "," EIN=1 ", P&wps[WP1].WPU_Freigabe_Hand_stellen, US_CHAR, 0, P&hid1,	V1, 0, 0},
-	// Betriebszustände 
-	{"*40:"," Quellenschutz ?","       ", P&wpd[WP1].Status_Quellenschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
-	{" ->;"," Quellenminimum "," C    ", P&wps[WP1].intPa_Quellentemperaturminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Quellentemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
-	{"*41:"," Frostschutz   ?","       ", P&wpd[WP1].Status_Frostschutz, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
-	{" ->;"," Speicherminimum"," C    ", P&wps[WP1].intPa_Speicherminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Speichertemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
-	{"*42:"," Speicherladung?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
-	{" ->;"," dT Ladung ein ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1,	V1, 0, 0},
-	{"*->;"," Ladebeginn TSPo"," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1,	V0, 0, 0},
-	{"*->;"," Ladeende TSPu  "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1,	V0, 0, 0},
-	// WPU-Infos
-	{"*50;"," WPU-STARTS Anf ","       ", P&wpd[WP1].WPU_Starts_Freigabe, 			US_INT, 0, P&vis,	V0, 0, 0},
-	{"*51;"," WPU-STARTS BM  ","       ", P&wpd[WP1].WPU_Starts_BM, 			US_INT, 0, P&vis,	V0, 0, 0},
-	{"*52;"," WPU-LZ Anf     "," h     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
-	{" ->;"," wpu-lz anf     "," s     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
-	{"*53;"," WPU-LZ BM      "," h     ", P&wpd[WP1].WPU_BM_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
-	{" ->;"," wpu-lz bm      "," s     ", P&wpd[WP1].WPU_BM_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
-	#endif
-	
 	
 	};
+

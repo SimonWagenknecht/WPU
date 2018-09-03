@@ -362,7 +362,6 @@ extern mwsp *TVQ_WP[];		// Vorlauf Wärmepumpe quellenseitig
 extern mwsp *TRQ_WP[];		// Rücklauf Wärmepumpe quellenseitig
 extern mwsp *TVH_WP[];		// Vorlauf Heißgas
 extern mwsp *TRH_WP[];		// Rücklauf Heißgas
-extern mwsp *TSPm_WP[];		// Speicher Mitte Wärmepumpe
 
 extern mwsp **mwpadr;				// Arbeitsspeicher
 
