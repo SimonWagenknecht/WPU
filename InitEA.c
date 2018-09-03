@@ -41,7 +41,7 @@ const ea_klasse pt_name[] = {
 	{"TRSGNT1 ","TRSGNT2 ","TRSGNT3 ","TRSGNT4 "},		// 1A
 	{"TV_WP1  "},																			// 1B	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
 	{"TR_WP1  "},																			// 1C	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
-	{"TSPoWP1 "},																		// 1D	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TSPo_WP1"},																		// 1D	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
 	{"TSPu_WP1"},																		// 1E	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
 	{"TVST_WP1"},																		// 1F	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
 	{"TRST_WP1"},																		// 20	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
@@ -49,6 +49,7 @@ const ea_klasse pt_name[] = {
 	{"TRQ_WP1 "},																		// 22	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
 	{"TVH_WP1 "},																		// 23	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
 	{"TRH_WP1 "},																		// 24	// SiWa 27.02.18 - Vordefinierte Fühler für WPU
+	{"TSPm_WP1"},																		// 25	// SiWa 03.09.18 - Vordefinierte Fühler für WPU
 };
 
 const ea_klasse ae_name[] = {
@@ -258,7 +259,8 @@ void fill_dummy(void)
 		TVQ_WP[i]				= &mewe_dummy[0];			
 		TRQ_WP[i]				= &mewe_dummy[0];			
 		TVH_WP[i]				= &mewe_dummy[0];									
-		TRH_WP[i]				= &mewe_dummy[0];			
+		TRH_WP[i]				= &mewe_dummy[0];
+		TSPm_WP[i]				= &mewe_dummy[0];			
 	}	
 	
 	
@@ -701,6 +703,10 @@ char LoadPointer(char typ, char klasse, char num, char idx, char ext, char iodev
 					
 				case 0x24:
 					mwpadr = &TRH_WP[num];				// SiWa
+					break;
+		
+				case 0x25:
+					mwpadr = &TSPm_WP[num];				// SiWa
 					break;
 					
 				default:

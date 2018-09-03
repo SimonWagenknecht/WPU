@@ -363,6 +363,7 @@ mwsp *TVQ_WP[WPMAX];			// Vorlauf Wärmepumpe quellenseitig
 mwsp *TRQ_WP[WPMAX];			// Rücklauf Wärmepumpe quellenseitig
 mwsp *TVH_WP[WPMAX];			// Vorlauf Heißgas
 mwsp *TRH_WP[WPMAX];			// Rücklauf Heißgas
+mwsp *TSPm_WP[WPMAX];		// Speicher Mitte Wärmepumpe
 
 mwsp **mwpadr;						// Arbeitsspeicher
 

@@ -179,6 +179,7 @@
 					22 = 										 TRQ_WP 		1
 					23 = 										 TVH_WP 		1	
 					24 = 										 TRH_WP 		1
+					25 = 										TSPm_WP 		1	
 					...
 					
 	Klasse: 0-10V-Eingänge											reservierte Speicherplätze
@@ -442,10 +443,11 @@
 #define TSPu_WP1	0x11B4
 #define TVST_WP1	0x11B5
 #define TRST_WP1	0x11B6
-#define TVQ_WP1	0x11B7
-#define TRQ_WP1	0x11B8
-#define TVH_WP1	0x11B9
-#define TRH_WP1	0x11BA	
+#define TVQ_WP1		0x11B7
+#define TRQ_WP1		0x11B8
+#define TVH_WP1		0x11B9
+#define TRH_WP1		0x11BA
+#define TSPm_WP1	0x11BB	
 
 //-------------------------------------------
 // Analogeingänge 0-10V

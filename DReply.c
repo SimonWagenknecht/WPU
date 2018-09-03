@@ -98,6 +98,9 @@ void DReply(void)
 	
 	offs = DS_Fill_TxBuf(offs, P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM);	// Senden der WPU-Freigabe ohne Berücksichtigung der Verzögerung bzgl der WPU-Freigabe
 	offs = DS_Fill_TxBuf(offs, P&wpd[WP1].WPU_BM_DM, JANEIN_FORM);									// Senden der WPU-BM
+	#if TSPm > 0
+	offs = DS_Fill_TxBuf(offs, P&TSPm_WP[WP1], ANA_FORMP);
+	#endif
 	
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
