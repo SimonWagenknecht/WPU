@@ -133,9 +133,17 @@ const Pgrup anl[] = {
 	// Beispiele für Datenempfang vom Master
 //{"*70:"," ZENTRALE E/A   "," 1=EIN ", P&zentrale_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
 //{"*71:"," ZENTRALE IST   "," C    ", P&zentrale_istwert,		 		ANA_FORM, 1, P&vis, 	V0, 0, 0},
-	{"*70;"," S: WPU-FREIGABE","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit,					   ANA_FORM, 0, P&hid1,	V0, 0, 0},	// nach JMX 
-	{"*71;"," S: WPU BM      ","       ", P&wpd[WP1].WPU_BM_DM,					   ANA_FORM, 0, P&hid1,	V0, 0, 0},									// nach JMX 
-	{"*72:"," E: Sollwert    "," C    ", P&zentrale_sollwert,	 		ANA_FORM, 1, P&vis, 	V0, 0, 0},												//  von JMX
+	{"*70;"," S: WPU-FREIGABE","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit,					   ANA_FORM, 0, P&vis,	V0, 0, 0},	// nach JMX 
+	{"*71;"," S: WPU BM      ","       ", P&wpd[WP1].WPU_BM_DM,					   ANA_FORM, 0, P&vis,	V0, 0, 0},									// nach JMX 
+	#if TSPm > 0
+		#if WPU_SWP > 0
+		{"*72:"," S: TSPm-SWP    "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V0, 0, 0},
+		#endif
+		#if WPU_AWP > 0
+		{"*72:"," S: TSPm-AWP    "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V0, 0, 0},
+		#endif
+	#endif
+	{"*73:"," E: Sollwert    "," C    ", P&zentrale_sollwert,	 		ANA_FORM, 1, P&vis, 	V0, 0, 0},												//  von JMX
 	{" ->:"," zentrale rxtout"," min   ", P&DS_RxTout,			 			 	 US_CHAR, 0, P&hid2,  V0, 0, 0},
 	
 	#endif
@@ -1793,7 +1801,12 @@ const Parli Pgruppe[] = {
 
 //*------------------------------ Wärmepumpe - SiWa ----------------------------------------*/
 #if WPANZ > 0
- {"WPU:", wp1,  sizeof(wp1) / PGLENG,  P&anl_vis},
+	#if WPU_SWP > 0
+	 {"SWP:", wp1,  sizeof(wp1) / PGLENG,  P&anl_vis},
+	#endif 
+	#if WPU_AWP > 0
+	 {"AWP:", wp1,  sizeof(wp1) / PGLENG,  P&anl_vis},
+	#endif
 #endif
 
 #if KEANZ > 1
@@ -1903,15 +1916,25 @@ const Parli Pgruppe[] = {
 
 #if ZE7==1
 	#if ZE7WM == 1
- {"WGS:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
+			#if WPU_SWP > 0
+ 			{"WGS:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
+ 			#endif
+ 			#if WPU_AWP > 0
+ 			{"WGA:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
+ 			#endif
 	#else
- {"Z07:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
+ 		{"Z07:", ze4, sizeof(ze4) / PGLENG, P&ze_vis[4]},
 	#endif
 #endif
 
 #if ZE8==1
 	#if ZE8WM == 1
- {"WSW:", ze5, sizeof(ze5) / PGLENG, P&ze_vis[5]},
+		#if WPU_SWP > 0
+ 		{"WSW:", ze5, sizeof(ze5) / PGLENG, P&ze_vis[5]},
+ 		#endif
+ 		#if WPU_AWP > 0
+ 		{"WAW:", ze5, sizeof(ze5) / PGLENG, P&ze_vis[5]},
+ 		#endif
 	#else
  {"Z08:", ze5, sizeof(ze5) / PGLENG, P&ze_vis[5]},
 	#endif
@@ -1919,7 +1942,12 @@ const Parli Pgruppe[] = {
 
 #if ZE9==1
 	#if ZE9WM == 1
- {"WSP:", ze6, sizeof(ze6) / PGLENG, P&ze_vis[6]},
+ 		#if WPU_SWP > 0
+ 		{"WSP:", ze6, sizeof(ze6) / PGLENG, P&ze_vis[6]},
+ 		#endif
+ 		 	#if WPU_AWP > 0
+ 		{"WAP:", ze6, sizeof(ze6) / PGLENG, P&ze_vis[6]},
+ 		#endif
 	#else
  {"Z09:", ze6, sizeof(ze6) / PGLENG, P&ze_vis[6]},
 	#endif
@@ -1929,7 +1957,12 @@ const Parli Pgruppe[] = {
 	#if ZE10WM == 1
  {"W10:", ze7, sizeof(ze7) / PGLENG, P&ze_vis[7]},
 	#else
- {"ESW:", ze7, sizeof(ze7) / PGLENG, P&ze_vis[7]},
+		#if WPU_SWP > 0
+ 		{"ESW:", ze7, sizeof(ze7) / PGLENG, P&ze_vis[7]},
+		#endif
+		#if WPU_AWP > 0
+ 		{"EAW:", ze7, sizeof(ze7) / PGLENG, P&ze_vis[7]},
+		#endif
 	#endif
 #endif
 

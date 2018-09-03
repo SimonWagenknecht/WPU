@@ -288,8 +288,9 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
 //#define VERS_DATUM  {18,3,9}	 //	SiWa: Temperaturfühler angelegt und BM, SM und Anforderung/Freigabe, Sammelstörung über UNIs implementiert, parli WPU hinzugefügt
 //#define VERS_DATUM  {18,4,4}	 //	SiWa: Manuelle Ansteuerung der WPU via AA und Betriebszustand Quellenschutz
 //#define VERS_DATUM  {18,4,10}	 //	SiWa: Betriebszustand Speicherprinzip und Frostschutz, Mindestlauf- und Sperrzeit für WPU-Freigabe (DA)
-#define VERS_DATUM  {18,8,21}		 // SiWa: Werkseinstellungen angepasst, QSM hinzugefügt, Funktion: Min Max-Begrenzung bei eingehenden Sollwert hinzugefügt. Zählen der WPU Freigabe auf Ausgang bezogen
-//                               
+//#define VERS_DATUM  {18,8,21}	 // SiWa: Werkseinstellungen angepasst, QSM hinzugefügt, Funktion: Min Max-Begrenzung bei eingehenden Sollwert hinzugefügt. Zählen der WPU Freigabe auf Ausgang bezogen
+	#define VERS_DATUM  {18,9,3}	 // SiWa:	Neue Software-Version: WP_1_000_20000, Unterscheidung zwischen Abluftwärmepumpen- und Solewärmepumpensoftware in Parli und SteuerWPU
+                              	 //				Keine Ausführung von void SteuerWPU nach Neustart	 
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
 /*--------------------------------------------------------------------------------*/
@@ -377,7 +378,7 @@ const Anlage Projekte[] = {
 	{	
 	 // Typ und Version
 	 //"??-R-????-?????"			//Kennzeichen an fester Position !!	
-		{"WP-1-000-100000"},		//genau 15 ASCII-Zeichen
+		{"WP-1-000-200000"},		//genau 15 ASCII-Zeichen
 		VERS_DATUM,	           		//Jahr, Monat, Tag
 		// Kategoriebezeichnung für variable Projekte
 		{"TEST PROJEKT   "},
@@ -390,8 +391,8 @@ const Anlage Projekte[] = {
 					// 0 = nicht vorhanden
 					
 					// Steuercode für Wärmepumpe
-		{1},	// Nummern der Kaltstartparametersätze für jede WPU-Steuerung [WP_PROFILE]
-					// 0 = nicht vorhanden
+		{2},	// Nummern der Kaltstartparametersätze für jede WPU-Steuerung [WP_PROFILE]
+					// 0 = nicht vorhanden, 1 = SWP, 2 = AWP
 					
 		// Steuercode für Warmwasser
 		{0},	// Nummern der Kaltstartparametersätze für jeden WWkreis [WW_PROFILE]
@@ -535,7 +536,7 @@ const Anl38 R38_Beleg[] = {
 		TRQ_WP1,		// Rücklauf Wärmepumpe quellenseitig TRQ-WWP	// Pt1000 Eingang IN8
 		TVH_WP1,		// Vorlauf Heißgas					         TVH-WWP	// Pt1000 Eingang IN9
 		TRH_WP1,		// Rücklauf Heißgas					         TRH-WWP	// Pt1000 Eingang IN10
-		TP_FREI,		// 																						// Pt1000 Eingang IN11
+		TSPm_WP1,		// Speicher Mitte Wärmepumpe 				 TSPm-WWP // Pt1000 Eingang IN11
 		TP_FREI,		// 										  											// Pt1000 Eingang IN12
 		TP_FREI,		//																						// Pt1000 Eingang IN13
 		TP_FREI,		//																						// Pt1000 Eingang IN14
@@ -1662,7 +1663,7 @@ const WpStandard  Wp_Standparam[] = {
 	0,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 	0,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
  },
-  // Profil 1
+  // Profil 1 Solewärmepumpe
  {
  	0,		//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
 	500,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
@@ -1679,6 +1680,24 @@ const WpStandard  Wp_Standparam[] = {
 	 15,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	 	5,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 		2,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
+ },
+   // Profil 2 Abluftwärmepumpe
+ {
+ 	0,		//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
+	500,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
+	30,		//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+	  0,	//UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
+	600,	//UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten maximalen Wert [°C] *10
+		0,	//char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+	  0,	//char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	  0,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
+	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
+		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
+	-30,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	 15,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
+	 	5,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
+		0,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );
@@ -1991,7 +2010,7 @@ const zaehldim ze_dimsys[20 + MBUSANZ] = {
 	{3,				6,			0,			0,		0,			0,			5,			{0,1,1},	 {0},			"WMZ WPU HEISSG.", "               "},// ZIN7		// 1 Impuls = 1000000 Wh (1MWh)
 	{2,				6,			0,			1,		0,			0,			6,			{0,1,1},	 {0},			"WMZ WPU-ST     ", "               "},// ZIN8		// 1 Impuls = 1000000 Wh (1MWh)
 	{2,				6,			0,			1,		0,			0,			7,			{0,1,1},	 {0},			"WMZ WPU-SP     ", "               "},// ZIN9		// 1 Impuls = 1000000 Wh (1MWh)
-	{0,				5,			0,			1,		0,			0,			8,		  {0,1,1},	 {0},			"STROM WPU      ", "               "},// ZIN10	// 1 Impuls = 1000 Wh (1kWh)
+	{0,				5,			0,			0,		0,			0,			8,		  {0,1,1},	 {0},			"STROM WPU      ", "               "},// ZIN10	// 1 Impuls = 1000 Wh (1kWh)
 // R37_1
 	{2, 			6,			0,			1,		0,			0,			11,			{0,1,1},	 {0},			"KALTWASSER     ", "               "},// ZIN11	// 1 Impuls =   10 l  (0,01m³)
 	{0,				0,			0,			0,		0,			0,			12,			{0,1,1},	 {0},			"UNBEKANNT      ", "               "},// ZIN12
