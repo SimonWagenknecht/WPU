@@ -290,7 +290,8 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
 //#define VERS_DATUM  {18,4,10}	 //	SiWa: Betriebszustand Speicherprinzip und Frostschutz, Mindestlauf- und Sperrzeit für WPU-Freigabe (DA)
 //#define VERS_DATUM  {18,8,21}	 // SiWa: Werkseinstellungen angepasst, QSM hinzugefügt, Funktion: Min Max-Begrenzung bei eingehenden Sollwert hinzugefügt. Zählen der WPU Freigabe auf Ausgang bezogen
 	#define VERS_DATUM  {18,9,3}	 // SiWa:	Neue Software-Version: WP_1_000_200000, Unterscheidung zwischen Abluftwärmepumpen- und Solewärmepumpensoftware in Parli und SteuerWPU
-                              	 //				Keine Ausführung von void SteuerWPU nach Neustart	 
+                              	 //				Keine Ausführung von void SteuerWPU nach Neustart	
+                              	 // 			Mit diesem Stand kann die Abluftwärmepumpe im Projekt Erkner betrieben werden 
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
 /*--------------------------------------------------------------------------------*/
