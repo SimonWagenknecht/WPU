@@ -289,8 +289,12 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
 //#define VERS_DATUM  {18,4,4}	 //	SiWa: Manuelle Ansteuerung der WPU via AA und Betriebszustand Quellenschutz
 //#define VERS_DATUM  {18,4,10}	 //	SiWa: Betriebszustand Speicherprinzip und Frostschutz, Mindestlauf- und Sperrzeit für WPU-Freigabe (DA)
 //#define VERS_DATUM  {18,8,21}	 // SiWa: Werkseinstellungen angepasst, QSM hinzugefügt, Funktion: Min Max-Begrenzung bei eingehenden Sollwert hinzugefügt. Zählen der WPU Freigabe auf Ausgang bezogen
-	#define VERS_DATUM  {18,9,3}	 // SiWa:	Neue Software-Version: WP_1_000_200000, Unterscheidung zwischen Abluftwärmepumpen- und Solewärmepumpensoftware in Parli und SteuerWPU
-                              	 //				Keine Ausführung von void SteuerWPU nach Neustart	 
+//#define VERS_DATUM  {18,9,3}	 // SiWa:	Neue Software-Version: WP_1_000_200000, Unterscheidung zwischen Abluftwärmepumpen- und Solewärmepumpensoftware in Parli und SteuerWPU
+                              	 //				Keine Ausführung von void SteuerWPU nach Neustart	
+                              	 // 			Mit diesem Stand kann die Abluftwärmepumpe im Projekt Erkner betrieben werden 
+#define VERS_DATUM  {18,9,4}	 	 // SiWa: Neue Hydraulik: WPU, Speicher und Heizkreis sind in Reihe geschaltet, WPU fungiert zur Spitzenlast-Unterstützung bei der WW
+																 // 			Heizkreis
+																 //				Steuerung der WPU via Mod-Bus
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
 /*--------------------------------------------------------------------------------*/
@@ -384,14 +388,14 @@ const Anlage Projekte[] = {
 		{"TEST PROJEKT   "},
 		
 		// Steuercode für Heizkreise
-		{0},	// Nummern der Kaltstartparametersätze für jeden Heizkreis [HK_PROFILE]
+		{1},	// Nummern der Kaltstartparametersätze für jeden Heizkreis [HK_PROFILE]
 					// 0 = Heizkreis nicht vorhanden
 		
-		{0},	// Nummern der Absenkprofile für jeden Heizkreis [ABS_PROFILE]
+		{1},	// Nummern der Absenkprofile für jeden Heizkreis [ABS_PROFILE]
 					// 0 = nicht vorhanden
 					
 					// Steuercode für Wärmepumpe
-		{2},	// Nummern der Kaltstartparametersätze für jede WPU-Steuerung [WP_PROFILE]
+		{1},	// Nummern der Kaltstartparametersätze für jede WPU-Steuerung [WP_PROFILE]
 					// 0 = nicht vorhanden, 1 = SWP, 2 = AWP
 					
 		// Steuercode für Warmwasser
@@ -420,26 +424,26 @@ const Anlage Projekte[] = {
 					
 		// Namen für Prozess Ein- und Ausgänge (Namensvereinbarung in "userdef.h")
 		// Aus den Namen werden Steuercodes generiert
-		TP_FREI,	// TP FREI														// 				Eingang IN1		Pt1000 / ----- / -------	
-		TP_FREI,	// TP FREI														// 				Eingang IN2		Pt1000 / ----- / -------	
-		BM_UNI1,	// Betriebsmeldung Wärmepumpe BM WPU	// Block  Eingang IN3		Pt1000 / 0-10V / Digital
-		SM_UNI1,	// Störmeldung Wärmepumpe 		SM WPU	// Block  Eingang IN4		Pt1000 / 0-10V / Digital
-		DE_FREI,	// DE FREI														// Block  Eingang IN5		Pt1000 / 0-10V / Digital
-		AE_UNI1,	// Externe Anforderung								// 				Eingang IN6		Pt1000 / 0-10V / Digital
-		ZIN7,			// Volumenstr.geber Heißgas		WWW			// 				Eingang IN7		Pt1000 / 0-10V / Digital
-		ZIN8,			// Volumenstr.geber Sp-St			WGW			// 				Eingang IN8		Pt1000 / 0-10V / Digital
-		ZIN9,			// Volumenstr.geber WPU-Sp	 	WWS			// 				Eingang IN9		------ / 0-10V / Digital
-		ZIN10,		// Stromzähler WPU	 					ESW			// 				Eingang IN10	------ / 0-10V / Digital
+		TA1,			// Außenlufttemp							TA				// 				Eingang IN1		Pt1000 / ----- / -------	
+		TP_FREI,	// TP FREI															// 				Eingang IN2		Pt1000 / ----- / -------	
+		BM_UNI1,	// Betriebsmeldung Wärmepumpe BM WPU		// Block  Eingang IN3		Pt1000 / 0-10V / Digital
+		SM_UNI1,	// Störmeldung Wärmepumpe 		SM WPU		// Block  Eingang IN4		Pt1000 / 0-10V / Digital
+		BMPU1,		// Betriebsmeldung PU HK1			BM PU HK1	// Block  Eingang IN5		Pt1000 / 0-10V / Digital
+		AE_UNI1,	// Externe Anforderung									// 				Eingang IN6		Pt1000 / 0-10V / Digital
+		STWHK1,		// Sicherheitstemperaturw.    STW HK1		// 				Eingang IN7		Pt1000 / 0-10V / Digital
+		DE_FREI,	// FREI 																	 				Eingang IN8		Pt1000 / 0-10V / Digital
+		ZIN9,			// Volumenstr.geber WPU-Sp	 	WWS				// 				Eingang IN9		------ / 0-10V / Digital
+		ZIN10,		// Stromzähler WPU	 					ESW				// 				Eingang IN10	------ / 0-10V / Digital
 		
-		TMANF1,	// Sollwert WPU		 										// 				Analog-Ausgang  AA1
-		AA_FREI,	// AA FREI					 									// Analog-Ausgang  AA2
+		TMANF1,		// Sollwert WPU		 											// 				Analog-Ausgang  AA1
+		AA_UNI1,	// Regelungsventil SWP 									// Analog-Ausgang  AA2
 		
-		DA_UNI1,	// Freigabe/Anforderung WPU						// Digital-Ausgang DA1
-		DA_FREI,	// DA FREI														// Digital-Ausgang DA2
-		DA_FREI,	// DA FREI														// Digital-Ausgang DA3
-		DA_FREI,	// DA FREI														// Digital-Ausgang DA4
-		DA_FREI,	// DA FREI														// Digital-Ausgang DA5
-		SSTM1,		// Sammelstörung											// Digital-Ausgang DA6
+		DA_UNI1,	// Freigabe/Anforderung WPU	Heizung					// Digital-Ausgang DA1
+		DA_UNI2,	// Freigabe Anforderung WPU TWW							// Digital-Ausgang DA2
+		DA_UNI3,	// Umschaltventil Wärmepumpe				UV SWP	// Digital-Ausgang DA3
+		PU1EA,		// Pumpe Heizkreis									PU HK1	// Digital-Ausgang DA4
+		DA_FREI,	// DA FREI																	// Digital-Ausgang DA5
+		SSTM1,		// Sammelstörung														// Digital-Ausgang DA6
 		
 		// Externe Erweiterungen mit R37, R38... , siehe Liste Anl37 oder Anl38...
 		{	{  R38, 1, 1},				// Gerätekennzeichen, Gerätenummer, Nummer des Belegungsblockes
@@ -538,8 +542,8 @@ const Anl38 R38_Beleg[] = {
 		TRH_WP1,		// Rücklauf Heißgas					         TRH-WWP	// Pt1000 Eingang IN10
 		TSPm_WP1,		// Speicher Mitte Wärmepumpe 				 TSPm-WWP // Pt1000 Eingang IN11
 		TP_FREI,		// 										  											// Pt1000 Eingang IN12
-		TP_FREI,		//																						// Pt1000 Eingang IN13
-		TP_FREI,		//																						// Pt1000 Eingang IN14
+		TVS1,				// Vorlauf Heizkreis 1							 TVHK1		// Pt1000 Eingang IN13
+		TRS1,				// Rücklauf Heizkreis 1							 TRHK1		// Pt1000 Eingang IN14
 	},
 
 };
@@ -1653,8 +1657,12 @@ const WpStandard  Wp_Standparam[] = {
 	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
 	0,	//UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	0,	//UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
+	// Manuelle Steuerung der Ausgänge
 	0,  //char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
 	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	0,	//char	chpa_rv_Hau;										// Handsteuerung des Regelungsventils des Heizseitigen Volumenstroms aktivieren
+	0,	//int		ipa_rv_stellung;								// Ventilstellung des Regelungsventils des Heizseitigen Volumenstroms im Handbetrieb	[%}
+	// Parameter zu den Betriebszuständen
 	0,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
   0, 	//UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
@@ -1662,6 +1670,22 @@ const WpStandard  Wp_Standparam[] = {
 	0,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	0,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 	0,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
+	// Regelungsventil für den Volumenstrom
+	// PID
+	0,	//int		iPa_Vol_ist;			// Einstellbarer Istwert				[m³/h] * 10                                                                                                                                        
+	0,	//int		Ts;								// Tastzeit (>= 1 s)						[s] * 10                                                                             
+	0,	//UINT	Tn;								// Nachstellzeit								[s] * 10                                                                             
+	0,	//int		Kp;								// P-Verstärkung							[%/K] * 100                                                                            
+	0,	//int		Kd;								// D-Verstärkung							[%/K] * 100                                                                            
+	0,	//int		Kpk;							// P-Verstärkung Kaskade			[%/K] * 100                                                                            
+	0,	//int		Kpr;							// P-Verstärkung TRS-Begrenzg.[%/K] * 100                                                                            	                                                                                                                                             
+	0,	//int		Fzk;							// Filterzk. f. tsol						[s] * 10                                                                             	                                                                                                                                             
+	0,	//UINT	Y_rel_min;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10
+	0,//UINT	Y_rel_max;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10                                                                   
+	0,	//UINT	Y_rel_beg;				// Öffnungsbeginn des 0-10V Ventils				[%] * 10                                                                   	                                                                                                                                             
+	// Wind-Up: Begrenzung der Stellgröße des PID-Reglers auf einen gleitenden oder festen Maximalwert (anti windup)                             
+	0,	//int		Wup;									// 0 = gleitend (Produkt aus Kp * ei),  >0 = fester +/- Maximalwert  [%] * 10. ( nur positiven Wert eingeben  ) 
+	
  },
   // Profil 1 Solewärmepumpe
  {
@@ -1671,8 +1695,12 @@ const WpStandard  Wp_Standparam[] = {
 	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
 	  0,	//UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	600,	//UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten maximalen Wert [°C] *10
-		0,	//char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
-	  0,	//char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	// Manuelle Steuerung der Ausgänge
+	0,  //char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	0,	//char	chpa_rv_Hau;										// Handsteuerung des Regelungsventils des Heizseitigen Volumenstroms aktivieren
+	0,	//int		ipa_rv_stellung;								// Ventilstellung des Regelungsventils des Heizseitigen Volumenstroms im Handbetrieb	[%}
+	// Parameter zu den Betriebszuständen
 	-50,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
@@ -1680,6 +1708,21 @@ const WpStandard  Wp_Standparam[] = {
 	 15,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	 	5,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 		2,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
+			// Regelungsventil für den Volumenstrom
+	// PID
+		50,	//int		iPa_Vol_ist;			// Einstellbarer Istwert				[m³/h] * 10                                                                                                                                        
+	100,	//int		Ts;								// Tastzeit (>= 1 s)						[s] * 10                                                                             
+	400,	//UINT	Tn;								// Nachstellzeit								[s] * 10                                                                             
+	125,	//int		Kp;								// P-Verstärkung							[%/K] * 100                                                                            
+	0,	//int		Kd;								// D-Verstärkung							[%/K] * 100                                                                            
+	300,	//int		Kpk;							// P-Verstärkung Kaskade			[%/K] * 100                                                                            
+	0,	//int		Kpr;							// P-Verstärkung TRS-Begrenzg.[%/K] * 100                                                                            	                                                                                                                                             
+	600,	//int		Fzk;							// Filterzk. f. tsol						[s] * 10                                                                             	                                                                                                                                             
+	0,	//UINT	Y_rel_min;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10
+	1000,//UINT	Y_rel_max;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10                                                                   
+	0,	//UINT	Y_rel_beg;				// Öffnungsbeginn des 0-10V Ventils				[%] * 10                                                                   	                                                                                                                                             
+	// Wind-Up: Begrenzung der Stellgröße des PID-Reglers auf einen gleitenden oder festen Maximalwert (anti windup)                             
+	0,	//int		Wup;									// 0 = gleitend (Produkt aus Kp * ei),  >0 = fester +/- Maximalwert  [%] * 10. ( nur positiven Wert eingeben  ) 
  },
    // Profil 2 Abluftwärmepumpe
  {
@@ -1689,8 +1732,12 @@ const WpStandard  Wp_Standparam[] = {
 	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
 	  0,	//UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	600,	//UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten maximalen Wert [°C] *10
-		0,	//char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
-	  0,	//char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	// Manuelle Steuerung der Ausgänge
+	0,  //char	WPU_Freigabe_Haut;						// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
+	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
+	0,	//char	chpa_rv_Hau;										// Handsteuerung des Regelungsventils des Heizseitigen Volumenstroms aktivieren
+	0,	//int		ipa_rv_stellung;								// Ventilstellung des Regelungsventils des Heizseitigen Volumenstroms im Handbetrieb	[%}
+	// Parameter zu den Betriebszuständen
 	  0,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
@@ -1698,6 +1745,21 @@ const WpStandard  Wp_Standparam[] = {
 	 15,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	 	5,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 		0,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
+			// Regelungsventil für den Volumenstrom
+	// PID
+		50,	//int		iPa_Vol_ist;			// Einstellbarer Istwert				[m³/h] * 10                                                                                                                                        
+	100,	//int		Ts;								// Tastzeit (>= 1 s)						[s] * 10                                                                             
+	400,	//UINT	Tn;								// Nachstellzeit								[s] * 10                                                                             
+	125,	//int		Kp;								// P-Verstärkung							[%/K] * 100                                                                            
+	0,	//int		Kd;								// D-Verstärkung							[%/K] * 100                                                                            
+	300,	//int		Kpk;							// P-Verstärkung Kaskade			[%/K] * 100                                                                            
+	0,	//int		Kpr;							// P-Verstärkung TRS-Begrenzg.[%/K] * 100                                                                            	                                                                                                                                             
+	600,	//int		Fzk;							// Filterzk. f. tsol						[s] * 10                                                                             	                                                                                                                                             
+	0,		//UINT	Y_rel_min;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10
+	1000,//UINT	Y_rel_max;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10                                                                    
+	0,	//UINT	Y_rel_beg;				// Öffnungsbeginn des 0-10V Ventils				[%] * 10                                                                   	                                                                                                                                             
+	// Wind-Up: Begrenzung der Stellgröße des PID-Reglers auf einen gleitenden oder festen Maximalwert (anti windup)                             
+	0,	//int		Wup;									// 0 = gleitend (Produkt aus Kp * ei),  >0 = fester +/- Maximalwert  [%] * 10. ( nur positiven Wert eingeben  ) 
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );

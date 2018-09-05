@@ -179,7 +179,7 @@
 
 /*****************************************************************************************************/
 
-#define TAE_ANZ     0             // Anzahl Analogeingänge Außentemperatur, max.1 
+#define TAE_ANZ     1             // Anzahl Analogeingänge Außentemperatur, max.1 
 #define TAA_ANZ     0             // Anzahl Analogausgänge Außentemperatur, max.4
 
 #define TP_UNI_ANZ  8             // min.1 max.8 universelle Temperatureingänge definiert
@@ -201,7 +201,7 @@
 #define AE_DRUCK_ANZ	0           // min 0 max.8 Analogeingaenge
 
 // --------------- Heizkreis-Regelungen -----------------------------------
-#define HKANZ       0             // projektierte Anzahl von Heizkreisen
+#define HKANZ       1             // projektierte Anzahl von Heizkreisen
 #define HKMAX       1             // maximale Anzahl (wegen Speicherzuweisung mindestens 1)
 
 // Einstellung für Parli: hk1[]
@@ -210,15 +210,15 @@
 #define BEDARF_HK1  0             // Bedarfssteuerung durch R50.  Wenn 0, Beabs = 0 setzen 
 #define BEDRAUM_HK1 0             // Anzeige externer Raum- und Soll-Temp. vom R50 (Kaskade)
 #define DREIP_HK1   0             // 1=DreipunktAusgabe 0=Analogausgabe
-#define STW_HK1     0             // STW-ALARM
+#define STW_HK1     1             // STW-ALARM
 #define PUAL_HK1    0             // Pumpenalarm
-#define PUBM_HK1    0             // Betriebsmeldung Pumpe
+#define PUBM_HK1    1             // Betriebsmeldung Pumpe
 #define PUDO_HK1    0             // Doppelpumpe
 #define STRPU_HK1   0             // Strahlpumpe statt Ventil
 #define FRG_HK1     0             // 1 = Freigabe-Signal definiert ( RegelHk ) ( bei Lüftung ARES/PEWO/HAR0111 benutzt )
 #define SWAUS_HK1   0             // 1 = Anlagenschalter-Signal definiert (HK Nichtnutzung )
-#define PULZ_HK1    0             // Pumpenlaufzeit berechnen und anzeigen ( parli, steuer.c,)  (nicht setzen wenn über Genibus gesteuert) 
-#define FBH_HK1     0             // Fußbodenheizung mit Estrich-Programm 
+#define PULZ_HK1    1             // Pumpenlaufzeit berechnen und anzeigen ( parli, steuer.c,)  (nicht setzen wenn über Genibus gesteuert) 
+#define FBH_HK1     1             // Fußbodenheizung mit Estrich-Programm 
 #define LEIBEGR_HK1 0             // Leistungsbegrenzung (Leistungsberechnung von ext.Wärmezähler)
 #define PU_BUS_HK1  0             // ungleich 0: Pumpe busgesteuert, Wert = Parameter-Index 
 
@@ -406,11 +406,14 @@
 // --------------- WPU-Regelungen --------------------------------------
 #define WPANZ       1             // projektierte Anzahl von Regelkreisen
 #define WPMAX       1             // maximale Anzahl (wegen Speicherzuweisung mindestens 1)
-#define WPU_AWP     1             // 1 = Abluftwärmepumpe angezeigt, Funktionen und Kaltstartwerte
-#define WPU_SWP     0             // 1 = Solewärmepumpe angezeigt, Funktionen und Kaltstartwerte
+#define WPU_AWP     0             // 1 = Abluftwärmepumpe angezeigt, Funktionen und Kaltstartwerte
+#define WPU_SWP     1             // 1 = Solewärmepumpe angezeigt, Funktionen und Kaltstartwerte
 #define TVST        0             // 1 = Vorlauf Speicher zur Station
 #define TRST        0             // 1 = Rückaluf Station zum Speicher
-#define TSPm        1             // 1 = Speicher Mitte
+#define TSPm        0             // 1 = Speicher Mitte
+#define TVHG        0             // 1 = Vorlauf Heißgasauskopplung
+#define TRHG        0             // 1 = Rückaluf Heißgasaiskopplung
+#define RV_VOL			1							// 1 = Regelungsventil zur heizungseitgen Regelung des Volumenstroms
 
 // Einstellung für Parli: ke1[]
 #define SOLLWERT_KE1 0            // Sollwert-Ausgabe
@@ -501,12 +504,12 @@
 #define ZE4         0 
 #define ZE5         0 
 #define ZE6         0 
-#define ZE7         1 
+#define ZE7         0 
 #define ZE8         0 
 #define ZE9         1
 #define ZE10        1
 
-#define ZE7WM       1             // 1/0 Wärmemenge berechnen / nicht berechnen
+#define ZE7WM       0             // 1/0 Wärmemenge berechnen / nicht berechnen
 #define ZE8WM       0             // 1/0 Wärmemenge berechnen / nicht berechnen
 #define ZE9WM       1             // 1/0 Wärmemenge berechnen / nicht berechnen
 #define ZE10WM      0             // 1/0 Wärmemenge berechnen / nicht berechnen
@@ -517,7 +520,7 @@
 #define WMENG 0
 #endif
 
-#define LEIST_BER_ZE7       1         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
+#define LEIST_BER_ZE7       0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
 #define LEIST_BER_ZE8       0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
 #define LEIST_BER_ZE9       1         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)
 #define LEIST_BER_ZE10      0         // Berechnung der maximalen Durchschnittsleistung (int./ext.WMZ)

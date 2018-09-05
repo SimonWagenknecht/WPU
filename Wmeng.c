@@ -340,7 +340,7 @@ void Wmeng ( void )
 		{
 			wmengCtr[w].flow = (ULONG)(wmengCtr[w].volumen) * 36 * 5 / wmengCtr[w].zeitdiff;		
 			// flow [100l/h], Volumen [l], zeitdiff[200ms]; 1 h = 3600 * 1000 ms = 3600 * 5 * 200ms
-
+			wmengCtr[w].flow_h = (ULONG)(wmengCtr[w].volumen) * 360 * 5 / wmengCtr[w].zeitdiff;
 			// Maximaler Volumenstrom
 			if ( wmengCtr[w].flow > wmengCtr[w].flow_max )
 			{
@@ -407,11 +407,13 @@ void Wmeng ( void )
 		{
 			if ( ( wmengCtr[w].zeitdiff > wmengCtr[w].zeitdiffZuletzt * MAXZEIT ) || wmengCtr[w].zeitdiff >= TDIFF_MAX )
 			{
+				wmengCtr[w].flow_h = 0;
 				wmengCtr[w].flow = 0;
 				wmengCtr[w].wmLeistg = 0;
 			}				
 			else if ( ( wmengCtr[w].zeitdiff - wmengCtr[w].zeitdiffZuletzt ) % 10 == 0 )		// alle 2 Sek.wird die Anzeige aktualisiert (verringert)
 			{
+				wmengCtr[w].flow_h = (ULONG)(wmengCtr[w].volumen) * 360 * 5 / wmengCtr[w].zeitdiff;
 				wmengCtr[w].flow = (ULONG)(wmengCtr[w].volumen) * 36 * 5 / wmengCtr[w].zeitdiff;
 				wmengCtr[w].wmLeistg = (UINT)( wmengCtr[w].wmeng_J * 5  / wmengCtr[w].zeitdiff );
 			}								

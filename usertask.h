@@ -370,12 +370,14 @@
 #define	U28_ZEITG		40
 #define	U28_TASK		SteuerWPU
 
-//----------------- Reserve --------------------------------------------------------------
-#define	U29_STAT		0x80					
+#if RV_VOL > 0
+//----------------- Regelung des Volumenstrom der WPU --------------------------------------------------------------
+#define	U29_STAT		0x00					
 #define U29_BICB		NOIC
-#define	U29_ZAEHL		4
-#define	U29_ZEITG		4
-#define	U29_TASK		Leer
+#define	U29_ZAEHL		40
+#define	U29_ZEITG		40
+#define	U29_TASK		RegelWPU
+#endif
 
 //------------------ letzter Task: Archivierung mit SD-Card ------------------------------
 #if ARCHIV_SDM == 1	//...........Josch-SDM : Archiv mit SD-Card-Memory

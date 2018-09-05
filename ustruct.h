@@ -636,8 +636,12 @@ typedef struct wps{
 	UINT	T_Ersatz_Sollwert; 							// Ersatz-Sollwert in [°C] *10
 	UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
+	// Manuelle Steuerung der Ausgänge 
 	char	WPU_Freigabe_Haut;							// Manueller Betrieb aktivieren zur Steuerung der WPU-Freigabe
 	char	WPU_Freigabe_Hand_stellen;			// Steuerung der WPU-Freigabe im manuellen Betrieb
+	char	chpa_rv_Hau;										// Handsteuerung des Regelungsventils des Heizseitigen Volumenstroms aktivieren
+	int		ipa_rv_stellung;								// Ventilstellung des Regelungsventils des Heizseitigen Volumenstroms im Handbetrieb	[%}
+	// Parameter zu den Betriebszuständen 
 	 int	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
 	 int	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	 int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
@@ -645,6 +649,24 @@ typedef struct wps{
 	char	chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	char	chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 	char	chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe 
+	
+	// Regelungsventil für den Volumenstrom
+	// PID
+	int		iPa_Vol_ist;			// Einstellbarer Istwert				[m³/h]                                                                                                                                         
+	int		Ts;								// Tastzeit (>= 1 s)						[s] * 10                                                                             
+	UINT	Tn;								// Nachstellzeit								[s] * 10                                                                             
+	int		Kp;								// P-Verstärkung							[%/K] * 100                                                                            
+	int		Kd;								// D-Verstärkung							[%/K] * 100                                                                            
+	int		Kpk;							// P-Verstärkung Kaskade			[%/K] * 100                                                                            
+	int		Kpr;							// P-Verstärkung TRS-Begrenzg.[%/K] * 100                                                                            	                                                                                                                                             
+	int		Fzk;							// Filterzk. f. tsol						[s] * 10                                                                             	                                                                                                                                             
+	UINT	Y_rel_min;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10
+	UINT	Y_rel_max;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10                                                                   
+	UINT	Y_rel_beg;				// Öffnungsbeginn des 0-10V Ventils				[%] * 10                                                                   	                                                                                                                                             
+	// Wind-Up: Begrenzung der Stellgröße des PID-Reglers auf einen gleitenden oder festen Maximalwert (anti windup)                             
+	int		Wup;									// 0 = gleitend (Produkt aus Kp * ei),  >0 = fester +/- Maximalwert  [%] * 10. ( nur positiven Wert eingeben  )  
+
+	
 	// int	iPa_Verdichterstarts_h;					// erlaubte Verdichterstarts pro Stunde
 }WpStandard;
 #define WPSLENG sizeof(struct wps)
@@ -673,7 +695,25 @@ typedef struct wpd{
 	 int	WPU_Freigabe_Laufzeit_h;								// WPU-Laufzeit bzgl der Freigabe in [h]
 	 int	WPU_BM_Laufzeit_h;											// WPU-Laufzeit bzgl der BM in [h]
 	char	WPU_BM_DM;															// WPU Betriebsmeldung für den Datenmanager
-	// int	i_Verdichterstarts_h										// Anzahl der Verdichterstarts in der letzten Stunde	 
+	// int	i_Verdichterstarts_h										// Anzahl der Verdichterstarts in der letzten Stunde
+	// PID
+	int		zts;					// Zaehler fuer Tastzeit
+	char	regstart;			// Reglerstart nach Reset
+	int		ei;						// Regelabweichung							[K] * 10
+	float	fl_ei1;				// Regelabweichung zum Tastzeitpunkt i-1
+	float	fl_ei2;				// Regelabweichung zum Tastzeitpunkt i-2
+	int		tsol;					// Vorlaufsolltemp. , nach der geregelt wird
+	float fl_tsol;			//		"								(für Filterberechnung)
+	int		tvsb;					// berechnete Vorlaufsolltemp. total
+	int		tvsb_hkl;			// berechnete Vorlaufsolltemp. nach Heizkennlinie (für debug)							
+	int		stellzeit;		// berechnete Zeit für Stellausgabe
+	int		stellsum;			// Summenzähler für Stellausgabe
+	int 	fahren;				// Fahrzeit Stellausgabe in ganzen Sekunden
+	int		y_rel;				// Stellausgabe an 0-10V Ventil	[%] * 10
+	float	fl_y_rel;			// PID-Stellgröße
+	int   si_y_rel;			// PID-Stellgröße für debug [%] * 10		
+	int		dy_rel;				// für debug
+		 
 }WpDynam;
 
 
@@ -1272,7 +1312,7 @@ typedef struct {
 		float masse;
 		char monSichern;
 		char monReset;
-			
+		ULONG flow_h;							// Dim. 0,00 m3/h // SiWa	
 } zaehlspWmeng;		
 
 /* Struktur zur Berechnung und Anzeige der maximalen Durchschnittsleistung (Standard: Stunde) */

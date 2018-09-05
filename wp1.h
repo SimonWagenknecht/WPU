@@ -29,10 +29,14 @@ const Pgrup wp1[] = {
 	{"*08:"," TVQ-SWP        "," C    ", P&TVQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 	{"*09:"," TRQ-SWP        "," C    ", P&TRQ_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{"*09:"," TRQ-SWP        "," C    ", P&TRQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	#if TVHG > 0
 	{"*10:"," TVHG-SWP       "," C    ", P&TVH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{"*10:"," TVHG-SWP       "," C    ", P&TVH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	#endif
+	#if TRHG > 0
 	{"*11:"," TRHG-SWP       "," C    ", P&TRH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{"*11:"," TRHG-SWP       "," C    ", P&TRH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	#endif
 	// Eingänge 
 	{"*20:"," BM SWP         ","       ", P&BM_UNI[U1],		 				JANEIN_FORMIP, 2, P&vis,		V1, 0, 0},
 	{"*21:"," SM SWP         ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
@@ -95,6 +99,27 @@ const Pgrup wp1[] = {
 	{" ->;"," wpu-lz anf     "," s     ", P&wpd[WP1].WPU_Freigabe_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
 	{"*53;"," WPU-LZ BM      "," h     ", P&wpd[WP1].WPU_BM_Laufzeit_h,					US_INT, 0, P&vis,	V1, 0, 0},
 	{" ->;"," wpu-lz bm      "," s     ", P&wpd[WP1].WPU_BM_Laufzeit_sec,				US_INT, 0, P&vis,	V0, 0, 0},
+	
+	#if RV_VOL > 0
+	{" 80;"," P-VERSTAERKUNG "," %/m/h", P&wps[0].Kp,						US_INT, 2, P&hid1,	V0, 0, 0},
+	{" ->;"," D-VERSTAERKUNG ","       ", P&wps[0].Kd,						US_INT, 2, P&hid1,	V0, 0, 0},
+	{" ->;"," TASTZEIT       "," s     ", P&wps[0].Ts,						US_INT, 1, P&hid1,	V0, 0, 0},
+	{" ->;"," NACHSTELLZEIT  "," s     ", P&wps[0].Tn,						US_INT, 1, P&hid1,	V0, 0, 0},
+	
+	{" 81;"," VENTILSTELL.MIN"," %     ", P&wps[0].Y_rel_min,	 		US_INT, 1, P&hid1,	V0, 0, 0},
+	{" 82;"," VENTILSTELL.MAX"," %     ", P&wps[0].Y_rel_max,	 		US_INT, 1, P&hid1,	V0, 0, 0},
+	{" ->;"," OEFFNUNGSBEGINN"," %     ", P&wps[0].Y_rel_beg,	 		US_INT, 1, P&hid1,	V0, 0, 0},
+	
+	{"*83;"," IST VOLSTR. WSP"," m/h  ", P&wmengCtr[2].flow_h,			US_LONG, 2, P&hid1,	V0, 0, 0},
+	
+	{" 84;"," SOLL Vol. WPU  "," m/h  ", P&wps[0].iPa_Vol_ist,		US_INT, 1, P&hid1,	V1, 0, 0},
+	{"*85;"," REGELABWEICHUNG"," m/h  ", P&wpd[0].ei,						 S_INT, 2, P&hid1,	V0, 0, 0},
+	{"*->;"," dy_rel         ","       ", P&wpd[0].dy_rel,				 S_INT, 3, P&hid2,	V0, 0, 0},
+	{"*86:"," VENTILSTELLUNG "," %     ", P&AA_UNI[U1],					AOUT_FORMP, 1, P&vis,	V1, 0, 0},
+	{" 88;"," HAND RV SWP    "," HAND=1", P&wps[WP1].chpa_rv_Hau,				 US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{" ->;"," RV SWP stellen "," %     ", P&wps[WP1].ipa_rv_stellung,			 US_INT, 1, P&hid1,	V1, 0, 0},
+	#endif
+	
 	#endif
 	
 	#if WPU_AWP == 1
@@ -125,10 +150,14 @@ const Pgrup wp1[] = {
 	{"*08:"," TVQ-AWP        "," C    ", P&TVQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 	{"*09:"," TRQ-AWP        "," C    ", P&TRQ_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{"*09:"," TRQ-AWP        "," C    ", P&TRQ_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	#if TVHG > 0
 	{"*10:"," TVHG-AWP       "," C    ", P&TVH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{"*10:"," TVHG-AWP       "," C    ", P&TVH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	#endif
+	#if TRHG > 0
 	{"*11:"," TRHG-AWP       "," C    ", P&TRH_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{"*11:"," TRHG-AWP       "," C    ", P&TRH_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	#endif
 	// Eingänge 
 	{"*20:"," BM AWP         ","       ", P&BM_UNI[U1],		 				JANEIN_FORMIP, 2, P&vis,		V1, 0, 0},
 	{"*21:"," SM AWP         ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
