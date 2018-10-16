@@ -41,6 +41,8 @@
 // Spezialkonvertierungen bei der Übertragung von Daten
 #define NONE							0x00
 #define ENOCEAN_TEMP_1090	0x01
+#define SWAP_32				0x02
+
 
 #define SIO_ERROR					0x03
 #define	CRC_ERROR					0x04

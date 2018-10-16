@@ -79,7 +79,7 @@ const char c_Plz       [10]         = {"12207    "};        //  9              =
 
 // Voreinstellung BUS-Betrieb
 const char c_Service_Idf [16]       = {"42843152       "};  // 15 
-const char c_ModulAdr               =  11;                   // 0= dummy
+const char c_ModulAdr               =  10;                   // 0= dummy
 const char c_StationsAdr            =  0;                   // 0= die Stationsadresse folgt der Moduladresse automatisch (wenn Station-Initadresse 254)
 
 // Voreinstellung Schnittstelle und Funktionen
@@ -89,11 +89,11 @@ const char c_Funktion_S1            = GBUS_FU;              // NULL_FU   = dummy
 const char c_Parity_S1              = NULL_PARI;            // NULL_PARI = dummy,  NOPAR, EVEN, ODD 
 const char c_Stopbits_S1            = NULL_STOP;            // NULL_STOP = dummy,  1, 2 
 
-const char c_Mode_S2                = NULL_MODE;            // NULL_MODE = dummy,  MASTER, SLAVE
-const UINT c_Baudrate_S2            = 0;                    // 0         = dummy
-const char c_Funktion_S2            = NULL_FU;              // NULL_FU   = dummy   GBUS_FU, MODBUS1_FU, MBUS1_FU, GENI1_FU...siehe projdef.h
-const char c_Parity_S2              = NULL_PARI;            // NULL_PARI = dummy,  NOPAR, EVEN, ODD 
-const char c_Stopbits_S2            = NULL_STOP;            // NULL_STOP = dummy,  1, 2 
+const char c_Mode_S2                = MASTER;            // NULL_MODE = dummy,  MASTER, SLAVE
+const UINT c_Baudrate_S2            = 9600;                    // 0         = dummy
+const char c_Funktion_S2            = MODBUS1_FU;              // NULL_FU   = dummy   GBUS_FU, MODBUS1_FU, MBUS1_FU, GENI1_FU...siehe projdef.h
+const char c_Parity_S2              = NOPAR;            // NULL_PARI = dummy,  NOPAR, EVEN, ODD 
+const char c_Stopbits_S2            = 1;            // NULL_STOP = dummy,  1, 2 
 
 const char c_Mode_S3                = NULL_MODE;            // NULL_MODE = dummy,  MASTER, SLAVE
 const UINT c_Baudrate_S3            = 0;                    // 0         = dummy
@@ -292,9 +292,12 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
 //#define VERS_DATUM  {18,9,3}	 // SiWa:	Neue Software-Version: WP_1_000_200000, Unterscheidung zwischen Abluftwärmepumpen- und Solewärmepumpensoftware in Parli und SteuerWPU
                               	 //				Keine Ausführung von void SteuerWPU nach Neustart	
                               	 // 			Mit diesem Stand kann die Abluftwärmepumpe im Projekt Erkner betrieben werden 
-#define VERS_DATUM  {18,9,4}	 	 // SiWa: Neue Hydraulik: WPU, Speicher und Heizkreis sind in Reihe geschaltet, WPU fungiert zur Spitzenlast-Unterstützung bei der WW
-																 // 			Heizkreis
-																 //				Steuerung der WPU via Mod-Bus
+//#define VERS_DATUM  {18,9,4}	 	 // SiWa: Neue Hydraulik: WPU, Speicher und Heizkreis sind in Reihe geschaltet, WPU fungiert zur Spitzenlast-Unterstützung bei der WW
+																 // 			Heizkreis HK1
+																 //				Steuerung der WPU via Mod-Bus soll implementiert werden
+#define VERS_DATUM  {18,9,10}		 // SiWa: ModBus-Riedel-Architektur vom 09.07.2018
+																//        PU HK1 läuft, wenn Anforderung > 0 ist oder wenn WPU-Heizen = EIN ist															 
+																 
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
 /*--------------------------------------------------------------------------------*/
@@ -388,7 +391,7 @@ const Anlage Projekte[] = {
 		{"TEST PROJEKT   "},
 		
 		// Steuercode für Heizkreise
-		{1},	// Nummern der Kaltstartparametersätze für jeden Heizkreis [HK_PROFILE]
+		{3},	// Nummern der Kaltstartparametersätze für jeden Heizkreis [HK_PROFILE]
 					// 0 = Heizkreis nicht vorhanden
 		
 		{1},	// Nummern der Absenkprofile für jeden Heizkreis [ABS_PROFILE]
@@ -1655,6 +1658,7 @@ const WpStandard  Wp_Standparam[] = {
 	0,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
 	0,	//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
 	0,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+	0,	//UINT	TWE_Sollwert; 									// TWE-Sollwert in [°C] *10
 	0,	//UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	0,	//UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	// Manuelle Steuerung der Ausgänge
@@ -1662,14 +1666,24 @@ const WpStandard  Wp_Standparam[] = {
 	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
 	0,	//char	chpa_rv_Hau;										// Handsteuerung des Regelungsventils des Heizseitigen Volumenstroms aktivieren
 	0,	//int		ipa_rv_stellung;								// Ventilstellung des Regelungsventils des Heizseitigen Volumenstroms im Handbetrieb	[%}
+	0,	//char	chPa_uv_Hau;										// Manuellen Betrieb aktivieren zur Steuerung des Umschaltventils  
+	0,	//char	chPa_uv_Hau_Hand_stellen;				// Steuerung des Umscahltventils im manuellen Betrieb
+	0,	//char	chPa_Freiagbe_TWE_Hau;					// Manuellen Betrieb aktivieren zur Steuerung der Freigabe TWE 
+	0,	//char	chPa_Freiagbe_TWE_Hand_stellen;	// Steuerung der Freigabe TWE im manuellen Betrieb
 	// Parameter zu den Betriebszuständen
+	0,	//char	chPa_Strategie;									// Regelstrategie: 1 = Speicherladeprinzip; 2 = Rücklauftemperaturregelung
 	0,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
   0, 	//UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
   0,	// int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	0,	// int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
+	0,	// int	intT_WE_Unterst_aus;										// Unterstützung ausschalten in [°C] *10
 	0,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	0,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 	0,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
+	// Warmwasservorrang
+	0,	//char	chPa_TWE_Maxlaufzeit_min;				// Maxlaufzeit des Betriebszustands Warmwasservorrang in [min]
+	0,	//char	chPa_TWE_Sperrzeit_min;					// Sperrzeit des Betriebszustands Warmwasservorrang in [min]
 	// Regelungsventil für den Volumenstrom
 	// PID
 	0,	//int		iPa_Vol_ist;			// Einstellbarer Sollwert				[m³/h] * 10                                                                                                                                        
@@ -1681,11 +1695,16 @@ const WpStandard  Wp_Standparam[] = {
 	0,	//int		Kpr;							// P-Verstärkung TRS-Begrenzg.[%/K] * 100                                                                            	                                                                                                                                             
 	0,	//int		Fzk;							// Filterzk. f. tsol						[s] * 10                                                                             	                                                                                                                                             
 	0,	//UINT	Y_rel_min;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10
-	0,//UINT	Y_rel_max;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10                                                                   
+	0,	//UINT	Y_rel_max;				// Minimale Stellausgabe an 0-10V Ventil	[%] * 10                                                                   
 	0,	//UINT	Y_rel_beg;				// Öffnungsbeginn des 0-10V Ventils				[%] * 10                                                                   	                                                                                                                                             
 	// Wind-Up: Begrenzung der Stellgröße des PID-Reglers auf einen gleitenden oder festen Maximalwert (anti windup)                             
 	0,	//int		Wup;									// 0 = gleitend (Produkt aus Kp * ei),  >0 = fester +/- Maximalwert  [%] * 10. ( nur positiven Wert eingeben  ) 
-	
+	// Sollwert Steuerung der WPU E/A
+	0,	// int	intPa_Sollwert_HEI;	// Minimale Quellentemperatur in [°C] *10
+	0,	// int	intPa_Sollwert_TWE;					// Minimale Speichertemperatur in [°C] *10
+	0,	// int	intPa_Sollwert_AUS; 			// Speicherladung aktivieren: delat T in [K] *10
+	0,	// char Sollwert_EA;		// Mit Hilfe des Sollwerts Ein und Ausschalten der WPU	 
+
  },
   // Profil 1 Solewärmepumpe
  {
@@ -1693,6 +1712,7 @@ const WpStandard  Wp_Standparam[] = {
 	500,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
 	30,		//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
 	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+	580,	//UINT	TWE_Sollwert; 									// TWE-Sollwert in [°C] *10
 	  0,	//UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	600,	//UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten maximalen Wert [°C] *10
 	// Manuelle Steuerung der Ausgänge
@@ -1700,15 +1720,25 @@ const WpStandard  Wp_Standparam[] = {
 	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
 	0,	//char	chpa_rv_Hau;										// Handsteuerung des Regelungsventils des Heizseitigen Volumenstroms aktivieren
 	0,	//int		ipa_rv_stellung;								// Ventilstellung des Regelungsventils des Heizseitigen Volumenstroms im Handbetrieb	[%}
+	0,	//char	chPa_uv_Hau;										// Manuellen Betrieb aktivieren zur Steuerung des Umschaltventils  
+	0,	//char	chPa_uv_Hau_Hand_stellen;				// Steuerung des Umscahltventils im manuellen Betrieb
+	0,	//char	chPa_Freiagbe_TWE_Hau;					// Manuellen Betrieb aktivieren zur Steuerung der Freigabe TWE 
+	0,	//char	chPa_Freiagbe_TWE_Hand_stellen;	// Steuerung der Freigabe TWE im manuellen Betrieb
 	// Parameter zu den Betriebszuständen
+		2,	//char	chPa_Strategie;									// Regelstrategie: 1 = Speicherladeprinzip; 2 = Rücklauftemperaturregelung
 	-50,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
-		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
-	-30,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
-	 15,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
+	-20,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
+	 10,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	-100,	// int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
+	  0,	// int	intT_WE_Unterst_aus;										// Unterstützung ausschalten in [°C] *10
+	  5,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	 	5,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
-		2,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
-			// Regelungsventil für den Volumenstrom
+		1,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
+  // Warmwasservorrang
+	20,	//char	chPa_TWE_Maxlaufzeit_min;				// Maxlaufzeit des Betriebszustands Warmwasservorrang in [min]
+	10,	//char	chPa_TWE_Sperrzeit_min;					// Sperrzeit des Betriebszustands Warmwasservorrang in [min]
+	// Regelungsventil für den Volumenstrom
 	// PID
 		50,	//int		iPa_Vol_ist;			// Einstellbarer Sollwert				[m³/h] * 10                                                                                                                                        
 	100,	//int		Ts;								// Tastzeit (>= 1 s)						[s] * 10                                                                             
@@ -1723,6 +1753,12 @@ const WpStandard  Wp_Standparam[] = {
 	0,	//UINT	Y_rel_beg;				// Öffnungsbeginn des 0-10V Ventils				[%] * 10                                                                   	                                                                                                                                             
 	// Wind-Up: Begrenzung der Stellgröße des PID-Reglers auf einen gleitenden oder festen Maximalwert (anti windup)                             
 	0,	//int		Wup;									// 0 = gleitend (Produkt aus Kp * ei),  >0 = fester +/- Maximalwert  [%] * 10. ( nur positiven Wert eingeben  ) 
+ 	
+ 	// Sollwert Steuerung der WPU E/A
+	550,	// int	intPa_Sollwert_HEI;	// Minimale Quellentemperatur in [°C] *10
+	600,	// int	intPa_Sollwert_TWE;					// Minimale Speichertemperatur in [°C] *10
+	200,	// int	intPa_Sollwert_AUS; 			// Speicherladung aktivieren: delat T in [K] *10
+ 	0,	// char Sollwert_EA;		// Mit Hilfe des Sollwerts Ein und Ausschalten der WPU	 
  },
    // Profil 2 Abluftwärmepumpe
  {
@@ -1730,6 +1766,7 @@ const WpStandard  Wp_Standparam[] = {
 	500,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
 	30,		//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
 	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
+	580,	//UINT	TWE_Sollwert; 									// TWE-Sollwert in [°C] *10
 	  0,	//UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	600,	//UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten maximalen Wert [°C] *10
 	// Manuelle Steuerung der Ausgänge
@@ -1737,14 +1774,24 @@ const WpStandard  Wp_Standparam[] = {
 	0,  //char	WPU_Freigabe_Hand_stellen;		// Steuerung der WPU-Freigabe im manuellen Betrieb
 	0,	//char	chpa_rv_Hau;										// Handsteuerung des Regelungsventils des Heizseitigen Volumenstroms aktivieren
 	0,	//int		ipa_rv_stellung;								// Ventilstellung des Regelungsventils des Heizseitigen Volumenstroms im Handbetrieb	[%}
+	0,	//char	chPa_uv_Hau;										// Manuellen Betrieb aktivieren zur Steuerung des Umschaltventils  
+	0,	//char	chPa_uv_Hau_Hand_stellen;				// Steuerung des Umscahltventils im manuellen Betrieb
+	0,	//char	chPa_Freiagbe_TWE_Hau;					// Manuellen Betrieb aktivieren zur Steuerung der Freigabe TWE 
+	0,	//char	chPa_Freiagbe_TWE_Hand_stellen;	// Steuerung der Freigabe TWE im manuellen Betrieb
 	// Parameter zu den Betriebszuständen
+	 	1,	//char	chPa_Strategie;									// Regelstrategie: 1 = Speicherladeprinzip; 2 = Rücklauftemperaturregelung
 	  0,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	-30,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+		-50,	// int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
+	0,	// int	intT_WE_Unterst_aus;										// Unterstützung ausschalten in [°C] *10
 	 15,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	 	5,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 		0,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
+	// Warmwasservorrang
+	20,	//char	chPa_TWE_Maxlaufzeit_min;				// Maxlaufzeit des Betriebszustands Warmwasservorrang in [min]
+	10,	//char	chPa_TWE_Sperrzeit_min;					// Sperrzeit des Betriebszustands Warmwasservorrang in [min]
 			// Regelungsventil für den Volumenstrom
 	// PID
 		50,	//int		iPa_Vol_ist;			// Einstellbarer Sollwert				[m³/h] * 10                                                                                                                                        
@@ -1760,6 +1807,11 @@ const WpStandard  Wp_Standparam[] = {
 	0,	//UINT	Y_rel_beg;				// Öffnungsbeginn des 0-10V Ventils				[%] * 10                                                                   	                                                                                                                                             
 	// Wind-Up: Begrenzung der Stellgröße des PID-Reglers auf einen gleitenden oder festen Maximalwert (anti windup)                             
 	0,	//int		Wup;									// 0 = gleitend (Produkt aus Kp * ei),  >0 = fester +/- Maximalwert  [%] * 10. ( nur positiven Wert eingeben  ) 
+ 	// Sollwert Steuerung der WPU E/A
+	550,	// int	intPa_Sollwert_HEI;	// Minimale Quellentemperatur in [°C] *10
+	600,	// int	intPa_Sollwert_TWE;					// Minimale Speichertemperatur in [°C] *10
+	200,	// int	intPa_Sollwert_AUS; 			// Speicherladung aktivieren: delat T in [K] *10
+ 	0,		// char Sollwert_EA;		// Mit Hilfe des Sollwerts Ein und Ausschalten der WPU	 
  },
 };
 const char WP_PROFILE = sizeof ( Wp_Standparam ) / sizeof ( WpStandard );

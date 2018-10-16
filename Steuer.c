@@ -36,16 +36,12 @@ void Steuer(void)
 	float fl_wert = 0;
 	int maxAnf = 0;
 
-	/*+++++++++++++++ maximale Anforderung +++++++++++++++++++++++*/
-	#if HKANZ > 0		
-	for ( i = HK1; i < HKANZ; i++ )
-		if ( hkd[i].tvsb > 0 && ( hkd[i].tvsb + hks[i].TvpAnh > maxAnf ) )
-			maxAnf = hkd[i].tvsb + hks[i].TvpAnh;
-	#endif
 
 	/*---------------EINGEHENDER Wärmepumpen-Sollwert Steuerung------------ */		    
+		// Externe Sollwerte	
 			// Übergabe von Dm zu Externer Sollwert
-			anfExt[0] = zentrale_sollwert;
+			 #if ANF_EXT_WPU > 0	
+				anfExt[0] = zentrale_sollwert;
 			
 				#if ANF_EXT > 0			
 				for ( i = 0; i < ANF_EXT; i++ )
@@ -71,7 +67,20 @@ void Steuer(void)
 						}	
 					}				
 				#endif
-			
+			#else	
+		// ENDE: externe Sollwerte
+		// Interne Sollwerte
+			 	/*+++++++++++++++ maximale Anforderung +++++++++++++++++++++++*/
+					#if HKANZ > 0		
+					for ( i = HK1; i < HKANZ; i++ )
+						if ( hkd[i].tvsb > 0 && ( hkd[i].tvsb + wps[WP1].T_Sollwert_Offset > maxAnf ) )
+								maxAnf = hkd[i].tvsb + wps[WP1].T_Sollwert_Offset;
+					#endif
+			 				 
+			 		#endif
+		// ENDE: Interne Sollwerte			
+				
+				
 				// Konstanter vorgegebener Sollwert
 				if (wps[WP1].Para_Manu_Sollwert > 0)
 						maxAnf = wps[WP1].T_manu_Sollwert;
@@ -302,8 +311,9 @@ void Steuer(void)
 			pu_Bm(i);
 					
 //#####ulsch: 28.02.07 Pumpen schalten entsprechend tvsb !
-			if ( hkd[i].tvsb > 0 || ssfEinAnl == TRUE )
-			{	// Pumpe einschalten
+			if ( hkd[i].tvsb > 0 || ssfEinAnl == TRUE || ((wpd[WP1].chPa_WPU_HEI > 0 || wpd[WP1].chPa_WPU_TWE > 0 || wpd[WP1].ch_BM_WPU_MB > 0)  && i == 0 ))
+			{	
+				// Pumpe einschalten
 				Pu_Ein ( i );
 				
 //#####090119

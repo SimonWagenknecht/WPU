@@ -119,7 +119,9 @@ void DManager(void)
 
 	// Beispiel: Soll-Temperatur								(berechn. Vorlauf)
 	//offs = DM_Empty_RxBuf(idx, offs, &station1_sollwert, US_INT);			// 2 Byte
-
+	#if TWE_ANF > 0
+		offs = DM_Empty_RxBuf(idx, offs, &station1_ea, JANEIN_FORM);				// 1 Byte
+	#endif
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//************************************

@@ -238,12 +238,17 @@ const Pgrup hk1[] = {
 
 	#if BEDARF_HK1==1
 	{"*70:"," HEIZ-BEDARF ?  ","       ", P&hkd[HK1].bedarf,	JAFRAGE_FORM, 0, P&vis,		V1, 0, 0},
-	#endif
+	#endif	
 	{" ->:"," bedarf         "," 1J 2N ", P&hkd[HK1].bedarf,	 		 US_CHAR, 0, P&hid2,	V0, 0, 0},
 	{" ->:"," vorheiz_bed    ","       ", P&hkd[HK1].vorheiz_bed,	 US_CHAR, 0, P&hid2,	V0, 0, 0},
 	{" ->:"," ticopy         ","       ", P&hkd[HK1].ticopy,			 US_CHAR, 0, P&hid2,	V0, 0, 0},
 	{" ->:"," CountDown      ","       ", P&hkd[HK1].CountDown,  	 US_CHAR, 0, P&hid2,	V0, 0, 0},
 	{" ->;"," vorrang bedarf ","       ", P&hkd[HK1].vorra_bed,		 US_CHAR, 0, P&hid2,	V0, 0, 0},
+
+	#if TWE_ANF > 0
+	{"*70:"," WPU-HEIZEN ?   ","       ", P&wpd[WP1].chPa_WPU_HEI, 		 JANEIN_FORM, 0, P&vis,		V1, 0, 0},
+	{"*71:"," WPU-TWE ?      ","       ", P&wpd[WP1].chPa_WPU_TWE, 		 JANEIN_FORM, 0, P&vis,		V1, 0, 0},
+	#endif
 
 #if ( PU_BUS_HK1 == 0 || PULZ_HK1 == 1 )		// also auch wenn Schalten der Pumpe über Ausgang und Bus vorgesehen
 	#if STRPU_HK1 == 0			// keine Strahlpumpe

@@ -42,7 +42,7 @@ void RegelWPU(void)
 		// Automatikbetrieb	
 			else
 				{
-					if (DA_UNI[0]->wert > 0) // || später oder die Betriebsmeldung (Wärmepumpe ist gefordert)
+					if (wpd[WP1].chPa_WPU_HEI > 0) // || später oder die Betriebsmeldung (Wärmepumpe ist gefordert)
 						{
 							// Sollwertberechnung für RV QU
 							wpd[0].tvsb = wps[0].iPa_Vol_ist ;

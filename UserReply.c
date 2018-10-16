@@ -3078,7 +3078,6 @@ void Load_Userdef()
 	hid3 = SICHTSERV3;		// sichtbar nur ab Servicecode 3 (143)
 	hid4 = SICHTSERV4;		// sichtbar nur ab Servicecode 4 (139)
 
-	// Überprüfen des Versionsdatum	
 	Check_Version();			// bei einer Veränderung wird Init_Leittab() aufgerufen (entspricht Kaltstart 223) 
 	
 	// Laden der Evetab vom EEPROM in den RAM

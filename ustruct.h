@@ -634,6 +634,7 @@ typedef struct wps{
 	UINT	T_manu_Sollwert; 								// Manuell vorgegebener Sollwert in [°C] *10
 	UINT	T_Sollwert_Offset; 							// Sollwertoffset in [K] *10
 	UINT	T_Ersatz_Sollwert; 							// Ersatz-Sollwert in [°C] *10
+	UINT	TWE_Sollwert; 									// TWE-Sollwert in [°C] *10
 	UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	UINT	iPa_T_Sollwert_IN_MAX; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10
 	// Manuelle Steuerung der Ausgänge 
@@ -641,15 +642,24 @@ typedef struct wps{
 	char	WPU_Freigabe_Hand_stellen;			// Steuerung der WPU-Freigabe im manuellen Betrieb
 	char	chpa_rv_Hau;										// Handsteuerung des Regelungsventils des Heizseitigen Volumenstroms aktivieren
 	int		ipa_rv_stellung;								// Ventilstellung des Regelungsventils des Heizseitigen Volumenstroms im Handbetrieb	[%}
+	char	chPa_uv_Hau;										// Manuellen Betrieb aktivieren zur Steuerung des Umschaltventils  
+	char	chPa_uv_Hand_stellen;						// Steuerung des Umscahltventils im manuellen Betrieb
+	char	chPa_Freiagbe_TWE_Hau;					// Manuellen Betrieb aktivieren zur Steuerung der Freigabe TWE 
+	char	chPa_Freiagbe_TWE_Hand_stellen;	// Steuerung der Freigabe TWE im manuellen Betrieb
 	// Parameter zu den Betriebszuständen 
+	char	chPa_Strategie;									// Regelstrategie: 1 = Speicherladeprinzip; 2 = Rücklauftemperaturregelung	
 	 int	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
 	 int	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	 int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	 int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	 	int	intPa_Unterst_ANF_ein;					// Unterstuetzung einschalten in [°C] *10
+	 int	intPa_Unterst_ANF_aus;						// Unterstützung ausschalten in [°C] *10
 	char	chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	char	chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 	char	chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe 
-	
+	// Warmwasservorrang
+	char	chPa_TWE_Maxlaufzeit_min;				// Maxlaufzeit des Betriebszustands Warmwasservorrang in [min]
+	char	chPa_TWE_Sperrzeit_min;					// Sperrzeit des Betriebszustands Warmwasservorrang in [min]
 	// Regelungsventil für den Volumenstrom
 	// PID
 	int		iPa_Vol_ist;			// Einstellbarer Istwert				[m³/h]                                                                                                                                         
@@ -668,6 +678,15 @@ typedef struct wps{
 
 	
 	// int	iPa_Verdichterstarts_h;					// erlaubte Verdichterstarts pro Stunde
+	
+	// Sollwert Steuerung der WPU E/A
+	 int	intPa_Sollwert_HEI;	// Minimale Quellentemperatur in [°C] *10
+	 int	intPa_Sollwert_TWE;					// Minimale Speichertemperatur in [°C] *10
+	 int	intPa_Sollwert_AUS; 			// Speicherladung aktivieren: delat T in [K] *10
+	// Sollwert E/A
+	char Sollwert_EA;		// Mit Hilfe des Sollwerts Ein und Ausschalten der WPU	 
+
+	
 }WpStandard;
 #define WPSLENG sizeof(struct wps)
 
@@ -682,6 +701,12 @@ typedef struct wpd{
 	char	Status_Speicherladung;								 	// Betriebszustand Speicherladung: Speicherladeprinzip
 	 int	intT_Ladebginn;													// Ladebeginn in [°C] *10
 	 int	intT_Ladeende;													// Ladeende in [°C] *10
+	 char	Status_Unterstuetzung;								 	// Betriebszustand: Unterstützung anfordern
+	 int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
+	 int	intT_Unterst_ANF_aus;										// Unterstützung ausschalten in [°C] *10
+	char	Status_WW_Vorrang;								 			// Warmwasservorrang
+	 int	i_TWE_Maxzeit_Cnt;											// Counter in Sekunden für die Maxlaufzeit des Betriebszustands Wamrwasservorrang [s]
+	 int	i_TWE_Sperrzeit_Cnt;										// Counter in Sekunden für die Sperrzeit des Betriebszustands Wamrwasservorrang [s]
 	char	Status_WPU_Freigabe_oZeit;							// Status der WPU-Freigabe ohne Berücksichtigung der Verzögerung bzgl. der WPU-Freigabe
 	 int	Sollwert_oZeit;													// Sollwert der WPU ohne Zeitlimitierung
 	 int	Verzoegerungszeit_Cnt;									// Counter in Sekunden für die Mindestlaufzeit der Wärmepumpe [s]
@@ -713,10 +738,128 @@ typedef struct wpd{
 	float	fl_y_rel;			// PID-Stellgröße
 	int   si_y_rel;			// PID-Stellgröße für debug [%] * 10		
 	int		dy_rel;				// für debug
-		 
+	// WPU Heizen oder Trinkwarmwasser
+	char	chPa_WPU_HEI;	// Freigabe zum Heizen -  Betriebsart der WPU
+	char	chPa_WPU_TWE;	// Freigabe zum Trinkwarmwasser	-	Betriebsart der WPU	
+	char  ch_BM_WPU_MB; // Betriebsmeldung der WPU aus Modbus generiert
 }WpDynam;
 
-
+//-------------------------------------------------------------
+/* Struktur der Parameter eines ModBus-Reglers zum Daten holen				*/
+// Teil1: Dynamische Parameter 
+typedef struct mod_data{
+	// Betriebsdaten
+				int i_R_Aussenlufttemperatur;				//	Außenlufttemperatur in °C
+				int i_R_Ruecklauftemperatur;				//	Rücklauftemperatur in °C
+			  int i_R_Ruecklaufsolltemperatur;		//	Rücklaufsolltemperatur in °C
+	// Historie					
+	unsigned char uc_R_Verdichter1_Stunden;			//	Betriebstunden Verdichter1 in h 					
+	unsigned char uc_R_Verdichter2_Stunden;			//	Betriebstunden Verdichter2 in h 
+	unsigned char uc_R_Primaerpumpe_Stunden;		//	Betriebstunden Primärpumpe (Quelle) in h 				
+	unsigned char uc_R_Heizungspumpe_Stunden;		//	Betriebstunden Heizungspumpe in h
+	unsigned char uc_R_Warmwasserpumpe_Stunden;	//	Betriebstunden Warmwasserpumpe in h 	
+	// 1.Heizkreis
+	unsigned char uc_W_Parallelverschiebung;		//	Parallelverschiebung ohne Einheit
+						int i_W_Raumtemperatur;						//	Raumtemperatur in °C 					
+						int i_W_Festwertsolltemperatur;		//	Festwertsolltemperatur in °C
+						int i_W_Heizkurvenendpunkt;				//	Heizkurvenendpunkt in °C
+						int i_W_Hysterese_HK_IN;					//	Hysteres IN in K
+						int i_Hysterese_HK_OUT;						//	Hysteres OUT in K
+ 					  int i_W_Solltemp_dyn_Kuehlung;		//	Solltemperatur dynamische Kühlung in °C
+ 	// Modus
+  unsigned char uc_W_Betriebsmodus;						//	Betriebsmodus: 0 = Sommer, 1 = Auto, 2 = Urlaub, 3 = Party, 4 = 2. Wärmeerzeuger, 5 = Kühlen							  	
+	unsigned char uc_W_Anzahl_Partystunden;			//	Anzahl der Partystunden in h
+	unsigned char uc_W_Anzahl_Urlaubstage;			//	Anzahl der Urlaubstage in d			
+	// Warmwasser
+						int i_W_Hysterese_TWE;						//	Hysteres TWE in K
+						int	i_W_Solltemperatur_TWE;				//	Solltemperatur TWE in °C
+	// Auswahl Zeitfunktionen
+	// Heizkreis
+	unsigned char uc_W_Absenkung;								// 1 = Absenkung (1. Heizkreis)
+	unsigned char uc_W_Anhebung;								// 2 = Anhebung	 (1. Heizkreis)
+	unsigned char uc_W_Start_Stunde_1_HK;				// Start Stunde 1 in h (0 - 23)
+	unsigned char uc_W_Start_Minute_1_HK;				// Start Minute 1 in min (0 - 59)
+	unsigned char uc_W_Ende_Stunde_1_HK;				// Ende Stunde 1 in h (0 - 23)
+	unsigned char uc_W_Ende_Minute_1_HK;				// Ende Minute 1 in min (0 - 59)
+	unsigned char uc_W_Start_Stunde_2_HK;				// Start Stunde 2 in h (0 - 23)
+	unsigned char uc_W_Start_Minute_2_HK;				// Start Minute 2 in min (0 - 59)
+	unsigned char uc_W_Ende_Stunde_2_HK;				// Ende Stunde 2 in h (0 - 23)
+	unsigned char uc_W_Ende_Minute_2_HK;				// Ende Minute 2 in min (0 - 59)
+	unsigned char uc_W_Sonntag_HK;							// Sonntag (0 - 3)
+	unsigned char uc_W_Montag_HK;								// Montag (0 - 3)
+	unsigned char uc_W_Dienstag_HK;							// Di (0 - 3)
+	unsigned char uc_W_Mittwoch_HK;							// Mi (0 - 3)
+	unsigned char uc_W_Donnerstag_HK;						// Do (0 - 3)
+	unsigned char uc_W_Freitag_HK;							// Fr (0 - 3)
+	unsigned char uc_W_Samstag_HK;							// Sa (0 - 3); 0 = ja, 1 = nein, 2 = Zeit1, 3 = Zeit2
+	unsigned char uc_W_Absenk_Anheb_Wert;				// Absenk oder Anhebewert in °C (0 - 19)
+	unsigned char uc_R_Aktiv_Zeit1_HK;					// Zeit1 aktiv ? (0 - 1)
+	unsigned char uc_R_Aktiv_Zeit2_HK;					// Zeit2 aktiv ? (0 - 1)
+		// Warmwasser Sperre
+	unsigned char uc_W_Warmwassersperre;				// 7 = Warmwassersperre 
+	unsigned char uc_W_Start_Stunde_1_TW;				// Start Stunde 1 in h (0 - 23)
+	unsigned char uc_W_Start_Minute_1_TW;				// Start Minute 1 in min (0 - 59)
+	unsigned char uc_W_Ende_Stunde_1_TW;				// Ende Stunde 1 in h (0 - 23)
+	unsigned char uc_W_Ende_Minute_1_TW;				// Ende Minute 1 in min (0 - 59)
+	unsigned char uc_W_Start_Stunde_2_TW;				// Start Stunde 2 in h (0 - 23)
+	unsigned char uc_W_Start_Minute_2_TW;				// Start Minute 2 in min (0 - 59)
+	unsigned char uc_W_Ende_Stunde_2_TW;				// Ende Stunde 2 in h (0 - 23)
+	unsigned char uc_W_Ende_Minute_2_TW;				// Ende Minute 2 in min (0 - 59)
+	unsigned char uc_W_Sonntag_TW;							// Sonntag (0 - 3)
+	unsigned char uc_W_Montag_TW;								// Montag (0 - 3)
+	unsigned char uc_W_Dienstag_TW;							// Di (0 - 3)
+	unsigned char uc_W_Mittwoch_TW;							// Mi (0 - 3)
+	unsigned char uc_W_Donnerstag_TW;						// Do (0 - 3)
+	unsigned char uc_W_Freitag_TW;							// Fr (0 - 3)
+	unsigned char uc_W_Samstag_TW;							// Sa (0 - 3); 0 = ja, 1 = nein, 2 = Zeit1, 3 = Zeit2
+	unsigned char uc_R_Aktiv_Zeit1_TW;					// Zeit1 aktiv ? (0 - 1)
+	unsigned char uc_R_Aktiv_Zeit2_TW;					// Zeit2 aktiv ? (0 - 1)	
+	// Thermische Desinfektion	
+	unsigned char uc_W_Therm_Desinf;						// 8 = Therm. Desinfektion
+	unsigned char uc_W_Start_Stunde_DF;					// Start Stunde DF in h (0 - 23) 
+	unsigned char uc_W_Start_Minute_DF;					// Start Minute DF in h (0 - 59) 
+	unsigned char uc_W_Sonntag_TD;							// Sonntag (0 - 3)
+	unsigned char uc_W_Montag_TD;								// Montag (0 - 3)
+	unsigned char uc_W_Dienstag_TD;							// Di (0 - 3)
+	unsigned char uc_W_Mittwoch_TD;							// Mi (0 - 3)
+	unsigned char uc_W_Donnerstag_TD;						// Do (0 - 3)
+	unsigned char uc_W_Freitag_TD;							// Fr (0 - 3)
+	unsigned char uc_W_Samstag_TD;							// Sa (0 - 3); 0 = ja, 1 = nein, 2 = Zeit1, 3 = Zeit2
+	unsigned char uc_W_Temperatur_DF;						// Temperatur DF in °C (60 - 85)
+	unsigned char uc_R_Aktiv_Zeit1;							// Zeit1 aktiv ? (0 - 1)			
+	// Displayanzeigen
+	unsigned char uc_R_statusmeldung;						// Statusmeldung (0 - 30): 0 = AUS, 1 = AUS, 2 = Heizen, 3 = Schwimmbad, 4 = Warmwasser, 
+																							//												 5 = Kühlen , 10 = Abtauen, 11 = Durchflussüberwachung, 24 = Verzögerung Betriebsmodusumschaltung
+																							//												 30 = Sperre, weitere siehe Doku
+	unsigned char uc_R_WPU_Sperre;							// Sperrmeldung (1 - 42):	Siehe Doku
+	unsigned char uc_R_WPU_SM;									// Störung 			(1 - 31):	Siehe Doku
+	unsigned char uc_R_WPU_Sensorik;						// Sensorik 		(1 - 27):	Siehe Doku	
+	// Eingänge
+	unsigned char	uc_R_Warmwasserthermostat;		// Warmwasserthermostat 
+	unsigned char	uc_R_Schwimmbadthermostat;		// Schwimmbadthermostat
+	unsigned char	uc_R_EVU_Sperre;							// EVU-Sperre
+	unsigned char	uc_R_Sperre_Extern;						// Sperre extern
+	// Ausgänge
+	unsigned char uc_R_Verdichter1;							//	 Verdichter1 					
+	unsigned char uc_R_Verdichter2;							//	 Verdichter2 
+	unsigned char uc_R_Primaerpumpe;						//	 Primärpumpe (Quelle)  				
+	unsigned char uc_R_Heizungspumpe;						//	 Heizungspumpe  
+	unsigned char uc_R_Warmwasserpumpe;					//	 Warmwasserpumpe 
+	unsigned char uc_R_Sammelstoerung;					//	 Sammelstörung 
+	// Zeitabgleich
+	unsigned char uc_RW_Stunde_Za;							//	 Stunde (0-23)
+	unsigned char uc_W_setStunde_Za;						//	 set Stunde (0-1) 		
+	unsigned char uc_RW_min_Za;									//	 Minute (0-59)
+	unsigned char uc_W_setmin_Za;								//	 set Stunde (0-1)
+	unsigned char uc_RW_Monat_Za;								//	 Monat (1-12)
+	unsigned char uc_W_setMonat_Za;							//	 set Monat (0-1)
+	unsigned char uc_RW_Wochentag_Za;						//	 Wochentag (1-7) (1 = Mo - 7 = So)
+	unsigned char uc_W_setWochentag_Za;						//	 set Wochentag (0-1)
+	unsigned char uc_RW_Tag_Za;									//	 Tag (1-31)
+	unsigned char uc_W_setTag_Za;								//	 set Tag (0-1)
+	unsigned char uc_RW_Jahr_Za;								//	 Jahr (0-99)
+	unsigned char uc_W_setJahr_Za;							//	 set Tag (0-1) 																								
+}MoDynam;
 
 //-------------------------------------------------------------
 /* Struktur der Regelparameter eines Warmwasserkreises				*/
@@ -795,7 +938,7 @@ typedef struct wd{
 	char legio;			// Legionellenbetrieb
 	int  zleg;			// Zähler für Legionellenbetrieb
 	int  zvorrad;		// Zähler für Vorrangdauer
-	int  ei_ww;			// Regelabweichung für gleitenden Vorrang, zur Auswertung in RegelHk
+	int  ei_ww;			// Regelabweichung für gleitenden Vorrang, zur Auswertung in RegelTW
 
 	int		ei;				// Regelabweichung							[K] * 10
 	float	fl_ei1;		// Regelabweichung zum Tastzeitpunkt i-1

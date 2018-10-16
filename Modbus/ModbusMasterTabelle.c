@@ -30,59 +30,68 @@ void fill_dummy_modbus(void)
 #if MODBUS_MASTER == 1
 
 const modbusTableRow modbusTable[] = {
-// {Adresse des           {Riedel Typ,      {Modbus Typ,     Spezial-   Modbus  Register-    Register-   Operation,          Intervall,AutoSend}
-//  Datenpunkts                   Komma},     Komma     },   Konvert.,  Device  adresse,     anzahl,                         [sek]
+// {Adresse des          										 {Riedel Typ,      {Modbus Typ,     Spezial-   Modbus  Register-   Register-   						Operation,      Intervall,	AutoSend}
+//  Datenpunkts                   									 Komma},     Komma     },   Konvert.,  Device  adresse,     anzahl,                                   [sek]
 //                                                                      idx
-#if(WILO_MODBUS == 1) // IF-Modul Modbus Stratos (2097808)
+  	// Betriebsdaten
+  	{P&mod_data.i_R_Aussenlufttemperatur,		  {US_INT,  0},   	{FLOAT, 0},  			NONE,      0,      1,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	
+  	{P&mod_data.i_R_Ruecklauftemperatur,		  {US_INT,  0},   	{FLOAT, 0},  			NONE,      0,      2,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	
+  	{P&mod_data.i_R_Ruecklaufsolltemperatur,  {US_INT,  0},   	{FLOAT, 0},  			NONE,      0,      53,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	
+		//Historie
+		{P&mod_data.uc_R_Verdichter1_Stunden,  		{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      72,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_R_Verdichter2_Stunden,  		{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      73,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+   	{P&mod_data.uc_R_Primaerpumpe_Stunden, 		{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      74,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_R_Heizungspumpe_Stunden,		{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      76,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+   	{P&mod_data.uc_R_Warmwasserpumpe_Stunden,	{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      77,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+    // 1. Heizkreis
+    {P&mod_data.uc_W_Parallelverschiebung,  	{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      163,       		1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]	 
+   	{P&mod_data.i_W_Raumtemperatur,  					{US_INT,  0},   	{U_INT_16, 0},  	NONE,      0,      46,      			1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]
+   	{P&mod_data.i_W_Festwertsolltemperatur, 	{US_INT,  0},   	{U_INT_16, 0},  	NONE,      0,      164,      			1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]	 
+   	{P&mod_data.i_W_Heizkurvenendpunkt,				{US_INT,  0},   	{S_INT_16, 0},  	NONE,      0,      165,       		1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]
+   	{P&mod_data.i_W_Hysterese_HK_IN,  				{US_INT,  0},   	{U_INT_16, 0},  	NONE,      0,      47,      			1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]
+   	{P&mod_data.i_Hysterese_HK_OUT, 					{US_INT,  0},   	{U_INT_16, 0},  	NONE,      0,      47,      			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.i_W_Solltemp_dyn_Kuehlung,		{US_INT,  0},   	{S_INT_16, 0},  	NONE,      0,      170,       		1,        WRITE_SINGLE_HOLDING,  		 30,				TRUE},	// [0]
+		// Modbus
+		{P&mod_data.uc_W_Betriebsmodus,  				  {US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      142,      			1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]
+   	{P&mod_data.uc_W_Anzahl_Partystunden, 	  {US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      143,      			1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_W_Anzahl_Urlaubstage,		  {US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      144,       		1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]
+		// Warmwasser
+		{P&mod_data.i_W_Hysterese_TWE,  				  {US_INT,  0},   	{U_INT_16, 0},  	NONE,      0,      172,      			1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]
+   	{P&mod_data.i_W_Solltemperatur_TWE, 	  	{US_INT,  0},   	{U_INT_16, 0},  	NONE,      0,      174,      			1,        WRITE_SINGLE_HOLDING,  	 	 30,				TRUE},	// [0]	 
+		// Displayanzeigen
+		{P&mod_data.uc_R_statusmeldung,  					{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      103,       		1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_R_WPU_Sperre,  						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      104,       		1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+   	{P&mod_data.uc_R_WPU_SM, 									{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      105,       		1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_R_WPU_Sensorik,						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      106,       		1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+		// Eingänge
+		{P&mod_data.uc_R_Warmwasserthermostat,  	{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      57,        		1,        READ_MULTIPLE_COILS,   		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_R_Schwimmbadthermostat,  	{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      58,        		1,        READ_MULTIPLE_COILS,   		 30,				TRUE},	// [0]
+   	{P&mod_data.uc_R_EVU_Sperre, 							{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      56,        		1,        READ_MULTIPLE_COILS,   		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_R_Sperre_Extern,						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      63,        		1,        READ_MULTIPLE_COILS,   		 30,				TRUE},	// [0]
+		// Ausgänge
+		{P&mod_data.uc_R_Verdichter1,  						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      41,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_R_Verdichter2,  						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      42,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+   	{P&mod_data.uc_R_Primaerpumpe, 						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      42,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_R_Heizungspumpe,						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      45,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+   	{P&mod_data.uc_R_Warmwasserpumpe,					{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      46,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+		{P&mod_data.uc_R_Sammelstoerung,					{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      57,       			1,        READ_HOLDING_REGS,  	 		 30,				TRUE},	// [0]
+		// Zeitabgleich
+		{P&mod_data.uc_RW_Stunde_Za,  						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      133,      			1,        WRITE_SINGLE_HOLDING,	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_W_setStunde_Za,  					{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      102,      			1,        WRITE_MULTIPLE_COILS,  		 30,				TRUE},	// [0]
+		{P&mod_data.uc_RW_min_Za,  								{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      134,      			1,        WRITE_SINGLE_HOLDING,	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_W_setmin_Za,  							{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      103,      			1,        WRITE_MULTIPLE_COILS,  		 30,				TRUE},	// [0]
+		{P&mod_data.uc_RW_Monat_Za,  							{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      135,      			1,        WRITE_SINGLE_HOLDING,	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_W_setMonat_Za,  						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      105,      			1,        WRITE_MULTIPLE_COILS,  		 30,				TRUE},	// [0]
+		{P&mod_data.uc_RW_Wochentag_Za,  					{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      136,      			1,        WRITE_SINGLE_HOLDING,	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_W_setWochentag_Za,  				{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      107,      			1,        WRITE_MULTIPLE_COILS,  		 30,				TRUE},	// [0]
+		{P&mod_data.uc_RW_Tag_Za,  								{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      137,      			1,        WRITE_SINGLE_HOLDING,	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_W_setTag_Za,  							{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      104,      			1,        WRITE_MULTIPLE_COILS,  		 30,				TRUE},	// [0]
+		{P&mod_data.uc_RW_Jahr_Za,  							{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      138,      			1,        WRITE_SINGLE_HOLDING,	 		 30,				TRUE},	// [0]	 
+   	{P&mod_data.uc_W_setJahr_Za,  						{US_CHAR,  0},   	{U_INT_16, 0},  	NONE,      0,      106,      			1,        WRITE_MULTIPLE_COILS,  		 30,				TRUE},	// [0]
+
    	// zu lesende Input-Register
-  	{P&modWiloPuData.wiloInReg.mwspActualDifferentialPressure,  {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      1,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [0]	
-		{P&modWiloPuData.wiloInReg.mwspFlowRate,  									{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      2,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [1]
-  	{P&modWiloPuData.wiloInReg.mwspPowerConsumption,  					{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      3,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [2]
-		{P&modWiloPuData.wiloInReg.mwspPowerRating,									{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      4,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [3]
-		{P&modWiloPuData.wiloInReg.mwspOperationHours,              {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      5,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [4]
-		{P&modWiloPuData.wiloInReg.mwspMainsCurrent,                {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      6,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [5]
-		{P&modWiloPuData.wiloInReg.mwspSpeed,                       {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      7,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [6]
-		{P&modWiloPuData.wiloInReg.mwspMediumTemperature,           {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      8,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [7]
-		{P&modWiloPuData.wiloInReg.mwspOperatingHoursDP,          	{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      9,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [8]
-		{P&modWiloPuData.wiloInReg.mwspCurrentOperationMode,        {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      10,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [9]		
-
-		{P&modWiloPuData.wiloInReg.mwspPumpModule,                  {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      16,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [10]	
-		{P&modWiloPuData.wiloInReg.mwspPumpType,                    {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      17,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [11]
-		{P&modWiloPuData.wiloInReg.mwspMaxSpeed,                    {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      18,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [12]
-		{P&modWiloPuData.wiloInReg.mwspMinSpeed,                    {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      19,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [13]
-  	
-		{P&modWiloPuData.wiloInReg.mwspSupportedErrors,             {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      26,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [14]
-		{P&modWiloPuData.wiloInReg.mwspSupportedServiceMessages,    {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      27,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [15]
-		{P&modWiloPuData.wiloInReg.mwspMaxPowerRating,              {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      28,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [16]
-  	
-		{P&modWiloPuData.wiloInReg.mwspServiceMessage,              {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      35,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [17]
-		{P&modWiloPuData.wiloInReg.mwspErrorType,                   {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      36,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [18]
-		{P&modWiloPuData.wiloInReg.mwspErrorMessage,                {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      37,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [19]
-		{P&modWiloPuData.wiloInReg.mwspPumpStatus,                  {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      38,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [20]
-		{P&modWiloPuData.wiloInReg.mwspStateDiagnostics,            {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      39,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [21]
-
-		// zu schreibende Holding Register
-		{P&modWiloPuData.wiloHoldReg.mwspSetValue,									{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      1,       			1,        WRITE_SINGLE_HOLDING, 	 0,				FALSE},	// [22]
-		{P&modWiloPuData.wiloHoldReg.mwspPumpCommand,								{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      40,       			1,        WRITE_SINGLE_HOLDING,  	 0,				FALSE},	// [23]
-		{P&modWiloPuData.wiloHoldReg.mwspOperationMode,							{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      42,       			1,        WRITE_SINGLE_HOLDING, 	 0,				FALSE},	// [24]
-		{P&modWiloPuData.wiloHoldReg.mwspBusCommandTimer,						{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      300,      			1,        WRITE_SINGLE_HOLDING, 	 0,				FALSE},	// [25]
+  	//{P&modWiloPuData.wiloInReg.mwspActualDifferentialPressure,  {ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      1,       			1,        READ_INPUT_REGS,  	 		 0,				FALSE},	// [0]	
 		
-		// zu lesende Holding Register
-		{P&modWiloPuData.wiloHoldReg.mwspSetValue,									{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      1,       			1,        READ_HOLDING_REGS,	 		 0, 			FALSE},	// [26]
-		{P&modWiloPuData.wiloHoldReg.mwspPumpCommand,								{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      40,       			1,        READ_HOLDING_REGS,	 		 0, 			FALSE},	// [27]
-		{P&modWiloPuData.wiloHoldReg.mwspOperationMode,							{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      42,       			1,        READ_HOLDING_REGS,	 		 0, 			FALSE},	// [28]
-		{P&modWiloPuData.wiloHoldReg.mwspBusCommandTimer,						{ANA_FORM,  0},   	{U_INT_16, 0},  	NONE,      0,      300,      			1,        READ_HOLDING_REGS,	 		 0, 			FALSE},	// [29]
-#else
-		// Alternative Tabellen
-    #if MODBUS_EXT == 1	// siehe projdef.h
-    {P&ul_dig32[0],        {NONE , 0},       {COILS, 0},     NONE,      0,          0,       32,         READ_MULTIPLE_COILS, 10,     TRUE},	// Extraktion auf Einzelbytes im Task ModbusExtract
-    {P&ul_dig32[1],        {NONE , 0},       {COILS, 0},     NONE,      0,         32,       32,         READ_MULTIPLE_COILS, 10,     TRUE},	// 
-    #endif
-    
-    {P&mod_rt[0],        {ANA_FORM,  1},   {S_INT_16, 1},    NONE,      0,      0x100,       1,          READ_HOLDING_REGS,  3,        TRUE},  // Raumtemperatur 1
-    {P&mod_rt[1],        {ANA_FORM,  1},   {S_INT_16, 1},    NONE,      0,      0x101,       1,          READ_HOLDING_REGS,  3,        TRUE},  // Raumtemperatur 2
-#endif                                                                        
-
 };
 	const unsigned int modbusMasterTableSize = (sizeof(modbusTable)/sizeof(modbusTableRow));
 	modbusTableRowMasterData modbusTableData[(sizeof(modbusTable)/sizeof(modbusTableRow))];
@@ -95,7 +104,7 @@ const modbusDevice modbusDevices[] = {
 	#if (WILO_MODBUS == 1)
 	{"IF-MOD.Stratos ", 1, 				SX},				    // Modbus Device idx 0 IF-Modul Modbus Stratos (2097808)   
 	#else
-	{"SENSOR 1       ", 1, 				SX},						// Modbus Device idx 0
+	{"Dimplex-SW-L   ", 1, 				SX},						// Modbus Device idx 0
 	#endif
 	};
 	const unsigned int modbusDeviceCount = (sizeof(modbusDevices)/sizeof(modbusDevice));

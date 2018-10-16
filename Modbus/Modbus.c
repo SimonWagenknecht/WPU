@@ -8,6 +8,10 @@
 //							automatische Bestimmung des Modbusdatentypes im Slavemodus
 // josch 170616 Parität und Stopbits für 3 Schnittstellen sind im System verankert. Zugriff erfolgt in der Gruppe ZLT
 // joja  170830 Spezialkommando WRITE_SINGLE_COIL korrigiert, Indexfehler bei der Datenauswertung korrigiert
+// joja  180406	Erweiterung der Funktion "modbusToFloat" um "case U_INT_64" und Funktion "floatToRiedel" bei "case ZE_FORMP:" um "case 0: // Zählerstand"
+// joja  180626	Erweiterung der Funktion "U_Modbus" Registeranzahlkorrektur bei Coils und Funktion "floatToRiedel" bei "case NONE:"
+// joja  180709 Überarbeitung von "S_INT_32" in "modbusToFloat" und Einführung von "SWAP_32" Konvertierung
+
 
 #include "sfr32C87.h"
 #include "defins.h"
@@ -90,6 +94,11 @@ void initModbusDataTable(void) {
 		modbusTableData[i].ready = FALSE;
 		modbusTableData[i].autoSend = modbusTable[i].autoSend;
 		generateShadowCopy(modbusTable[i].address, (modbusTableRowSlaveData*)&modbusTableData[i], &modbusTable[i].riedelType);
+		// Wenn es sich um eine Leseoperation handelt werden die Status zu beginn Fehlerhaft initialisiert, damit nicht versehentlich mit den Daten gerechnet wird
+		if(modbusTable[i].operation == READ_MULTIPLE_COILS || modbusTable[i].operation == READ_DISCRETE_INP || modbusTable[i].operation == READ_HOLDING_REGS ||modbusTable[i].operation == READ_INPUT_REGS) {
+			failure(modbusTable[i].address, modbusTable[i].riedelType);
+		}
+
 	}
 
 	for(i = 0; i < modbusSlaveTableSize; ++i) {
@@ -397,14 +406,14 @@ DataType riedelToModbus( DataType* type) {
 	 return resultType;
 
 }
-float modbusToFloat(unsigned char*buffer, DataType* type, unsigned char command, unsigned int offset = 0) {
+float modbusToFloat(unsigned char*buffer, DataType* type, unsigned char command, unsigned int offset = 0, unsigned int* numRows = NULL) {
 	float tmpVal = 0;
 	unsigned char* dataBuf = NULL;
 	unsigned int i = 0;
 	signed int si16 = 0;
 	signed long si32 = 0;
 	unsigned char dataType = type->type;
-
+	
 	if(command == READ_MULTIPLE_COILS) {
 		//tmpVal = (unsigned char)buffer[3+offset];	joja 161101
 		dataType = BINARY;
@@ -444,10 +453,17 @@ float modbusToFloat(unsigned char*buffer, DataType* type, unsigned char command,
 		dataBuf[3] =  buffer[3+offset];
 		tmpVal = si32;
 		tmpVal /= exp10(type->param);
-		if(((unsigned char)buffer[3+offset] & 0x0080)) {
-			tmpVal *= -1;
-		}
 		break;
+	case U_INT_64:
+		tmpVal = 0;
+		for(i = 0; i < 8; ++i) {
+			tmpVal += ((unsigned char)buffer[3+offset+i] & 0x00FF) << (56-(i*8));
+		}
+		tmpVal /= exp10(type->param);
+		if(numRows) {
+			*numRows += 1;
+		}
+	break;
 	case FLOAT:
 		tmpVal = *(float*)(&buffer[3+offset]);
 		//memcpy(&buffer[3], &tmpVal, 4);
@@ -462,6 +478,15 @@ float modbusToFloat(unsigned char*buffer, DataType* type, unsigned char command,
 	return tmpVal;
 }
 
+unsigned long int bswap32(unsigned long int a)
+{
+  a = ((a & 0x000000FF) << 24) |
+      ((a & 0x0000FF00) <<  8) |
+      ((a & 0x00FF0000) >>  8) |
+      ((a & 0xFF000000) >> 24);
+  return a;
+}
+
 void convert(float* data, unsigned char conv) {
 	switch(conv) {
 		case NONE:
@@ -469,6 +494,9 @@ void convert(float* data, unsigned char conv) {
 			break;
 		case ENOCEAN_TEMP_1090:
 			*data = ((255-*data)*(80.0/256.0))+10;
+			break;
+		case SWAP_32:
+			*(unsigned long int*)data = bswap32(*(unsigned long int*)data);
 			break;
 	}
 }
@@ -768,6 +796,10 @@ void floatToRiedel(float data, void* address, DataType* type, unsigned int offse
 				}
 				break;
 			case NONE:
+				if(type->param != 0) {
+					// maximale Länge nach Parameter begrenzen um bei kurzen Variablen nicht wild in den Speicher zu schreiben
+					maxLength = type->param;
+				}
 				for(i = 0; i < maxLength; ++i) {
 					((unsigned char*)address)[offset+i] = ((unsigned char*)&data)[i];
 				}
@@ -780,6 +812,9 @@ void floatToRiedel(float data, void* address, DataType* type, unsigned int offse
 			// Attribute noch nicht implementiert
 			dataAddr = *((zaehlsp**)address);
 			switch(type->param) {
+				case 0: // Zählerstand
+					((zaehlsp*)dataAddr)->zwert = data;
+					break;
 				case 1:	// Darstellung Name
 					length = strlen(&((zaehlsp*)dataAddr)->zdim.zname[offset]);
 					for ( i = 0; i < min_w(maxLength, length); ++i) {
@@ -793,8 +828,6 @@ void floatToRiedel(float data, void* address, DataType* type, unsigned int offse
 					}
 					break;
 			}
-			//result = (((zaehlsp*)dataAddr)->zwert);
-			//result /= pow(10, i);
 			break;
 		}
 }
@@ -1265,8 +1298,12 @@ char U_Modbus(char port, char funktion) {
 								// Darauf lassen sich die meisten Datentypen leicht abbilden und umformen
 								// Eventuell Spezialkonvertierungen an den Daten vornehmen
 								numRegs = modbusTable[tmpRow].numRegisters / ((modbusTable[tmpRow].operation == READ_MULTIPLE_COILS)?16:1);
+								if(modbusTable[tmpRow].operation == READ_MULTIPLE_COILS && modbusTable[tmpRow].numRegisters % 16 != 0) {
+									// Wenn nicht ein vielfaches von 16 Coils geholt wird muss die Registeranzahl um 1 erhöhrt werden, da sonst die letzten Coils nicht betrachtet werden
+									numRegs += 1;
+								}
 								for(i = 0; i < (numRegs/2)+numRegs%2; ++i) {
-									tmpVal = modbusToFloat(pRxBuf, &modbusTable[tmpRow].modbusType, modbusTable[tmpRow].operation, i*4+offset);
+									tmpVal = modbusToFloat(pRxBuf, &modbusTable[tmpRow].modbusType, modbusTable[tmpRow].operation, i*4+offset, &i);
 									convert(&tmpVal, modbusTable[tmpRow].convert);
 									floatToRiedel(tmpVal, modbusTable[tmpRow].address, &modbusTable[tmpRow].riedelType, i*4, min_w(4, (numRegs*2)-i*4));
 								}

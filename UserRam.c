@@ -294,7 +294,9 @@ char	hid2;							// Mit Service-Code 2	sichtbare Parameter	(137)
 char	hid3;							// Mit Service-Code 3	sichtbare Parameter	(143)
 char	hid4;							// Mit Service-Code 4	sichtbare Parameter	(139)
 char	kom;							// Nur für Komtab sichtbar
-
+char hid1_dS1;					// Mit Service-Code 1	sichtbare Parameter	(135), wenn Strategie 1 (Speicherladung aktiviert)		
+char hid1_dS2;					// Mit Service-Code 1	sichtbare Parameter	(135), wenn Strategie 2 (Rücklaufregelung aktiviert)
+char hid1_SOLLW_EA;			// Mit Service-Code 1	sichtbare Parameter	(135), wenn Sollwert EA aktiv (Rücklaufregelung aktiviert)
 // Projekttyp 
 char	proj_typ;					// Auswahl eines implemetierten Anlagen-Projektes
 // Projekthilfsgrößen, Auswertung in "Output.c"
@@ -649,6 +651,9 @@ NtDynam			ntd[NTMAX];
 /*--------------- Reglerparameter für Wärmepumpe -------------*/
 WpStandard	wps[WPMAX];
 WpDynam	wpd[WPMAX];
+
+/*--------------- Parameter für Modbus/-Dimplex -------------*/
+MoDynam mod_data;
 
 /*--------------- Reglerparameter für Solar-Regelung -------------*/
 SoStandard	sos[SOLMAX];

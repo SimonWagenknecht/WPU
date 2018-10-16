@@ -92,8 +92,6 @@ const Pgrup anl[] = {
 	{" 19:"," PROJEKT-AUSWAHL","       ", P&temp_proj_typ,				   US_CHAR, 0, P&hid2,	V0, 0, 0},
 	#endif
 
-	#include "parli_inout.h"
-
 	//*************************************************************************************************
 	// Datenmanager  	Gerät im DM_Modus (Data Master)
 	//*************************************************************************************************
@@ -105,6 +103,9 @@ const Pgrup anl[] = {
 //{"*->:"," STATION 1 IST  "," C    ", P&station1_istwert,				ANA_FORM, 1, P&vis,	V0, 0, 0},
 //{"*->:"," STATION 1 SOLLW"," C    ", P&station1_sollwert,			ANA_FORM, 1, P&vis,	V0, 0, 0},
 	{" ->:"," station1 rxtout"," min   ", P&DM[0].RxTout,			 			 US_CHAR, 0, P&hid2,V0, 0, 0},
+			#if TWE_ANF > 0
+	{"*61:"," E: TWE-ANFORD. "," 1=EIN ", P&station1_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
+		#endif
 		#endif
 
 		#if DM_SLAVES > 1
@@ -133,8 +134,13 @@ const Pgrup anl[] = {
 	// Beispiele für Datenempfang vom Master
 //{"*70:"," ZENTRALE E/A   "," 1=EIN ", P&zentrale_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
 //{"*71:"," ZENTRALE IST   "," C    ", P&zentrale_istwert,		 		ANA_FORM, 1, P&vis, 	V0, 0, 0},
+	#if WPU_UST > 0
+	{"*70;"," S: Unterstuetzung","       ", P&wpd[WP1].Status_Unterstuetzung,					   ANA_FORM, 0, P&vis,	V0, 0, 0},
+	#else	
 	{"*70;"," S: WPU-FREIGABE","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit,					   ANA_FORM, 0, P&vis,	V0, 0, 0},	// nach JMX 
 	{"*71;"," S: WPU BM      ","       ", P&wpd[WP1].WPU_BM_DM,					   ANA_FORM, 0, P&vis,	V0, 0, 0},									// nach JMX 
+	#endif
+	
 	#if TSPm > 0
 		#if WPU_SWP > 0
 		{"*72:"," S: TSPm-SWP    "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V0, 0, 0},
@@ -143,12 +149,21 @@ const Pgrup anl[] = {
 		{"*72:"," S: TSPm-AWP    "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V0, 0, 0},
 		#endif
 	#endif
+	
+	#if ANF_EXT_WPU > 0
 	{"*73:"," E: Sollwert    "," C    ", P&zentrale_sollwert,	 		ANA_FORM, 1, P&vis, 	V0, 0, 0},												//  von JMX
+	#endif
+	#if TWE_ANF > 0
+	{"*74:"," E: TWE-ANFORD. "," 1=EIN ", P&zentrale_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
+	#endif
+
+	
 	{" ->:"," zentrale rxtout"," min   ", P&DS_RxTout,			 			 	 US_CHAR, 0, P&hid2,  V0, 0, 0},
 	
 	#endif
-	
 	//*************************************************************************************************
+
+#include "parli_inout.h"
 
 	{"*80:"," SCHALTER HAND ?","       ", P&HardHand,							 JANEIN_FORM, 0, P&vis,		V1, 0, 0},
 	{"*81:"," R66 SCHALTER1-6","       ", P&sw_stat_info,						DYN_ASCII_FORM, 6, P&vis,		V1, 0, 0},
@@ -204,16 +219,16 @@ const Pgrup anl[] = {
 	{".->;"," sstm pubus ctr "," min/2 ", P&ssmPuCtr,						 		US_CHAR, 0, P&hid2,		V0, 0, 0},
 	#endif
 	
-	#if ANFORD > 0
-	{"*95:"," ANFORDERUNG MAX"," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
-	{" ->;"," TEMP.ANFORD.MIN"," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},
-	{" ->;"," SPG.ANFORD.MIN "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
-	{" ->;"," TEMP.ANFORD.MAX"," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
-	{" ->;"," SPG.ANFORD.MAX "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
-	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
-	#else
-	{"*95;"," anforderung max"," C    ", P&maxAnford,				 				 S_INT, 1, P&hid2,	V0, 0, 0},
-	#endif
+//	#if ANFORD > 0
+//	{"*95:"," ANFORDERUNG MAX"," C    ", P&maxAnford,				 				 S_INT, 1, P&vis, 	V1, 0, 0},
+//	{" ->;"," TEMP.ANFORD.MIN"," C    ", P&TmanfSkalMin,							 S_INT, 1, P&hid1,	V0, 0, 0},
+//	{" ->;"," SPG.ANFORD.MIN "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
+//	{" ->;"," TEMP.ANFORD.MAX"," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
+//	{" ->;"," SPG.ANFORD.MAX "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
+//	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
+//	#else
+//	{"*95;"," anforderung max"," C    ", P&maxAnford,				 				 S_INT, 1, P&hid2,	V0, 0, 0},
+//	#endif
 	
 	#if QUIT_TASTE == 0	// wenn keine QSM-Gruppe existiert, kann hiermit eine Soft-Quittierung (Funktion: quit_proc(void) ) in Alarme.c ausgeführt werden
 	{" 96:"," QUITTIER-TASTE "," EIN=1 ", P&quit_taste,			 				US_CHAR,  0, P&hid1,	V1, 0, 0},
@@ -1068,6 +1083,10 @@ const Pgrup ww2[] = {
 	#include "parli_wilo.h"
 #endif
 
+#if MB_Dimplex
+	#include "parli_modbus_dimplex.h"
+#endif
+	
 /*------------------------------ Ferienprogramm ----------------------------------------*/
 #if FER == 1
 const Pgrup fer[] = {
@@ -1886,6 +1905,10 @@ const Parli Pgruppe[] = {
 
 #if WILO_MODBUS == 1
 		{"WLP:", wlp, sizeof(wlp) / PGLENG, P&anl_vis},
+#endif
+
+#if MB_Dimplex == 1
+		{"DWP:", dwp, sizeof(dwp) / PGLENG, P&anl_vis},
 #endif
 
 // #####ulsch : Ferienprogramm #####
