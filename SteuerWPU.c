@@ -24,6 +24,8 @@ void SteuerWPU(void)
 	// Betriebszustände
 	 int Betriebszustand=2; // aktueller Betriebszustand
 	 
+	char ch_EXT_TWE_ANF;				// externe Warmwasseranforderung 
+	 
 	// Für den Satrt der Mindestlaufzeit und der Sperrzeit
 	static char NEUSTART = 1;		 	// Genereller Programmstart 
 	static char neustart = 1;		 	// Ablauf nach Programmstart 
@@ -44,6 +46,18 @@ void SteuerWPU(void)
 			// Sollwertübergabe
 				Sollwert = wpd[WP1].Eingehender_Sollwert; // Eingehender_Sollwert kommt aus Steuer
 	
+			// TWE-Anf-Übergabe
+			#if TWE_ANF > 0
+				ch_EXT_TWE_ANF = wpd[WP1].Status_Unterstuetzung;
+				#if DM_MODE > 0 
+				ch_EXT_TWE_ANF = station1_ea.messw;
+				#endif
+				#if DS_MODE > 0
+				ch_EXT_TWE_ANF = zentrale_ea.messw;
+				#endif
+			#else
+			ch_EXT_TWE_ANF = 0;
+			#endif
 	
 	// Parli: Speicherladung
 	if (wps[WP1].chPa_Strategie == 1)
@@ -99,7 +113,7 @@ void SteuerWPU(void)
 			{			
 			// Betriebszustände		
 			if ( (wpd[WP1].Mindestlaufzeit_Cnt == 0 && wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0)// Nur wenn die Counter nicht aktiv sind, werden die Betriebszustände geprüft
-						|| (TWE_ANF > 0 && (station1_ea.messw > 0 || wpd[WP1].Mindestlaufzeit_Cnt > 0) && wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0)) // Warmwasservorrang
+						|| (TWE_ANF > 0 && (ch_EXT_TWE_ANF > 0 || wpd[WP1].Mindestlaufzeit_Cnt > 0) && wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0)) // Warmwasservorrang
 			  {				
 				
 				if (wpd[WP1].Mindestlaufzeit_Cnt == 0)
@@ -280,7 +294,7 @@ void SteuerWPU(void)
 												// Einschalten
 												if (wpd[WP1].Status_WW_Vorrang == 0)
 													{
-													if (station1_ea.messw > 0 && wpd[WP1].Status_Quellenschutz == 0 && wpd[WP1].i_TWE_Sperrzeit_Cnt == 0)
+													if (ch_EXT_TWE_ANF > 0 && wpd[WP1].Status_Quellenschutz == 0 && wpd[WP1].i_TWE_Sperrzeit_Cnt == 0)
 															{
 																wpd[WP1].Status_WW_Vorrang = 1;																						// Betriebszustand setzen
 																wpd[WP1].i_TWE_Maxzeit_Cnt = wps[WP1].chPa_TWE_Maxlaufzeit_min * 60;			// Counter setzen
@@ -289,7 +303,7 @@ void SteuerWPU(void)
 												// Ausschalten
 												if (wpd[WP1].Status_WW_Vorrang > 0)
 													{
-														if ( station1_ea.messw == 0 || wpd[WP1].i_TWE_Maxzeit_Cnt <= 0)		
+														if ( ch_EXT_TWE_ANF == 0 || wpd[WP1].i_TWE_Maxzeit_Cnt <= 0)		
 															{
 																wpd[WP1].Status_WW_Vorrang = 0;
 																wpd[WP1].i_TWE_Sperrzeit_Cnt = wps[WP1].chPa_TWE_Sperrzeit_min * 60;			// Counter Sperrzeit setzen
@@ -342,7 +356,7 @@ void SteuerWPU(void)
 													break;
 												case 5:
 													wpd[WP1].Status_WPU_Freigabe_oZeit = 1;
-													Sollwert = 0;
+													Sollwert = wps[WP1].intPa_Sollwert_TWE;
 													break;	
 												// Kein Betriebszustand aktiv	
 												default:
@@ -647,13 +661,13 @@ void SteuerWPU(void)
 								T_Unterst = 1500;
 							}
 						// EIN
-						wpd[WP1].intT_Unterst_ANF_ein = Sollwert + wps[WP1].intPa_Unterst_ANF_ein; 
+						wpd[WP1].intT_Unterst_ANF_ein = wpd[WP1].Eingehender_Sollwert + wps[WP1].intPa_Unterst_ANF_ein; 
 						// AUS
-						wpd[WP1].intT_Unterst_ANF_aus = Sollwert + wps[WP1].intPa_Unterst_ANF_aus;
+						wpd[WP1].intT_Unterst_ANF_aus = wpd[WP1].Eingehender_Sollwert + wps[WP1].intPa_Unterst_ANF_aus;
 					
 													if (wpd[WP1].Status_Unterstuetzung == 0)
 														{
-															if (T_Unterst <= wpd[WP1].intT_Unterst_ANF_ein  && T_Unterst < 1500)
+															if (T_Unterst <= wpd[WP1].intT_Unterst_ANF_ein  && T_Unterst < 1500 && wpd[WP1].Eingehender_Sollwert > 200)
 																{
 																	wpd[WP1].Status_Unterstuetzung = 1;
 																}
@@ -661,7 +675,7 @@ void SteuerWPU(void)
 															// Ausschalten	
 													if (wpd[WP1].Status_Unterstuetzung > 0)
 														{
-															if ( T_Unterst >= wpd[WP1].intT_Unterst_ANF_aus  || T_Unterst > 1000)
+															if ( T_Unterst >= wpd[WP1].intT_Unterst_ANF_aus  || T_Unterst > 1000 || wpd[WP1].Eingehender_Sollwert < 200)
 																{
 																	wpd[WP1].Status_Unterstuetzung = 0;
 																}

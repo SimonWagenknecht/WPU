@@ -1,11 +1,11 @@
-#if MB_Dimplex 
+#if MB_Dimplex == 1
 const Pgrup dwp[] = {
 
 	{"***:"," Dimplex-MODBUS ","       ", P&Leer15,																								ASCII_FORM,  0, P&vis,	V0, 0, 0},
 
 	// Betriebsdaten
 	{"*01:"," Aussenlufttemp."," C    ", P&mod_data.i_R_Aussenlufttemperatur, 													  US_INT,  1, P&vis,	V1, 0, 0},
-	{"*02:"," Rücklauftemp.  "," C    ", P&mod_data.i_R_Ruecklauftemperatur, 													  US_INT,  1, P&vis,	V1, 0, 0},
+	{"*02:"," Ruecklauftemp. "," C    ", P&mod_data.i_R_Ruecklauftemperatur, 													  US_INT,  1, P&vis,	V1, 0, 0},
 	{"*03:"," RL-Solltemp    "," C    ", P&mod_data.i_R_Ruecklaufsolltemperatur, 											  US_INT,  1, P&vis,	V1, 0, 0},
 	// Historie
 	{"*04:"," Verdichter1-Lz "," h     ", P&mod_data.uc_R_Verdichter1_Stunden, 											     US_CHAR,  0, P&vis,	V1, 0, 0},
@@ -15,12 +15,12 @@ const Pgrup dwp[] = {
 	{"*08:"," WarmwasserPU-Lz"," h     ", P&mod_data.uc_R_Warmwasserpumpe_Stunden, 									     US_CHAR,  0, P&vis,	V0, 0, 0},
 	//1. Heizkreis
 	{" 10:"," Parallelversch ","       ", P&mod_data.uc_W_Parallelverschiebung, 											   US_CHAR,  0, P&vis,	V0, 0, 0},
-	{" 11:"," Raumtemperatur "," C    ", P&mod_data.i_W_Raumtemperatur, 															    US_INT,  0, P&vis,	V0, 0, 0},
-	{" 12:"," Festsolltempe  "," C    ", P&mod_data.i_W_Festwertsolltemperatur, 										     	US_INT,  0, P&vis,	V1, 0, 0},
-	{" 13:"," Heizkurvenendp."," C    ", P&mod_data.i_W_Heizkurvenendpunkt, 										          US_INT,  0, P&vis,	V0, 0, 0},
+	{" 11:"," Raumtemperatur "," C    ", P&mod_data.i_W_Raumtemperatur, 															    US_INT,  1, P&vis,	V0, 0, 0},
+	{" 12:"," Festsolltempe  "," C    ", P&mod_data.i_W_Festwertsolltemperatur, 										     	US_INT,  1, P&vis,	V1, 0, 0},
+	{" 13:"," Heizkurvenendp."," C    ", P&mod_data.i_W_Heizkurvenendpunkt, 										          US_INT,  1, P&vis,	V0, 0, 0},
 	{" 14:"," Hysterese IN   "," K     ", P&mod_data.i_W_Hysterese_HK_IN, 									              US_INT,  0, P&vis,	V0, 0, 0},
 	{"*15:"," Hysterese OUT  "," K     ", P&mod_data.i_Hysterese_HK_OUT, 									          	    US_INT,  0, P&vis,	V0, 0, 0},
-	{" 16:"," Soll dyn. Kuehl"," C    ", P&mod_data.i_W_Solltemp_dyn_Kuehlung, 									        US_INT,  0, P&vis,	V0, 0, 0},
+	{" 16:"," Soll dyn. Kuehl"," C    ", P&mod_data.i_W_Solltemp_dyn_Kuehlung, 									        US_INT,  1, P&vis,	V0, 0, 0},
 	// MODBUS
 	{" 20:"," Betriebsmodus  ","       ", P&mod_data.uc_W_Betriebsmodus, 											       		 US_CHAR,  0, P&vis,	V1, 0, 0},
 	{" 21:"," Partystunden   "," h     ", P&mod_data.uc_W_Anzahl_Partystunden, 											     US_CHAR,  0, P&vis,	V0, 0, 0},

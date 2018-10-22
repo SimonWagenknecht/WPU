@@ -40,7 +40,7 @@ void DManager(void)
 	}	
 	
 	//*******************************
-	// 1. Slave 	Sendepuffer füllen
+	// 1. Slave 	Sendepuffer füllen // Verbraucher
 	//*******************************
 	idx  = 0;																					// Slave-Index
 	// Erster Arbeitsschritt: muss sein !
@@ -68,7 +68,7 @@ void DManager(void)
 	DM[idx].TxLeng = offs;	
 	 		
 	//*******************************
-	// 2. Slave 	Sendepuffer füllen
+	// 2. Slave 	Sendepuffer füllen 2. Wärmepumpe
 	//*******************************
 	#if	DM_SLAVES > 1
 	idx = 1;
@@ -90,6 +90,9 @@ void DManager(void)
 	// Beispiel: Soll-Temperatur						(Vorlauf Min)
 	//offs = DM_Fill_TxBuf(idx, offs, P&hks[HK1].Tvmi, US_INT);
 
+	#if WPU_UST == 1
+		offs = DM_Fill_TxBuf(idx, offs, P&wpd[WP1].Status_Unterstuetzung, JANEIN_FORM);
+	#endif
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 	
 	// Letzter Arbeitsschritt: muss sein !
@@ -100,7 +103,7 @@ void DManager(void)
 	//-------------------------------------------------------------------------------------------------------------
 
 	//************************************
-	// 1. Slave 	Empfangsdaten behandeln
+	// 1. Slave 	Empfangsdaten behandeln		// Verbraucher
 	//************************************
 	idx  = 0;		// Slave-Index
 	offs = 0;		// Pufferzeiger
@@ -119,13 +122,13 @@ void DManager(void)
 
 	// Beispiel: Soll-Temperatur								(berechn. Vorlauf)
 	//offs = DM_Empty_RxBuf(idx, offs, &station1_sollwert, US_INT);			// 2 Byte
-	#if TWE_ANF > 0
-		offs = DM_Empty_RxBuf(idx, offs, &station1_ea, JANEIN_FORM);				// 1 Byte
-	#endif
+	//#if TWE_ANF > 0
+		offs = DM_Empty_RxBuf(idx, offs, &station1_sollwert, US_INT);				// 1 Byte // Anforderung
+	//#endif
 	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	//************************************
-	// 2. Slave 	Empfangsdaten behandeln
+	// 2. Slave 	Empfangsdaten behandeln // 2. Wärmepumpe
 	//************************************
 	#if	DM_SLAVES > 1
 	idx  = 1;		// Slave-Index

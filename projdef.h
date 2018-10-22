@@ -119,11 +119,11 @@
 #define STEUER_UNI  0             // 1/0 Benutzersteuerung mit UNI-Elementen (SteuerUni.c, parli_uni.h, UniStandard, UniDynam)
 
 // ***** josch: Datenmanager
-#define DS_MODE       0           // Gerät im DS_Modus (Data Slave) , Auswertung in der Funktion DReply() 
+#define DS_MODE       1           // Gerät im DS_Modus (Data Slave) , Auswertung in der Funktion DReply() 
 #define DS_RXBUF_MAX  16          // Puffergröße für Empfangsdaten
 #define DS_TXBUF_MAX  32          // Puffergröße für Sendedaten
 
-#define DM_MODE       1           // Gerät im DM_Modus (Data Master), Datenbearbeitung in der Funktion DManager(), Organisation der Datenübertragung im Task DTimer() 
+#define DM_MODE       0           // Gerät im DM_Modus (Data Master), Datenbearbeitung in der Funktion DManager(), Organisation der Datenübertragung im Task DTimer() 
 #define DM_RXBUF_MAX  32          // Puffergröße für Empfangsdaten
 #define DM_TXBUF_MAX  16          // Puffergröße für Sendedaten
 #define DM_SLAVES     1           // Min:1 Max:4  Anzahl der Slave-Geräte, mit denen der Datenmanager arbeiten soll
@@ -205,7 +205,7 @@
 #define HKMAX       1             // maximale Anzahl (wegen Speicherzuweisung mindestens 1)
 
 // Einstellung für Parli: hk1[]
-#define TRLBEG_HK1  0             // Rücklauftemperaturbegrenzung
+#define TRLBEG_HK1  1             // Rücklauftemperaturbegrenzung
 #define TRAUMK_HK1  0             // Anzeige eigener  Raum- und Soll-Temp. (Kaskade)
 #define BEDARF_HK1  0             // Bedarfssteuerung durch R50.  Wenn 0, Beabs = 0 setzen 
 #define BEDRAUM_HK1 0             // Anzeige externer Raum- und Soll-Temp. vom R50 (Kaskade)
@@ -420,7 +420,7 @@
 #define TWE_ANF			1							// 1 = Extra TWE-Anforderung-Vorrang
 #define MB_Dimplex	1							// 1 = Modbus für Dimplex 
 #define ANF_EXT_WPU	0							// 1 = externe Anforderung an die WPU
-#define WPU_UST			1							// 1 = Unterstützung anfordern bei der Bedarsfdeckung
+#define WPU_UST			0							// 1 = Unterstützung anfordern bei der Bedarsfdeckung
 //#define SOLLW_EA		1							// 1 = WPU wird über den Sollwert Ein- und Aus -geschaltet
 //#define DIM_SWP			1							// Übergang
 

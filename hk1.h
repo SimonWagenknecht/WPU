@@ -2,12 +2,12 @@
 const Pgrup hk1[] = {
 //-------------------
 	{"_**:"," HEIZKREIS 1    ","       ", P&hkd[HK1].raumname,	ASCII_FORM, 0, P&vis,		V1, 0, 0},
-	{"*01:"," VORLAUF   IST  "," C    ", P&TVS[HK1],						 ANA_FORMP, 1, P&vis,		V1, 0, 0},      
-	{"*01:"," VORLAUF   IST  "," C    ", P&TVS[HK1],					ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*01:"," VORLAUF  TVHK1 "," C    ", P&TVS[HK1],						 ANA_FORMP, 1, P&vis,		V1, 0, 0},      
+	{"*01:"," VORLAUF  TVHK1 "," C    ", P&TVS[HK1],					ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 
 	#if TRLBEG_HK1==1
-	{"*02:"," RUECKLAUF IST  "," C    ", P&TRS[HK1],						 ANA_FORMP, 1, P&vis,		V1, 0, 0},      
-	{"*02:"," RUECKLAUF IST  "," C    ", P&TRS[HK1],					ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
+	{"*02:"," RUECKLAUF TRHK1"," C    ", P&TRS[HK1],						 ANA_FORMP, 1, P&vis,		V1, 0, 0},      
+	{"*02:"," RUECKLAUF TRHK1"," C    ", P&TRS[HK1],					ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
 	#endif
 
 	#if TRAUMK_HK1==1
@@ -262,14 +262,14 @@ const Pgrup hk1[] = {
 	{" ->;"," pu2-lz minctr  "," min*5 ", P&hkd[HK1].pu2min,			 US_CHAR, 0, P&hid2,	V0, 0, 0},
 			#endif
 		#else									// keine Doppelpumpe
-	{"*72:"," HEIZ-PUMPE EIN?","       ", P&PU[HK1], 				 JANEIN_FORMOP, 0, P&vis,		V1, 0, 0},
+	{"*72:"," PU SWP EIN ?   ","       ", P&PU[HK1], 				 JANEIN_FORMOP, 0, P&vis,		V1, 0, 0},
 			#if PULZ_HK1 == 1
 	{"*73;"," PUMPEN-LAUFZEIT"," h     ", P&hkd[HK1].puLz,					US_INT, 0, P&hid1,	V1, 0, 0},
 			#endif
 		#endif	
 	
 		#if PUBM_HK1 == 1 // Betriebsmeldung Pumpe vorhanden
-	{"*74:"," BM HEIZ-PU EIN?","       ", P&BMPU[HK1], 			 JANEIN_FORMIP, 0, P&vis,		V1, 0, 0},
+	{"*74:"," BM PU SWP EIN ?","       ", P&BMPU[HK1], 			 JANEIN_FORMIP, 0, P&vis,		V1, 0, 0},
 	{" 74;"," WARTEN BM PUMPE"," min   ", P&hks[HK1].PuBmVerz,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," puBmVerz Ctr   "," min/2 ", P&hkd[HK1].puBmVerz,		  US_INT, 0, P&hid2,	V0, 0, 0},
 		#endif
@@ -336,7 +336,7 @@ const Pgrup hk1[] = {
 	{"*88:"," SM PUMPE 1 ?   ","       ", P&PUAL[HK1], 			 JANEIN_FORMIP, 0, P&vis,		A1, EINZEL,   0},
 	{"*88:"," SM PUMPE 2 ?   ","       ", P&PUDAL[HK1], 		 JANEIN_FORMIP, 0, P&vis,		A1, EINZEL,   0},
 		#else
-	{"*88:"," SM HEIZ-PUMPE ?","       ", P&PUAL[HK1], 			 JANEIN_FORMIP, 0, P&vis,		A1, EINZEL,   0},
+	{"*88:"," SM PU SWP    ? ","       ", P&PUAL[HK1], 			 JANEIN_FORMIP, 0, P&vis,		A1, EINZEL,   0},
 		#endif
 	#endif
 
@@ -350,10 +350,10 @@ const Pgrup hk1[] = {
 
 	{"*89:"," HANDBETRIEB ?  ","       ", P&hks[HK1].Haut,		 JANEIN_FORM, 0, P&vis,		E1, EREIGNIS, 0},
 
-	{" 90;"," P-VERSTAERKUNG "," %/K   ", P&hks[HK1].Kp,						US_INT, 2, P&hid1,	V1, 0, 0},
-	{" 91;"," D-VERSTAERKUNG ","       ", P&hks[HK1].Kd,						US_INT, 2, P&hid1,	V1, 0, 0},
-	{" 92;"," TASTZEIT       "," s     ", P&hks[HK1].Ts,						US_INT, 1, P&hid1,	V1, 0, 0},
-	{" 93;"," NACHSTELLZEIT  "," s     ", P&hks[HK1].Tn,						US_INT, 1, P&hid1,	V1, 0, 0},
+	//{" 90;"," P-VERSTAERKUNG "," %/K   ", P&hks[HK1].Kp,						US_INT, 2, P&hid1,	V1, 0, 0},
+	//{" 91;"," D-VERSTAERKUNG ","       ", P&hks[HK1].Kd,						US_INT, 2, P&hid1,	V1, 0, 0},
+	//{" 92;"," TASTZEIT       "," s     ", P&hks[HK1].Ts,						US_INT, 1, P&hid1,	V1, 0, 0},
+	//{" 93;"," NACHSTELLZEIT  "," s     ", P&hks[HK1].Tn,						US_INT, 1, P&hid1,	V1, 0, 0},
 
 	#if DREIP_HK1==1
 	{" 94;"," VENTILHUB MAX  "," mm    ", P&hks[HK1].Hub,					 US_CHAR, 0, P&hid1,	V1, 0, 0},
@@ -362,13 +362,13 @@ const Pgrup hk1[] = {
 	{"*->:"," stellsumme     "," s     ", P&hkd[HK1].stellsum,			 S_INT, 2, P&hid2,	V0, 0, 0},
 	{"*->:"," fahrzeit       "," s     ", P&hkd[HK1].fahren,				 S_INT, 0, P&hid2,	V0, 0, 0},
 	#else
-	{" 94;"," VENTILSTELL.MIN"," %     ", P&hks[HK1].Y_rel_min,	 		US_INT, 1, P&hid1,	V1, 0, 0},
-	{" 95;"," OEFFNUNGSBEGINN"," %     ", P&hks[HK1].Y_rel_beg,	 		US_INT, 1, P&hid1,	V1, 0, 0},
+	//{" 94;"," VENTILSTELL.MIN"," %     ", P&hks[HK1].Y_rel_min,	 		US_INT, 1, P&hid1,	V1, 0, 0},
+	//{" 95;"," OEFFNUNGSBEGINN"," %     ", P&hks[HK1].Y_rel_beg,	 		US_INT, 1, P&hid1,	V1, 0, 0},
 	#endif
 
-	{"*96;"," SOLLWERT       "," C    ", P&hkd[HK1].tsol,					US_INT, 1, P&hid1,	V1, 0, 0},
-	{"*97;"," REGELABWEICHUNG"," K     ", P&hkd[HK1].ei,						 S_INT, 1, P&hid1,	V1, 0, 0},
-	{"*->;"," dy_rel         ","       ", P&hkd[HK1].dy_rel,				 S_INT, 3, P&hid2,	V0, 0, 0},
+	//{"*96;"," SOLLWERT       "," C    ", P&hkd[HK1].tsol,					US_INT, 1, P&hid1,	V1, 0, 0},
+	//{"*97;"," REGELABWEICHUNG"," K     ", P&hkd[HK1].ei,						 S_INT, 1, P&hid1,	V1, 0, 0},
+	//{"*->;"," dy_rel         ","       ", P&hkd[HK1].dy_rel,				 S_INT, 3, P&hid2,	V0, 0, 0},
 
 	#if DREIP_HK1==0
 	{"*98;"," VENTILSTELLUNG "," %     ", P&RVENT[HK1],					AOUT_FORMP, 1, P&hid1,	V1, 0, 0},
@@ -385,7 +385,7 @@ const Pgrup hk1[] = {
 	{" ->:"," PUMPE 1 EIN/AUS"," EIN=1 ", P&hks[HK1].Puea,		 		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," PUMPE 2 EIN/AUS"," EIN=1 ", P&hks[HK1].Pu2ea,		 		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 		#else		
-	{" ->:"," PUMPE EIN/AUS  "," EIN=1 ", P&hks[HK1].Puea,		 		 US_CHAR, 0, P&hid1,	V1, 0, 0},
+	{" ->:"," PU SWP E/A     "," EIN=1 ", P&hks[HK1].Puea,		 		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 		#endif	
 	#endif
 #endif
@@ -394,7 +394,7 @@ const Pgrup hk1[] = {
 	{" ->:"," VENTIL ZUFAHREN"," s     ", P&hkd[HK1].vzu,				 	 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," VENTIL AUFFAHRN"," s     ", P&hkd[HK1].vauf,				 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	#else
-	{" ->:"," VENTIL STELLEN "," %     ", P&hks[HK1].Vstell,			  US_INT, 1, P&hid1,	V1, 0, 0},
+	//{" ->:"," VENTIL STELLEN "," %     ", P&hks[HK1].Vstell,			  US_INT, 1, P&hid1,	V1, 0, 0},
 	#endif
 
 };

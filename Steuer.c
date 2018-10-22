@@ -41,7 +41,14 @@ void Steuer(void)
 		// Externe Sollwerte	
 			// Übergabe von Dm zu Externer Sollwert
 			 #if ANF_EXT_WPU > 0	
+			 
+			 	#if DS_MODE == 1
 				anfExt[0] = zentrale_sollwert;
+				#endif
+				
+				#if DM_MODE == 1
+				anfExt[0] = station1_sollwert;
+				#endif
 			
 				#if ANF_EXT > 0			
 				for ( i = 0; i < ANF_EXT; i++ )

@@ -377,6 +377,12 @@
 #define	U29_ZAEHL		40
 #define	U29_ZEITG		40
 #define	U29_TASK		RegelWPU
+#else
+#define	U29_STAT		0x80					
+#define U29_BICB		NOIC
+#define	U29_ZAEHL		4
+#define	U29_ZEITG		4
+#define	U29_TASK		Leer
 #endif
 
 //------------------ letzter Task: Archivierung mit SD-Card ------------------------------

@@ -96,20 +96,24 @@ const Pgrup anl[] = {
 	// Datenmanager  	Gerät im DM_Modus (Data Master)
 	//*************************************************************************************************
 	#if DM_MODE == 1
-		#if DM_SLAVES > 0
+		#if DM_SLAVES > 0 // Verbraucher
 	{" 60:"," SLAVE 1 ADRESSE","       ", P&Slave[0],								 US_CHAR, 0, P&vis,	V0, 0, 0},
 	// Beispiele für Datenempfang vom Slave
 //{"*->:"," STATION 1 E/A  "," 1=EIN ", P&station1_ea,						ANA_FORM, 0, P&vis,	V0, 0, 0},
 //{"*->:"," STATION 1 IST  "," C    ", P&station1_istwert,				ANA_FORM, 1, P&vis,	V0, 0, 0},
 //{"*->:"," STATION 1 SOLLW"," C    ", P&station1_sollwert,			ANA_FORM, 1, P&vis,	V0, 0, 0},
 	{" ->:"," station1 rxtout"," min   ", P&DM[0].RxTout,			 			 US_CHAR, 0, P&hid2,V0, 0, 0},
-			#if TWE_ANF > 0
-	{"*61:"," E: TWE-ANFORD. "," 1=EIN ", P&station1_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
+	#if ANF_EXT_WPU == 1
+	{"*61:"," E: ANFORDERUNG "," C    ", P&station1_sollwert,			ANA_FORM, 1, P&vis,	V0, 0, 0},
 		#endif
-		#endif
+	
+	#endif
 
-		#if DM_SLAVES > 1
-	{" 61:"," SLAVE 2 ADRESSE","       ", P&Slave[1],								 US_CHAR, 0, P&vis,	V0, 0, 0},
+		#if DM_SLAVES > 1	// 2. Wärmepumpe
+	{" 65:"," SLAVE 2 ADRESSE","       ", P&Slave[1],								 US_CHAR, 0, P&vis,	V0, 0, 0},
+	#if WPU_UST > 0
+	{"*66;"," S: Unterstuetz.","       ", P&wpd[WP1].Status_Unterstuetzung,					   JANEIN_FORM, 2, P&vis,	V0, 0, 0},
+	#endif	
 //{"*->:"," STATION 2 E/A  "," 1=EIN ", P&station2_ea,						ANA_FORM, 0, P&vis,	V0, 0, 0},
 //{"*->:"," STATION 2 IST  "," C    ", P&station2_istwert,				ANA_FORM, 1, P&vis,	V0, 0, 0},
 //{"*->:"," STATION 2 SOLLW"," C    ", P&station2_sollwert,			ANA_FORM, 1, P&vis,	V0, 0, 0},
@@ -134,27 +138,29 @@ const Pgrup anl[] = {
 	// Beispiele für Datenempfang vom Master
 //{"*70:"," ZENTRALE E/A   "," 1=EIN ", P&zentrale_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
 //{"*71:"," ZENTRALE IST   "," C    ", P&zentrale_istwert,		 		ANA_FORM, 1, P&vis, 	V0, 0, 0},
-	#if WPU_UST > 0
-	{"*70;"," S: Unterstuetzung","       ", P&wpd[WP1].Status_Unterstuetzung,					   ANA_FORM, 0, P&vis,	V0, 0, 0},
-	#else	
-	{"*70;"," S: WPU-FREIGABE","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit,					   ANA_FORM, 0, P&vis,	V0, 0, 0},	// nach JMX 
-	{"*71;"," S: WPU BM      ","       ", P&wpd[WP1].WPU_BM_DM,					   ANA_FORM, 0, P&vis,	V0, 0, 0},									// nach JMX 
-	#endif
 	
-	#if TSPm > 0
-		#if WPU_SWP > 0
-		{"*72:"," S: TSPm-SWP    "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V0, 0, 0},
+		{"*70;"," S: WPU-FREIGABE","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit,					   ANA_FORM, 0, P&vis,	V0, 0, 0},	// nach JMX 
+		#if BM_WPU
+		{"*71;"," S: WPU BM      ","       ", P&wpd[WP1].WPU_BM_DM,					   ANA_FORM, 0, P&vis,	V0, 0, 0},									// nach JMX 
 		#endif
-		#if WPU_AWP > 0
-		{"*72:"," S: TSPm-AWP    "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V0, 0, 0},
+		#if WPU_UST > 0
+		{"*72;"," S: Unterstuetz.","       ", P&wpd[WP1].Status_Unterstuetzung,					   JANEIN_FORM, 2, P&vis,	V0, 0, 0},
 		#endif
-	#endif
+	
+//	#if TSPm > 0
+//		//#if WPU_SWP > 0
+//		{"*72:"," S: TSPm-SWP    "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V0, 0, 0},
+//		#endif
+//		//#if WPU_AWP > 0
+//		//{"*72:"," S: TSPm-AWP    "," C    ", P&TSPm_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V0, 0, 0},
+//		//#endif
+//	#endif
 	
 	#if ANF_EXT_WPU > 0
 	{"*73:"," E: Sollwert    "," C    ", P&zentrale_sollwert,	 		ANA_FORM, 1, P&vis, 	V0, 0, 0},												//  von JMX
 	#endif
 	#if TWE_ANF > 0
-	{"*74:"," E: TWE-ANFORD. "," 1=EIN ", P&zentrale_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
+	{"*74:"," E: Unterstuetz."," 1=EIN ", P&zentrale_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
 	#endif
 
 	
@@ -1083,7 +1089,7 @@ const Pgrup ww2[] = {
 	#include "parli_wilo.h"
 #endif
 
-#if MB_Dimplex
+#if MB_Dimplex == 1
 	#include "parli_modbus_dimplex.h"
 #endif
 	

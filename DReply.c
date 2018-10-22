@@ -66,9 +66,11 @@ void DReply(void)
 		offs = DS_Empty_RxBuf(offs, &zentrale_sollwert, US_INT);			// 2 Byte Externer Sollwert JMX
 	#endif
 	
-	//#if TWE_ANF > 0
-		//offs = DS_Empty_RxBuf(offs, &zentrale_ea, JANEIN_FORM);				// 1 Byte	Heizbedarf ?
-	//#endif	
+
+	#if TWE_ANF > 0
+		offs = DS_Empty_RxBuf(offs, &zentrale_ea, JANEIN_FORM);				// 1 Byte	Heizbedarf ?
+	#endif	
+
 //	#if WPU_UST > 0
 	
 	// Test
@@ -100,13 +102,18 @@ void DReply(void)
 
 	//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	// Übergabe von BM wegen Sendeformat
-	//wpd[WP1].WPU_BM_DM = BM_UNI[U1]->bwert;
 	
-	#if WPU_UST == 0
+	
+	
 	offs = DS_Fill_TxBuf(offs, P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM);	// Senden der WPU-Freigabe ohne Berücksichtigung der Verzögerung bzgl der WPU-Freigabe
+	
+	// Übergabe von BM wegen Sendeformat
+	#if BM_WPU == 1
+	wpd[WP1].WPU_BM_DM = BM_UNI[U1]->bwert;
 	offs = DS_Fill_TxBuf(offs, P&wpd[WP1].WPU_BM_DM, JANEIN_FORM);									// Senden der WPU-BM
-  #else
+  #endif
+  
+  #if WPU_UST > 0
   offs = DS_Fill_TxBuf(offs, P&wpd[WP1].Status_Unterstuetzung, JANEIN_FORM);									// Senden der Unterstützungsanforderung
 	#endif
 	

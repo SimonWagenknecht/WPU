@@ -42,7 +42,7 @@ void RegelWPU(void)
 		// Automatikbetrieb	
 			else
 				{
-					if (wpd[WP1].chPa_WPU_HEI > 0) // || später oder die Betriebsmeldung (Wärmepumpe ist gefordert)
+					if (wpd[WP1].chPa_WPU_HEI > 0 || wpd[WP1].ch_BM_WPU_MB > 0) 
 						{
 							// Sollwertberechnung für RV QU
 							wpd[0].tvsb = wps[0].iPa_Vol_ist ;
@@ -87,14 +87,14 @@ void RegelWPU(void)
 								if(wps[0].Y_rel_beg > 0)													// Ventilöffnungsbeginn g
 								{                                                                        
 									if(fl_dy_rel > 1)															// nur bei positiver Ände
-									{	if(wpd[0].fl_y_rel < fl_Y_rel_beg)						// und Wert kleiner als V
-											 wpd[0].fl_y_rel = fl_Y_rel_beg;						// dann Setzen auf Ventil
+									{	if(wpd[0].fl_y_rel < (wps[0].Y_rel_beg / 10))						// und Wert kleiner als V
+											 wpd[0].fl_y_rel = (wps[0].Y_rel_beg / 10);						// dann Setzen auf Ventil
 									}                                                                      
 								}	                                                                       
 								if(wps[0].Y_rel_min > 0)													// Minimalbegrenzung gese
 								{			                                                                   
-									if(wpd[0].fl_y_rel  < fl_Y_rel_min)						// Wert kleiner als Minim
-										 wpd[0].fl_y_rel  = fl_Y_rel_min;						// dann setzen auf Minima
+									if(wpd[0].fl_y_rel  < (wps[0].Y_rel_min / 10))						// Wert kleiner als Minim
+										 wpd[0].fl_y_rel  = (wps[0].Y_rel_min / 10);						// dann setzen auf Minima
 								}
 								
 								if(wpd[0].fl_y_rel > (wps[0].Y_rel_max / 10))													// Maximalbegrenzung gese

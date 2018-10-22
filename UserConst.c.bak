@@ -79,7 +79,7 @@ const char c_Plz       [10]         = {"12207    "};        //  9              =
 
 // Voreinstellung BUS-Betrieb
 const char c_Service_Idf [16]       = {"42843152       "};  // 15 
-const char c_ModulAdr               =  10;                   // 0= dummy
+const char c_ModulAdr               =  12;                   // 0= dummy
 const char c_StationsAdr            =  0;                   // 0= die Stationsadresse folgt der Moduladresse automatisch (wenn Station-Initadresse 254)
 
 // Voreinstellung Schnittstelle und Funktionen
@@ -1730,8 +1730,8 @@ const WpStandard  Wp_Standparam[] = {
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	-20,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	 10,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
-		0,	// int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
-	-100,	// int	intT_WE_Unterst_aus;										// Unterstützung ausschalten in [°C] *10
+	-100,	// int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
+	  0,	// int	intT_WE_Unterst_aus;										// Unterstützung ausschalten in [°C] *10
 	  5,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	 	5,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 		1,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]
@@ -1784,8 +1784,8 @@ const WpStandard  Wp_Standparam[] = {
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 		0,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
 	-30,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
-		0,	// int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
-	-50,	// int	intT_WE_Unterst_aus;										// Unterstützung ausschalten in [°C] *10
+		-50,	// int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
+	0,	// int	intT_WE_Unterst_aus;										// Unterstützung ausschalten in [°C] *10
 	 15,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]
 	 	5,	//char chPa_Sperrzeit_min;							// Sperrzeitzeit der WPu in [min]
 		0,	//char chPa_Verzoegerung_min;					// verzögerte Freigabe der WPU wegen Ansteueurng der Quellenpumpe [min]

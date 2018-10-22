@@ -74,7 +74,7 @@ const Pgrup wp1[] = {
 	{"*22:"," VL BER HK1     "," C    ", P&hkd[HK1].tvsb,					US_INT, 1, P&vis,		V0, 0, 0},
 	{" 23;"," ANFORD.  Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
 	#endif
-	#if TWE_ANF > 0
+	#if TWE_ANF > 0 && DM_MODE > 0
 	//{" 24;"," TWE-ANFORDERUNG"," C    ", P&wps[WP1].TWE_Sollwert,	 S_INT, 1, P&hid1,	V0, 0, 0},
 	{"*24:"," E: TWE-ANF E/A "," 1=EIN ", P&station1_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
 	#endif
@@ -153,11 +153,13 @@ const Pgrup wp1[] = {
 	{" ->;"," dT RL aus     ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1_dS2,	V0, 0, 0},
 	{"*->;"," RL-Beg. TR-SWP "," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1_dS2,	V0, 0, 0},
 	{"*->;"," RL-Ende TR-SWP "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1_dS2,	V0, 0, 0},
+	#if TWE_ANF > 0
 	{"*44:"," Warmwasservor.?","       ", P&wpd[WP1].Status_WW_Vorrang, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
 	{" ->;"," Maximale Dauer "," min   ", P&wps[WP1].chPa_TWE_Maxlaufzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Max. Dauer_Cnt "," s     ", P&wpd[WP1].i_TWE_Maxzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
 	{" ->;"," Sperrzeit      "," min   ", P&wps[WP1].chPa_TWE_Sperrzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Sperrzeit_Cnt  "," s     ", P&wpd[WP1].i_TWE_Sperrzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
+	#endif
 		#if WPU_UST > 0
 	{"*45:"," Unterstuetzung?","       ", P&wpd[WP1].Status_Unterstuetzung, JANEIN_FORM, 2, P&hid1,		V1, 0, 0},
 	{" ->;"," dT UST ein    ?"," K     ", P&wps[WP1].intPa_Unterst_ANF_ein,	S_INT, 1, P&hid1,	V1, 0, 0},
@@ -201,7 +203,7 @@ const Pgrup wp1[] = {
 	#if WPU_AWP == 1
 //-------------------
 	//-------------------
-	{"***:"," DIMPLEX-STEUER.","       ", P&Wpmod,							ASCII_FORM, 0, P&vis,		V1},
+	{"***:"," WAERMEPUMPE    ","       ", P&Wpmod,							ASCII_FORM, 0, P&vis,		V1},
   // 1 - 20 Temperaturfühler
 	{"*01:"," TV-AWP         "," C    ", P&TV_WP[WP1],						 	ANA_FORMP, 1, P&vis,		V1, 0, 0},
 	{"*01:"," TV-AWP         "," C    ", P&TV_WP[WP1],					 ANA_FORMP, 0x81, P&kom,		E1, FUEHLER, 0},
@@ -349,11 +351,13 @@ const Pgrup wp1[] = {
 	{" ->;"," dT RL aus     ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1_dS2,	V0, 0, 0},
 	{"*->;"," RL-Beg. TR-AWP "," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1_dS2,	V0, 0, 0},
 	{"*->;"," RL-Ende TR-AWP "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1_dS2,	V0, 0, 0},
+	#if TWE_ANF > 0
 	{"*44:"," Warmwasservor.?","       ", P&wpd[WP1].Status_WW_Vorrang, JANEIN_FORM, 2, P&vis,		V1, 0, 0},
 	{" ->;"," Maximale Dauer "," min   ", P&wps[WP1].chPa_TWE_Maxlaufzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Max. Dauer_Cnt "," s     ", P&wpd[WP1].i_TWE_Maxzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
 	{" ->;"," Sperrzeit      "," min   ", P&wps[WP1].chPa_TWE_Sperrzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Sperrzeit_Cnt  "," s     ", P&wpd[WP1].i_TWE_Sperrzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
+	#endif
 	#if WPU_UST > 0
 	{"*45:"," Unterstuetzung?","       ", P&wpd[WP1].Status_Unterstuetzung, JANEIN_FORM, 2, P&hid1,		V1, 0, 0},
 	{" ->;"," dT UST ein    ?"," K     ", P&wps[WP1].intPa_Unterst_ANF_ein,	S_INT, 1, P&hid1,	V1, 0, 0},
