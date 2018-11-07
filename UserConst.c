@@ -297,7 +297,7 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
 																 //				Steuerung der WPU via Mod-Bus soll implementiert werden
 // #define VERS_DATUM  {18,9,10}		 // SiWa: ModBus-Riedel-Architektur vom 09.07.2018
 																//        PU HK1 läuft, wenn Anforderung > 0 ist oder wenn WPU-Heizen = EIN ist															 
-#define VERS_DATUM  {18,10,22}		 // SiWa:komplett neuer Stand --> TWE-Anforderung/ Vorrang, Volumenstromregelung, UV SWP Steuerung
+//#define VERS_DATUM  {18,10,22}		 // SiWa:komplett neuer Stand --> TWE-Anforderung/ Vorrang, Volumenstromregelung, UV SWP Steuerung
 																	 //			 -> Änderungen fürs Projekt Erkner	
 #define VERS_DATUM  {18,11,7}		 // SiWa: neue Softwarebezeichnung, Parli-Bezeichnungen angepasst, Werkseinstellung angepasst																		 
 /*--------------------------------------------------------------------------------*/
