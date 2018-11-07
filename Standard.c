@@ -37,12 +37,12 @@ const bicvec bicuser[]	=	{
 	
 	// Steuer
 	{EEPADR,	(char	*)&Ta1mzk,		TA1MZK_ADR,			1, 	 10},	// [min]
-	{EEPADR,	(char	*)&Ta1mhzk,		TA1MHZK_ADR,		1, 	 12},	// [h]
+	{EEPADR,	(char	*)&Ta1mhzk,		TA1MHZK_ADR,		1, 	  6},	// [h]
 	{EEPADR,	(char	*)&bc_vorra,	BC_VORRA_ADR,		1, 	  0},	// 
 
 	{EEPADR,	(char	*)&Schalt_Pause, SCHALT_PAUSE_ADR,	1, 3},	// 3 Sek Einschaltpause
 	{EEPADR,	(char	*)&Tae,				TAE_ADR,				2, 	160},	// Temp. Winter ein	 [°C] * 10	
-	{EEPADR,	(char	*)&Taa,				TAA_ADR,				2, 	170},	// Temp. Sommer aus	 [°C] * 10	
+	{EEPADR,	(char	*)&Taa,				TAA_ADR,				2, 	180},	// Temp. Sommer aus	 [°C] * 10	
 
 #if ARCHIV_SDM == 1		// Josch-SDM : Archiv mit SD-Card-Memory
 	{EEPADR,	(char	*)&sdm_arch_stop,	SDM_ARCH_STOP_ADR,	1, 	0},	// 1 = Benutzer-Stopp

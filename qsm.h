@@ -3,7 +3,7 @@ const Pgrup qsm[] = {
 	{"*01:"," QSM VORHANDEN ?","       ", P&un_qsm,			 						JANEIN_FORM, 0, P&vis,	V1, 0, 0},
 
 //**PARSER-BEGIN-qsm[]**  AUTOMATISCHE ERZEUGUNG *****
-// Diese Zeilen wurde automatisch am : 22.10.2018 um 15:09:26 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Diese Zeilen wurde automatisch am : 07.11.2018 um 15:29:25 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
 // Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 	{"ANL:"," AUSSENLUFTTEMP.","       ", P&alarmtab[0].alspeicher,		JANEIN_FORM, 0, P&hid3,	V0, 0, 0},
 	{"ANL:"," SMGRUP STANDARD","       ", P&alarmtab[1].alspeicher,		JANEIN_FORM, 0, P&hid3,	V0, 0, 0},

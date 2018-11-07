@@ -370,11 +370,11 @@ const Pgrup hk1[] = {
 	//{"*97;"," REGELABWEICHUNG"," K     ", P&hkd[HK1].ei,						 S_INT, 1, P&hid1,	V1, 0, 0},
 	//{"*->;"," dy_rel         ","       ", P&hkd[HK1].dy_rel,				 S_INT, 3, P&hid2,	V0, 0, 0},
 
-	#if DREIP_HK1==0
-	{"*98;"," VENTILSTELLUNG "," %     ", P&RVENT[HK1],					AOUT_FORMP, 1, P&hid1,	V1, 0, 0},
-	{"*->;"," pid-stellgroess"," %     ", P&hkd[HK1].si_y_rel,			 S_INT, 1, P&hid2,	V0, 0, 0},
-	{" ->;"," pid-windup     "," %     ", P&hks[HK1].Wup,			 			US_INT, 1, P&hid2,	V0, 0, 0},
-	#endif
+//	#if DREIP_HK1==0
+//	{"*98;"," VENTILSTELLUNG "," %     ", P&RVENT[HK1],					AOUT_FORMP, 1, P&hid1,	V1, 0, 0},
+//	{"*->;"," pid-stellgroess"," %     ", P&hkd[HK1].si_y_rel,			 S_INT, 1, P&hid2,	V0, 0, 0},
+//	{" ->;"," pid-windup     "," %     ", P&hks[HK1].Wup,			 			US_INT, 1, P&hid2,	V0, 0, 0},
+//	#endif
 
 	//-------------------------------------------------------------------------------------------------
 	{" 99;"," HAND/AUTOMATIK "," HAND=1", P&hks[HK1].Haut,				 US_CHAR, 0, P&hid1,	V1, 0, 0},

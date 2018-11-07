@@ -1,4 +1,4 @@
-// Diese Datei wurde automatisch am : 22.10.2018 um 15:09:25 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
+// Diese Datei wurde automatisch am : 07.11.2018 um 15:29:24 generiert und entspricht der Systemversion nach 19.07.2017 10:21:03!!!
 // Path: C:\RIEcon36C\Softwarepool\Softwarepool_PES_2018\WPU_2018\WP_1_000_100000\User\Komtabparser.exe
 
 const Pgrup gpr[] = { 
@@ -126,7 +126,7 @@ const Pgrup wp1[] = {
 	{" ->;"," SPG.Sollw.MIN  "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{" ->;"," TEMP.Sollw.MAX "," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MAX  "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
-	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
+	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid1,	V0, 0, 0},
 	{" 31:"," Sollwert E/A ? "," EIN=1 ", P&wps[WP1].Sollwert_EA,		 US_CHAR, 0, P&hid1,	V0, 0, 0},
 	{" ->;"," SOLLW SWP HEI  "," C    ", P&wps[WP1].intPa_Sollwert_HEI,	S_INT, 1, P&hid1_SOLLW_EA,	V0, 0, 0},
 	{" ->;"," SOLLW SWP AUS  "," C    ", P&wps[WP1].intPa_Sollwert_AUS,	S_INT, 1, P&hid1_SOLLW_EA,	V0, 0, 0},
@@ -147,7 +147,7 @@ const Pgrup wp1[] = {
 	{" ->;"," Sperrzeit      "," min   ", P&wps[WP1].chPa_Sperrzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Sperrzeit_Cnt  "," s     ", P&wpd[WP1].Sperrzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
 	{"*->:"," freigabe swp   ","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
-	{"*38:"," VENTILSTELLUNG "," %     ", P&AA_UNI[U1],								AOUT_FORMP, 1, P&vis,	V1, 0, 0},
+	{"*38:"," V.STELL RV SWP "," %     ", P&AA_UNI[U1],								AOUT_FORMP, 1, P&vis,	V1, 0, 0},
 	{" 39;"," HAND RV SWP    "," HAND=1", P&wps[WP1].chpa_rv_Hau,				 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->;"," RV SWP stellen "," %     ", P&wps[WP1].ipa_rv_stellung,			 US_INT, 1, P&hid1,	V1, 0, 0},
 	{" 40:"," Strategie      "," 1-2   ", P&wps[WP1].chPa_Strategie, US_CHAR, 0, P&hid1,		V1, 0, 0},
@@ -184,8 +184,7 @@ const Pgrup wp1[] = {
 	{"*83;"," IST VOLSTR. WSP"," m/h  ", P&wmengCtr[2].flow_h,			US_LONG, 2, P&hid1,	V0, 0, 0},
 	{" 84;"," SOLL Vol. WPU  "," m/h  ", P&wps[0].iPa_Vol_ist,		US_INT, 1, P&hid1,	V1, 0, 0},
 	{"*85;"," REGELABWEICHUNG"," m/h  ", P&wpd[0].ei,						 S_INT, 2, P&hid1,	V0, 0, 0},
-	{"*->;"," dy_rel         ","       ", P&wpd[0].dy_rel,				 S_INT, 3, P&hid2,	V0, 0, 0},
-	{"*86:"," VENTILSTELLUNG "," %     ", P&AA_UNI[U1],					AOUT_FORMP, 1, P&vis,	V0, 0, 0},
+	{"*->;"," dy_rel         ","       ", P&wpd[0].dy_rel,				 S_INT, 3, P&hid1,	V0, 0, 0},
 } 
 
 const Pgrup sys[] = { 
@@ -540,8 +539,6 @@ const Pgrup anl[] = {
 	{" 01:"," UHRZEIT        ","       ",				0,									UHR_FORM, 0, P&vis,		V1, 0, 0},
 	{" 02:"," DATUM          ","       ",				0,								DATUM_FORM, 0, P&vis,		V1, 0, 0},
 	{"*03:"," BETRIEBSSTUNDEN"," h     ", P&bst,											US_INT, 0, P&vis,		V1, 0, 0},
-	{" ->;"," leerData1      ","       ", P&LeerData[0], 									US_CHAR, 0, P&hid2,	V0, 0, 0},
-	{" ->;"," leerSend1      ","       ", P&LeerSend[0], 									S_INT, 0, P&hid2,	V0, 0, 0},
 	{"*->;"," Ta 0..10V-Eing."," Volt  ", P&TAE[0],								 ANA_FORMP, 2, P&hid2,	V0, 0, 0},
 	{"*->;"," Ta 0..10V-Temp."," C    ", P&ta_ae,									ANA_FORM, 1, P&hid2,	V0, 0, 0},
 	{" ->;"," eingabe Ta 0 V "," C    ", P&TaeSkalMin,								 S_INT, 1, P&hid2,	V0, 0, 0},
@@ -1030,9 +1027,6 @@ const Pgrup hk1[] = {
 	{"*87:"," SM STW ?       ","       ", P&STWHK[HK1], 		 JANEIN_FORMIP, 0, P&vis,		A1, EINZEL,   0},
 	{"*88:"," SM BM-HEIZ-PU ?","       ", P&hkd[HK1].puBm,	 	JANEIN_FORM, 0, P&vis,		E1, STANDARD, 0},
 	{"*89:"," HANDBETRIEB ?  ","       ", P&hks[HK1].Haut,		 JANEIN_FORM, 0, P&vis,		E1, EREIGNIS, 0},
-	{"*98;"," VENTILSTELLUNG "," %     ", P&RVENT[HK1],					AOUT_FORMP, 1, P&hid1,	V1, 0, 0},
-	{"*->;"," pid-stellgroess"," %     ", P&hkd[HK1].si_y_rel,			 S_INT, 1, P&hid2,	V0, 0, 0},
-	{" ->;"," pid-windup     "," %     ", P&hks[HK1].Wup,			 			US_INT, 1, P&hid2,	V0, 0, 0},
 	{" 99;"," HAND/AUTOMATIK "," HAND=1", P&hks[HK1].Haut,				 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," PU SWP E/A     "," EIN=1 ", P&hks[HK1].Puea,		 		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 } 

@@ -116,6 +116,30 @@ void SteuerWPU(void)
 						|| (TWE_ANF > 0 && (ch_EXT_TWE_ANF > 0 || wpd[WP1].Mindestlaufzeit_Cnt > 0) && wpd[WP1].Sperrzeit_Cnt == 0 && wpd[WP1].Verzoegerungszeit_Cnt == 0)) // Warmwasservorrang
 			  {				
 				
+															// 5. Betriebszustand Warmwasservorrang
+											#if TWE_ANF > 0
+												
+												// Einschalten
+												if (wpd[WP1].Status_WW_Vorrang == 0)
+													{
+													if (ch_EXT_TWE_ANF > 0 && wpd[WP1].Status_Quellenschutz == 0 && wpd[WP1].i_TWE_Sperrzeit_Cnt == 0)
+															{
+																wpd[WP1].Status_WW_Vorrang = 1;																						// Betriebszustand setzen
+																wpd[WP1].i_TWE_Maxzeit_Cnt = wps[WP1].chPa_TWE_Maxlaufzeit_min * 60;			// Counter setzen
+															}
+													}												
+												// Ausschalten
+												if (wpd[WP1].Status_WW_Vorrang > 0)
+													{
+														if ( ch_EXT_TWE_ANF == 0 || wpd[WP1].i_TWE_Maxzeit_Cnt <= 0)		
+															{
+																wpd[WP1].Status_WW_Vorrang = 0;
+																wpd[WP1].i_TWE_Sperrzeit_Cnt = wps[WP1].chPa_TWE_Sperrzeit_min * 60;			// Counter Sperrzeit setzen
+																wpd[WP1].i_TWE_Maxzeit_Cnt = 0;																						// Counter Maxzeit nullen
+															}												
+													}																
+											 #endif
+				
 				if (wpd[WP1].Mindestlaufzeit_Cnt == 0)
 				{
 				// Betriebszustand Quellenbegrenzung (TVQ > Minimale Quellentemperartur)
@@ -174,7 +198,7 @@ void SteuerWPU(void)
 					// Betriebszustand Speicherladeprinzip (Speicherladung)
 				if (wps[WP1].chPa_Strategie == 1)
 				{		
-				 if (TWE_ANF > 0 && wpd[WP1].chPa_WPU_TWE > 0)
+				 if (TWE_ANF > 0 && wpd[WP1].Status_WW_Vorrang > 0)
 				 	{
 				 		wpd[WP1].Status_Speicherladung = 0;
 				 	}
@@ -252,12 +276,12 @@ void SteuerWPU(void)
 														// Ende Betriebszustand Speicherladung 3.2 Fall	
 											}	// Ende Speicherladung 3.1 und 3.2
 										}	// ENDE Speicherladung	
-									}	// Ende Mindestlaufzeit-bedingung 						
-								}// ENDE Strategie --> Speicherladung
+									}	// ENDE Strategie --> Speicherladung  						
+								}// Ende Mindestlaufzeit-bedingung
 								if (wps[WP1].chPa_Strategie == 2)
 									// Strategie Rücklauftemperaturregelung
 									{
-										if (TWE_ANF > 0 && wpd[WP1].chPa_WPU_TWE > 0)
+										if (TWE_ANF > 0 && wpd[WP1].Status_WW_Vorrang > 0)
 				 								{
 				 								wpd[WP1].Status_Speicherladung = 0;
 				 								}
@@ -288,29 +312,6 @@ void SteuerWPU(void)
 															}
 												}
 									}			
-											// 5. Betriebszustand Warmwasservorrang
-											#if TWE_ANF > 0
-												
-												// Einschalten
-												if (wpd[WP1].Status_WW_Vorrang == 0)
-													{
-													if (ch_EXT_TWE_ANF > 0 && wpd[WP1].Status_Quellenschutz == 0 && wpd[WP1].i_TWE_Sperrzeit_Cnt == 0)
-															{
-																wpd[WP1].Status_WW_Vorrang = 1;																						// Betriebszustand setzen
-																wpd[WP1].i_TWE_Maxzeit_Cnt = wps[WP1].chPa_TWE_Maxlaufzeit_min * 60;			// Counter setzen
-															}
-													}												
-												// Ausschalten
-												if (wpd[WP1].Status_WW_Vorrang > 0)
-													{
-														if ( ch_EXT_TWE_ANF == 0 || wpd[WP1].i_TWE_Maxzeit_Cnt <= 0)		
-															{
-																wpd[WP1].Status_WW_Vorrang = 0;
-																wpd[WP1].i_TWE_Sperrzeit_Cnt = wps[WP1].chPa_TWE_Sperrzeit_min * 60;			// Counter Sperrzeit setzen
-																wpd[WP1].i_TWE_Maxzeit_Cnt = 0;																						// Counter Maxzeit nullen
-															}												
-													}																
-											 #endif
 											
 											
 											

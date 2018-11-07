@@ -80,7 +80,7 @@ const char c_Plz       [10]         = {"         "};        //  9              =
 // Voreinstellung BUS-Betrieb
 const char c_Service_Idf [16]       = {"42843152       "};  // 15 
 const char c_ModulAdr               =  12;                   // 0= dummy
-const char c_StationsAdr            =  0;                   // 0= die Stationsadresse folgt der Moduladresse automatisch (wenn Station-Initadresse 254)
+const char c_StationsAdr            =  254;                   // 0= die Stationsadresse folgt der Moduladresse automatisch (wenn Station-Initadresse 254)
 
 // Voreinstellung Schnittstelle und Funktionen
 const char c_Mode_S1                = SLAVE;            // NULL_MODE = dummy,  MASTER, SLAVE
@@ -299,7 +299,7 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
 																//        PU HK1 läuft, wenn Anforderung > 0 ist oder wenn WPU-Heizen = EIN ist															 
 #define VERS_DATUM  {18,10,22}		 // SiWa:komplett neuer Stand --> TWE-Anforderung/ Vorrang, Volumenstromregelung, UV SWP Steuerung
 																	 //			 -> Änderungen fürs Projekt Erkner	
-																 
+#define VERS_DATUM  {18,11,7}		 // SiWa: neue Softwarebezeichnung, Parli-Bezeichnungen angepasst, Werkseinstellung angepasst																		 
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
 /*--------------------------------------------------------------------------------*/
@@ -387,7 +387,7 @@ const Anlage Projekte[] = {
 	{	
 	 // Typ und Version
 	 //"??-R-????-?????"			//Kennzeichen an fester Position !!	
-		{"WP-1-000-200000"},		//genau 15 ASCII-Zeichen
+		{"WP-2-S18-1RPL00"},		//genau 15 ASCII-Zeichen
 		VERS_DATUM,	           		//Jahr, Monat, Tag
 		// Kategoriebezeichnung für variable Projekte
 		{"TEST PROJEKT   "},
@@ -396,7 +396,7 @@ const Anlage Projekte[] = {
 		{3},	// Nummern der Kaltstartparametersätze für jeden Heizkreis [HK_PROFILE]
 					// 0 = Heizkreis nicht vorhanden
 		
-		{1},	// Nummern der Absenkprofile für jeden Heizkreis [ABS_PROFILE]
+		{2},	// Nummern der Absenkprofile für jeden Heizkreis [ABS_PROFILE]
 					// 0 = nicht vorhanden
 					
 					// Steuercode für Wärmepumpe
@@ -1298,14 +1298,14 @@ const absenktab abs_standard[][8] = {
 	},
 	
 	{ // Absenkprofil 2: FBH Wohnhaus
-		{0,  23,	6,	 50},		// Alle Tage
-		{0,  23,	6,	 50},		// Mo
-		{0,  23,	6,	 50},		// Di
-		{0,  23,	6,	 50},		// Mi
-		{0,  23,	6,	 50},		// Do
-		{59, 23,	6,	 50},		// Fr
-		{59, 23	,	6,	 50},		// Sa
-		{0,	 23,	6,	 50},		// So
+		{0,  22,	6,	 20},		// Alle Tage
+		{0,  22,	6,	 20},		// Mo
+		{0,  22,	6,	 20},		// Di
+		{0,  22,	6,	 20},		// Mi
+		{0,  22,	6,	 20},		// Do
+		{59, 22,	6,	 20},		// Fr
+		{59, 22	,	6,	 20},		// Sa
+		{0,	 22,	6,	 20},		// So
 	},
 
 	{ // Absenkprofil 3: Radiatoren Schulen/Büros/Gewerbe
@@ -1731,7 +1731,7 @@ const WpStandard  Wp_Standparam[] = {
 	-50,	//UINT	intPa_Quellentemperaturminimum;	// Minimale Quellentemperatur in [°C] *10
 	150,  //UINT	intPa_Speicherminimum;					// Minimale Speichertemperatur in [°C] *10
 	-20,	// int	intPa_T_Speicherladung_on; 			// Speicherladung aktivieren: delat T in [K] *10
-	 10,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
+	 30,	//int	intPa_T_Speicherladung_off; 		// Speicherladung deaktivieren: delat T in [K] *10
 	-100,	// int	intT_Unterst_ANF_ein;										// Unterstuetzung einschalten in [°C] *10
 	  0,	// int	intT_WE_Unterst_aus;										// Unterstützung ausschalten in [°C] *10
 	  5,	//char chPa_Mindestlaufzeit_min;				// Mindestlaufzeit der WPu in [min]

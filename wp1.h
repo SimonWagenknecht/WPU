@@ -61,9 +61,9 @@ const Pgrup wp1[] = {
 	{"*->:"," ANF INP aktiv  ","       ", P&wpd[WP1].Status_SW_AE_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
 	{" ->;"," 0V ANFORD.INP  "," C    ", P&AnaInpPara[U1].Skal0,		 		S_INT, 1, P&hid1,	V0, 0, 0},	
 	{" ->;"," 10V ANFORD.INP "," C    ", P&AnaInpPara[U1].Skal10,	 		S_INT, 1, P&hid1,	V0, 0, 0},
-	{" ->;"," gl.anford.inp  "," s     ", P&AnaInpPara[U1].ZkFilt,		 US_INT, 0, P&hid2,	V0, 0, 0},
-	{"*->;"," anforderung inp"," V     ", P&AE_UNI[U1],					  	ANA_FORMP, 2, P&hid2,	V0, 0, 0},
-	{"*->;"," anforderung inp"," %     ", P&anaInp[U1].mwFilt,				 US_INT, 1, P&hid2,	V0, 0, 0},
+	{" ->;"," gl.anford.inp  "," s     ", P&AnaInpPara[U1].ZkFilt,		 US_INT, 0, P&hid1,	V0, 0, 0},
+	{"*->;"," anforderung inp"," V     ", P&AE_UNI[U1],					  	ANA_FORMP, 2, P&hid1,	V0, 0, 0},
+	{"*->;"," anforderung inp"," %     ", P&anaInp[U1].mwFilt,				 US_INT, 1, P&hid1,	V0, 0, 0},
 	// Sollwertoffset, wenn AE oder DM aktiviert
 	{" 25;"," ANFORD.  Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
 	// Ersatzwert
@@ -94,7 +94,7 @@ const Pgrup wp1[] = {
 	{" ->;"," SPG.Sollw.MIN  "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{" ->;"," TEMP.Sollw.MAX "," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MAX  "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
-	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
+	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid1,	V0, 0, 0},
 	{" 31:"," Sollwert E/A ? "," EIN=1 ", P&wps[WP1].Sollwert_EA,		 US_CHAR, 0, P&hid1,	V0, 0, 0},
 	{" ->;"," SOLLW SWP HEI  "," C    ", P&wps[WP1].intPa_Sollwert_HEI,	S_INT, 1, P&hid1_SOLLW_EA,	V0, 0, 0},
 	{" ->;"," SOLLW SWP AUS  "," C    ", P&wps[WP1].intPa_Sollwert_AUS,	S_INT, 1, P&hid1_SOLLW_EA,	V0, 0, 0},
@@ -130,7 +130,7 @@ const Pgrup wp1[] = {
 	{"*->:"," freigabe swp   ","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
 	
 	#if RV_VOL > 0
-	{"*38:"," VENTILSTELLUNG "," %     ", P&AA_UNI[U1],								AOUT_FORMP, 1, P&vis,	V1, 0, 0},
+	{"*38:"," V.STELL RV SWP "," %     ", P&AA_UNI[U1],								AOUT_FORMP, 1, P&vis,	V1, 0, 0},
 	{" 39;"," HAND RV SWP    "," HAND=1", P&wps[WP1].chpa_rv_Hau,				 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->;"," RV SWP stellen "," %     ", P&wps[WP1].ipa_rv_stellung,			 US_INT, 1, P&hid1,	V1, 0, 0},
 	#endif
@@ -194,8 +194,8 @@ const Pgrup wp1[] = {
 	
 	{" 84;"," SOLL Vol. WPU  "," m/h  ", P&wps[0].iPa_Vol_ist,		US_INT, 1, P&hid1,	V1, 0, 0},
 	{"*85;"," REGELABWEICHUNG"," m/h  ", P&wpd[0].ei,						 S_INT, 2, P&hid1,	V0, 0, 0},
-	{"*->;"," dy_rel         ","       ", P&wpd[0].dy_rel,				 S_INT, 3, P&hid2,	V0, 0, 0},
-	{"*86:"," VENTILSTELLUNG "," %     ", P&AA_UNI[U1],					AOUT_FORMP, 1, P&vis,	V0, 0, 0},
+	{"*->;"," dy_rel         ","       ", P&wpd[0].dy_rel,				 S_INT, 3, P&hid1,	V0, 0, 0},
+	//{"*86:"," V.STELL RV SWP "," %     ", P&AA_UNI[U1],					AOUT_FORMP, 1, P&vis,	V0, 0, 0},
 	#endif
 	
 	#endif
@@ -260,9 +260,9 @@ const Pgrup wp1[] = {
 	{"*->:"," ANF INP aktiv  ","       ", P&wpd[WP1].Status_SW_AE_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
 	{" ->;"," 0V ANFORD.INP  "," C    ", P&AnaInpPara[U1].Skal0,		 		S_INT, 1, P&hid1,	V0, 0, 0},	
 	{" ->;"," 10V ANFORD.INP "," C    ", P&AnaInpPara[U1].Skal10,	 		S_INT, 1, P&hid1,	V0, 0, 0},
-	{" ->;"," gl.anford.inp  "," s     ", P&AnaInpPara[U1].ZkFilt,		 US_INT, 0, P&hid2,	V0, 0, 0},
-	{"*->;"," anforderung inp"," V     ", P&AE_UNI[U1],					  	ANA_FORMP, 2, P&hid2,	V0, 0, 0},
-	{"*->;"," anforderung inp"," %     ", P&anaInp[U1].mwFilt,				 US_INT, 1, P&hid2,	V0, 0, 0},
+	{" ->;"," gl.anford.inp  "," s     ", P&AnaInpPara[U1].ZkFilt,		 US_INT, 0, P&hid1,	V0, 0, 0},
+	{"*->;"," anforderung inp"," V     ", P&AE_UNI[U1],					  	ANA_FORMP, 2, P&hid1,	V0, 0, 0},
+	{"*->;"," anforderung inp"," %     ", P&anaInp[U1].mwFilt,				 US_INT, 1, P&hid1,	V0, 0, 0},
 	// Sollwertoffset, wenn AE oder DM aktiviert
 	{" 25;"," ANFORD.  Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
 	// Ersatzwert
@@ -293,7 +293,7 @@ const Pgrup wp1[] = {
 	{" ->;"," SPG.Sollw.MIN  "," Volt  ", P&TmanfSkalMinSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
 	{" ->;"," TEMP.Sollw.MAX "," C    ", P&TmanfSkalMax,							 S_INT, 1, P&hid1,	V0, 0, 0},
 	{" ->;"," SPG.Sollw.MAX  "," Volt  ", P&TmanfSkalMaxSpg,					 S_INT, 2, P&hid1,	V0, 0, 0},
-	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid2,	V0, 0, 0},
+	{"*->;"," ausgabe tmanf  "," Volt  ", P&TMANF[0],							AOUT_FORMP, 2, P&hid1,	V0, 0, 0},
 	{" 31:"," Sollwert E/A ? "," EIN=1 ", P&wps[WP1].Sollwert_EA,		 US_CHAR, 0, P&hid1,	V0, 0, 0},
 	{" ->;"," SOLLW AWP HEI  "," C    ", P&wps[WP1].intPa_Sollwert_HEI,	S_INT, 1, P&hid1_SOLLW_EA,	V0, 0, 0},
 	{" ->;"," SOLLW AWP AUS  "," C    ", P&wps[WP1].intPa_Sollwert_AUS,	S_INT, 1, P&hid1_SOLLW_EA,	V0, 0, 0},
@@ -328,7 +328,7 @@ const Pgrup wp1[] = {
 	{"*->:"," freigabe swp   ","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
 	
 	#if RV_VOL > 0
-	{"*38:"," VENTILSTELLUNG "," %     ", P&AA_UNI[U1],								AOUT_FORMP, 1, P&vis,	V1, 0, 0},
+	{"*38:"," V.STELL RV AWP "," %     ", P&AA_UNI[U1],								AOUT_FORMP, 1, P&vis,	V1, 0, 0},
 	{" 39;"," HAND RV AWP    "," HAND=1", P&wps[WP1].chpa_rv_Hau,				 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->;"," RV AWP stellen "," %     ", P&wps[WP1].ipa_rv_stellung,			 US_INT, 1, P&hid1,	V1, 0, 0},
 	#endif
@@ -391,8 +391,8 @@ const Pgrup wp1[] = {
 	
 	{" 84;"," SOLL Vol. WPU  "," m/h  ", P&wps[0].iPa_Vol_ist,		US_INT, 1, P&hid1,	V1, 0, 0},
 	{"*85;"," REGELABWEICHUNG"," m/h  ", P&wpd[0].ei,						 S_INT, 2, P&hid1,	V0, 0, 0},
-	{"*->;"," dy_rel         ","       ", P&wpd[0].dy_rel,				 S_INT, 3, P&hid2,	V0, 0, 0},
-	{"*86:"," VENTILSTELLUNG "," %     ", P&AA_UNI[U1],					AOUT_FORMP, 1, P&vis,	V0, 0, 0},
+	{"*->;"," dy_rel         ","       ", P&wpd[0].dy_rel,				 S_INT, 3, P&hid1,	V0, 0, 0},
+//	{"*86:"," VENTILSTELLUNG "," %     ", P&AA_UNI[U1],					AOUT_FORMP, 1, P&vis,	V0, 0, 0},
 	#endif
 		
 	#endif

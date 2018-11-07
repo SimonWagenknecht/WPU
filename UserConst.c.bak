@@ -70,12 +70,12 @@ const char Leistung[16]						  =	{"LEISTUNG       "};
 //----------------------------------------------------------------------------------------------------
 // Objekt- und Standortbezeichnungen            	Anzahl von ASCII-Zeichen        Beispiel
 //----------------------------------------------------------------------------------------------------
-const char c_Objektbez [16]         = {"Juri Maxx WPU E"};  // 15              = {"Realschule     "}; 
-const char c_Objektnum [10]         = {"08_2018_J"};        //  9              = {"LU1-Klass"};       
-const char c_Strasse   [16]         = {"Schwelmer Str. "};  // 15              = {"A67 LU1 Klassen"}; 
-const char c_Nummer    [10]         = {"20-24    "};        //  9              = {"         "};       
-const char c_Ort       [16]         = {"Berlin         "};  // 15              = {"Koesching      "}; 
-const char c_Plz       [10]         = {"12207    "};        //  9              = {"         "};       
+const char c_Objektbez [16]         = {"               "};  // 15              = {"Realschule     "}; 
+const char c_Objektnum [10]         = {"         "};        //  9              = {"LU1-Klass"};       
+const char c_Strasse   [16]         = {"               "};  // 15              = {"A67 LU1 Klassen"}; 
+const char c_Nummer    [10]         = {"         "};        //  9              = {"         "};       
+const char c_Ort       [16]         = {"               "};  // 15              = {"Koesching      "}; 
+const char c_Plz       [10]         = {"         "};        //  9              = {"         "};       
 
 // Voreinstellung BUS-Betrieb
 const char c_Service_Idf [16]       = {"42843152       "};  // 15 
@@ -295,8 +295,10 @@ const char c_Stopbits_S3            = NULL_STOP;            // NULL_STOP = dummy
 //#define VERS_DATUM  {18,9,4}	 	 // SiWa: Neue Hydraulik: WPU, Speicher und Heizkreis sind in Reihe geschaltet, WPU fungiert zur Spitzenlast-Unterstützung bei der WW
 																 // 			Heizkreis HK1
 																 //				Steuerung der WPU via Mod-Bus soll implementiert werden
-#define VERS_DATUM  {18,9,10}		 // SiWa: ModBus-Riedel-Architektur vom 09.07.2018
+// #define VERS_DATUM  {18,9,10}		 // SiWa: ModBus-Riedel-Architektur vom 09.07.2018
 																//        PU HK1 läuft, wenn Anforderung > 0 ist oder wenn WPU-Heizen = EIN ist															 
+#define VERS_DATUM  {18,10,22}		 // SiWa:komplett neuer Stand --> TWE-Anforderung/ Vorrang, Volumenstromregelung, UV SWP Steuerung
+																	 //			 -> Änderungen fürs Projekt Erkner	
 																 
 /*--------------------------------------------------------------------------------*/
 /* 										Liste von Anlagen																						*/
@@ -1710,7 +1712,7 @@ const WpStandard  Wp_Standparam[] = {
  {
  	0,		//char	Para_Manu_Sollwert; 		// Manuellen Sollwert aktivieren
 	500,	//UNINT	t_manu_Sollwert; 		// Manuell vorgegebener Sollwert in [?C] *10
-	30,		//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
+	-30,		//UINT	T_Sollwert_Offset; 		// Sollwertoffset in [K] *10
 	550,	//UINT	T_Ersatz_Sollwert; 		// Ersatz-Sollwert in [°C] *10
 	580,	//UINT	TWE_Sollwert; 									// TWE-Sollwert in [°C] *10
 	  0,	//UINT	iPa_T_Sollwert_IN_MIN; 					// Begrenzt den eingehenden Sollwert (wpd[WP1].Eingehender Sollwert auf den eingestellten minimalen Wert [°C] *10

@@ -2,12 +2,12 @@
 #define COPYDATA_H_INCLUDED
 
 	#if COPY_RESERV_EMPF > 0
-		#if COPY_EMPF > 0
-		{" ->;"," copyData1      ","       ", P&CopyData[0].copyData.messw,  ANA_FORM, 0, P&hid2,	V0, 0, 0},
-		{" ->;"," copyTimer1     ","       ", P&CopyData[0].copyRxTimer,			 US_INT, 0, P&hid2,	V0, 0, 0},  
-		#else
-		{" ->;"," leerData1      ","       ", P&LeerData[0], 									US_CHAR, 0, P&hid2,	V0, 0, 0},
-		#endif 
+//		#if COPY_EMPF > 0
+//		{" ->;"," copyData1      ","       ", P&CopyData[0].copyData.messw,  ANA_FORM, 0, P&hid2,	V0, 0, 0},
+//		{" ->;"," copyTimer1     ","       ", P&CopyData[0].copyRxTimer,			 US_INT, 0, P&hid2,	V0, 0, 0},  
+//		#else
+//		{" ->;"," leerData1      ","       ", P&LeerData[0], 									US_CHAR, 0, P&hid2,	V0, 0, 0},
+//		#endif 
 	#endif
 	
 	#if COPY_RESERV_EMPF > 1
@@ -149,11 +149,11 @@
 //-----------------------------------------------------------------------------------------------------------	
 
 	#if COPY_RESERV_SEND > 0
-		#if COPY_SEND > 0
-		{" ->;"," copySend1      ","       ", P&CopySend[0], 									S_INT, 0, P&hid2,	V0, 0, 0},
-		#else
-		{" ->;"," leerSend1      ","       ", P&LeerSend[0], 									S_INT, 0, P&hid2,	V0, 0, 0},
-		#endif
+//		#if COPY_SEND > 0
+//		{" ->;"," copySend1      ","       ", P&CopySend[0], 									S_INT, 0, P&hid2,	V0, 0, 0},
+//		#else
+//		{" ->;"," leerSend1      ","       ", P&LeerSend[0], 									S_INT, 0, P&hid2,	V0, 0, 0},
+//		#endif
 	#endif
 	
 	#if COPY_RESERV_SEND > 1
