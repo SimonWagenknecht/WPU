@@ -249,10 +249,13 @@ const Pgrup wp1[] = {
 	#if SM_WPU > 0
 	{"*21:"," SM AWP         ","       ", P&SM_UNI[U1], 		 			JANEIN_FORMIP, 0, P&vis,		A1, EINZEL, 0},
 	#endif
+		#if FIL > 0
+	{"*22:"," Filterwartung  ","       ", P&DE_UNI[U1],		 				JANEIN_FORMIP, 2, P&vis,		A1, 0, 0},
+	#endif
 	// Externe Anforderung
 	
 	#if ANF_EXT_WPU > 0
-	{"*22:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],						ANA_FORM, 1, P&vis,		V1, 0, 0},      
+	{"*23:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],						ANA_FORM, 1, P&vis,		V1, 0, 0},      
 	{"*23:"," ANFORDERUNG BUS"," C    ", P&anfExt[0],	 		 	 ANA_FORM, 0x81, P&kom,		E1, FUEHLER, 0},
 	{"*->:"," ANF BUS aktiv  ","       ", P&wpd[WP1].Status_SW_DM_aktiv,	 JANEIN_FORM, 0, P&vis,		V0, 0, 0},
 	{"*24:"," ANFORDERUNG INP"," C    ", P&anaInp[U1].mwSkal,			 ANA_FORM, 1, P&vis,	V0, 0, 0},
@@ -270,12 +273,12 @@ const Pgrup wp1[] = {
 	#endif
 	// Interne Anforderung
 	#if HKANZ > 0	
-	{"*22:"," VL BER HK1     "," C    ", P&hkd[HK1].tvsb,					US_INT, 1, P&vis,		V0, 0, 0},
-	{" 23;"," ANFORD.  Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
+	{"*23:"," VL BER HK1     "," C    ", P&hkd[HK1].tvsb,					US_INT, 1, P&vis,		V0, 0, 0},
+	{" 24;"," ANFORD.  Offset"," C    ", P&wps[WP1].T_Sollwert_Offset,	 S_INT, 1, P&hid1,	V0, 0, 0},
 	#endif
 	#if TWE_ANF > 0
 	//{" 24;"," TWE-ANFORDERUNG"," C    ", P&wps[WP1].TWE_Sollwert,	 S_INT, 1, P&hid1,	V0, 0, 0},
-	{" 24:"," E: TWE-ANF E/A "," 1=EIN ", P&station1_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
+	{" 25:"," E: TWE-ANF E/A "," 1=EIN ", P&station1_ea,				 		ANA_FORM, 0, P&vis, 	V0, 0, 0},
 	#endif
 
 

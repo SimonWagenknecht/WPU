@@ -421,6 +421,7 @@
 #define MB_Dimplex	1							// 1 = Modbus für Dimplex 
 #define ANF_EXT_WPU	0							// 1 = externe Anforderung an die WPU
 #define WPU_UST			0							// 1 = Unterstützung anfordern bei der Bedarsfdeckung
+#define FIL					1							// 1 = Filterwartung (Digitaler Eingang DE_UNI[U1})
 //#define SOLLW_EA		1							// 1 = WPU wird über den Sollwert Ein- und Aus -geschaltet
 //#define DIM_SWP			1							// Übergang
 
