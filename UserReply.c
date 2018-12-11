@@ -2213,6 +2213,8 @@ void SysEEP_InitUser_67(void)
 #if DM_MODE == 1
 	for(i = 0; i < 4; i++)
 		Slave[i] = 0;										// Slave-Adressen werden gelöscht
+	Slave[0] = 11;
+	Slave[1] = 12;
 	bicbus(EEPADR,	(char *)&Slave[0],	SLAVE_ADR, 4, BICWR);
 #endif	
 

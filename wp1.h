@@ -127,7 +127,7 @@ const Pgrup wp1[] = {
 	{" ->:"," Mindestlauf_Cnt"," s     ", P&wpd[WP1].Mindestlaufzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
 	{" ->;"," Sperrzeit      "," min   ", P&wps[WP1].chPa_Sperrzeit_min,		 US_CHAR, 0, P&hid1,	V1, 0, 0},
 	{" ->:"," Sperrzeit_Cnt  "," s     ", P&wpd[WP1].Sperrzeit_Cnt,		  US_INT, 0, P&hid1,	V0, 0, 0},
-	{"*->:"," freigabe swp   ","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
+	{"*->:"," freigabe awp   ","       ", P&wpd[WP1].Status_WPU_Freigabe_oZeit, JANEIN_FORM, 2, P&vis,		V0, 0, 0},
 	
 	#if RV_VOL > 0
 	{"*38:"," V.STELL RV SWP "," %     ", P&AA_UNI[U1],								AOUT_FORMP, 1, P&vis,	V1, 0, 0},
@@ -342,13 +342,13 @@ const Pgrup wp1[] = {
 	{" ->;"," Speicherminimum"," C    ", P&wps[WP1].intPa_Speicherminimum,	S_INT, 1, P&hid1,	V1, 0, 0},
 	{"*->;"," Aktive Temp.   "," C    ", P&wpd[WP1].intT_Speichertemperatur_aktiv,	  S_INT, 1, P&hid1,	V0, 0, 0},
 	{"*43:"," Speicherladung?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&hid1_dS1,		V1, 0, 0},
-	{" ->;"," dT Ladung ein ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1_dS1,	V1, 0, 0},
-	{" ->;"," dT Ladung aus ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1_dS1,	V1, 0, 0},
+	{" ->;"," dT Ladung ein  "," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1_dS1,	V1, 0, 0},
+	{" ->;"," dT Ladung aus  "," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1_dS1,	V1, 0, 0},
 	{"*->;"," Ladebeginn TSPo"," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1_dS1,	V0, 0, 0},
 	{"*->;"," Ladeende TSPu  "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1_dS1,	V0, 0, 0},
 	{"*43:"," Rueckl.-Regel ?","       ", P&wpd[WP1].Status_Speicherladung, JANEIN_FORM, 2, P&hid1_dS2,		V0, 0, 0},
-	{" ->;"," dT RL ein     ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1_dS2,	V0, 0, 0},
-	{" ->;"," dT RL aus     ?"," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1_dS2,	V0, 0, 0},
+	{" ->;"," dT RL ein      "," K     ", P&wps[WP1].intPa_T_Speicherladung_on,	S_INT, 1, P&hid1_dS2,	V0, 0, 0},
+	{" ->;"," dT RL aus      "," K     ", P&wps[WP1].intPa_T_Speicherladung_off,	S_INT, 1, P&hid1_dS2,	V0, 0, 0},
 	{"*->;"," RL-Beg. TR-AWP "," C    ", P&wpd[WP1].intT_Ladebginn,	  S_INT, 1, P&hid1_dS2,	V0, 0, 0},
 	{"*->;"," RL-Ende TR-AWP "," C    ", P&wpd[WP1].intT_Ladeende,	  S_INT, 1, P&hid1_dS2,	V0, 0, 0},
 	#if TWE_ANF > 0
